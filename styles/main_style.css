@@ -1,0 +1,55 @@
+.header{
+	border-radius: 25px;
+	height: 150px;
+	width: 1350px;
+	background-color: #92d050;
+}
+.logo{
+	height: 130px;
+	margin-top: 10px;
+	margin-left: 3px;
+	float: left;
+}
+.divTitle{
+	position: relative;
+	top: 20px;
+	height: 30px;
+	margin-left: 270px;
+	width: 440px;
+}
+.imageDiv{
+	position: relative;
+	top: 5px;
+	height: 14px;
+	margin-left: 770px;
+	width: 600px;
+}
+.headerButton{
+	height: 130px;
+}
+.font{
+	font-size: 55px;
+}
+.inputDiv{
+	border-radius: 25px;
+	height: 130px;
+	width: 850px;
+	border-width: 3px;
+    border-style: solid;
+	margin-top: 80px;
+	margin-left: 270px;
+}
+#textbox{
+	background-color: transparent;
+    border: 0px solid;
+    outline: none;
+	margin-left: 15px;
+	margin-top: 10px;
+	height:100px;
+	width:840px;
+	font-size: 40px;
+}
+.showMe{
+	width: 250px;
+	margin-left: 550px;
+}
