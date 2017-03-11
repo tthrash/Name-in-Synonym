@@ -17,16 +17,18 @@
   	<a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
   	<div class="imageDiv">
   		<input class="headerButton" type="image" src="./pic/list.png">
-		<input class="headerButton" type="image" src="./pic/addPuzzle.png">
+		  <input class="headerButton" type="image" src="./pic/addPuzzle.png">
   		<input class="headerButton" type="image" src="./pic/addWord.png">
-  		<input class="headerButton" type="image" src="./pic/login.png">
+  		<a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
   	</div>
   	<div class="divTitle"><font class="font">Name in Synonyms</font></div>
   	<br>	
   </div>
   <div class="inputDiv"><input type="textbox" id="textbox" value="Enter your Name to see the Puzzle" onclick="clearFields();"></input></div>
   <br>
+  <form method="POST" action="game.php">
   <input class="showMe" type="image" src="./pic/showMe.png">
+  </form>
 
 
 <script type="text/javascript">
