@@ -24,21 +24,8 @@
   	<div class="divTitle"><font class="font">Name in Synonyms</font></div>
   	<br>	
   </div>
-  <form action="puzzle.php" method="post">
-  <div class="inputDiv"><input type="textbox" id="textbox" value="Enter your Name to see the Puzzle (support for only 'metro' and 'nice')" onclick="clearFields();"></input></div>
-  <br>
-  <input class="showMe" type="image" src="./pic/showMe.png">
-  </form>
-
-
-<script type="text/javascript">
-	function clearFields(){
-		document.getElementById("textbox").value = "";
-	}
-</script>
-
-
-
-
+  <?php
+	
+  ?>
 </body>
 </html>
