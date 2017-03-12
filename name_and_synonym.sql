@@ -28,12 +28,12 @@ use ics325;
 --
 
 CREATE TABLE users (
-  user_email varchar(255),
-  display_name varchar(25) NOT NULL,
-  password varchar(64) NOT NULL,
-  id_verified tinyint(1) NOT NULL,
-  activation_token varchar(15) NOT NULL,
-  role tinyint(1) NOT NULL,
+  user_email varchar(255) COMMENT 'email address is the key',
+  display_name varchar(25) NOT NULL COMMENT 'if the user doesn''t want to display the user name',
+  password varchar(64) NOT NULL COMMENT 'for storing the password',
+  id_verified tinyint(1) NOT NULL COMMENT '0 for false, 1 for true',
+  activation_token varchar(15) NOT NULL  COMMENT 'for storing the activation code when the users register or forget password',
+  role tinyint(1) NOT NULL COMMENT '0 for ADMIN, 1 for registered user',
   primary key (user_email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -52,8 +52,8 @@ INSERT INTO users (user_email, display_name, password, id_verified, activation_t
 
 CREATE TABLE words (
   word_id int(11) AUTO_INCREMENT,
-  word_value varchar(25) NOT NULL,
-  rep_id int(11) NOT NULL,
+  word_value varchar(25) NOT NULL COMMENT 'words that have been added',
+  rep_id int(11) NOT NULL COMMENT 'for storing the ID of the representative',
   primary key (word_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -129,7 +129,9 @@ CREATE TABLE puzzle_words (
   position_inName smallint(25),
   primary key (puzzle_id, word_id, position_inName),
   FOREIGN KEY (word_id)
-  REFERENCES words (word_id) ON UPDATE CASCADE
+  REFERENCES words (word_id) ON UPDATE CASCADE,
+  key (puzzle_id),
+  key (word_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE puzzle_words
