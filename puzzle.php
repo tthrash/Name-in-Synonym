@@ -25,7 +25,11 @@
   	<br>	
   </div>
   <?php
-	
+	 
+    if (isset($_POST['submit'])){ //this is just a test to see the word in this page.
+      echo "$_POST[puzzleWord]";
+    }
+
   ?>
 </body>
 </html>
