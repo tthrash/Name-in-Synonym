@@ -7,21 +7,21 @@ activation_token (CHAR(100) - for storing the activation code when the users reg
 role (tinyint - 0 for ADMIN, 1 for registered users) 
 
 [2] Table Name: Word
-id (Key Field - Auto Increment)
+[pk] id (Key Field - Auto Increment)
 word (for storing the word) (VARCHAR 25)
 rep_id  (for storing the ID of the representative)
 
-[4] Table Name: Characters
+[3] Table Name: Characters
 [fk] word_id, Int (composite key)
-character_index, Int
-character_value, char (composite key)
+character_index, Int (composite key)
+character_value, char 
 
-[5] Table Name: Puzzle
+[4] Table Name: Puzzle
 [pk] puzzle_id, Int (for possibly having multiple puzzles with the same puzzle_name [the entered name that the user supplies] as a possible future feature)
 puzzle_name, (for storing the input name) (VARCHAR 30)
 user_id, Int
 
-[6] Table Name: Puzzle_Words
+[5] Table Name: Puzzle_Words
 [fk] puzzle_id, Int
 [fk] word_id, Int
 position, int (position in name)
