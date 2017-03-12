@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="styles/main_style.css" type="text/css">
+  <link rel="stylesheet" href="styles/main_style.css" type="text/css">
 </head>
 <title>Final Project</title>
 <body>
@@ -14,15 +14,15 @@
   <br><br><br>
 
   <div class="header">
-  	<a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
-  	<div class="imageDiv">
-  		<input class="headerButton" type="image" src="./pic/list.png">
-		  <input class="headerButton" type="image" src="./pic/addPuzzle.png">
-  		<input class="headerButton" type="image" src="./pic/addWord.png">
-  		<a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-  	</div>
-  	<div class="divTitle"><font class="font">Name in Synonyms</font></div>
-  	<br>
+    <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
+    <div class="imageDiv">
+      <input class="headerButton" type="image" src="./pic/list.png">
+      <input class="headerButton" type="image" src="./pic/addPuzzle.png">
+      <input class="headerButton" type="image" src="./pic/addWord.png">
+      <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
+    </div>
+    <div class="divTitle"><font class="font">Name in Synonyms</font></div>
+    <br>
   </div>
 
 
@@ -35,9 +35,9 @@
 
 
 <script type="text/javascript">
-	function clearFields(){
-		document.getElementById("textbox").value = "";
-	}
+  function clearFields(){
+    document.getElementById("name-textbox").value = "";
+  }
 </script>
 
 
