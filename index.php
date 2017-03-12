@@ -36,7 +36,7 @@
 
 <script type="text/javascript">
   function clearFields(){
-    document.getElementById("textbox").value = "";
+    document.getElementById("name-textbox").value = "";
   }
 </script>
 
