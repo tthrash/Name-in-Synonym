@@ -8,7 +8,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: name_and_synonym
+-- Database name:
 --
 use ics325;
 -- --------------------------------------------------------
@@ -16,6 +16,7 @@ use ics325;
 --
 -- Make sure to drop any redundant tables.
 --
+
 -- drop table puzzle_words;
 -- drop table puzzles;
 -- drop table users;
@@ -93,7 +94,21 @@ CREATE TABLE characters (
 
 ALTER TABLE characters
   ADD CONSTRAINT word_id_fk FOREIGN KEY (word_id) REFERENCES words (word_id) ON UPDATE CASCADE;
-  
+
+INSERT INTO characters (word_id, character_index, character_value) VALUES
+(1, 0, 'm'), (1, 1, 'u'), (1, 2, 't'), (1, 3, 't'), (1, 4, 'e'), (1, 5, 'r'),
+(2, 0, 'm'), (2, 1, 'u'), (2, 2, 'm'), (2, 3, 'b'), (2, 4, 'l'), (2, 5, 'e'),
+(3, 0, 't'), (3, 1, 'a'), (3, 2, 'k'), (3, 3, 'e'),
+(4, 0, 'r'), (4, 1, 'e'), (4, 2, 'm'), (4, 3, 'o'), (4, 4, 'v'), (4, 5, 'e'),
+(5, 0, 'a'), (5, 1, 't'), (5, 2, 'r'), (5, 3, 'o'), (5, 4, 'c'), (5, 5, 'i'), (5, 6, 'o'), (5, 7, 'u'), (5, 8, 's'),
+(6, 0, 'b'), (6, 1, 'a'), (6, 2, 'd'),
+(7, 0, 'a'), (7, 1, 'r'), (7, 2, 'c'), (7, 3, 'h'), (7, 4, 'a'), (7, 5, 'i'), (7, 6, 'c'),
+(8, 0, 'o'), (8, 1, 'l'), (8, 2, 'd'),
+(9, 0, 'c'), (9, 1, 'o'), (9, 2, 'm'), (9, 3, 'm'), (9, 4, 'e'), (9, 5, 'n'), (9, 6, 'c'), (9, 7, 'e'),
+(10, 0, 'b'), (10, 1, 'e'), (10, 2, 'g'), (10, 3, 'i'), (10, 4, 'n'),
+(11, 0, 'n'), (11, 1, 'u'), (11, 2, 'm'), (11, 3, 'b'), (11, 4, 'e'), (11, 5, 'r'),
+(12, 0, 'a'), (12, 1, 'm'), (12, 2, 'o'), (12, 3, 'u'), (12, 4, 'n'), (12, 5, 't');
+
 -- --------------------------------------------------------
 --
 -- Table structure for table puzzles
