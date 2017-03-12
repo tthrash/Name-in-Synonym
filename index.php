@@ -25,17 +25,11 @@
     <br>
   </div>
 
-  <form method="POST">
-  <div class="inputDiv"><input type="textbox" id="textbox" name="puzzleWord" value="Enter your Name to see the Puzzle" onclick="clearFields();"></input></div>
-  
-  <br>
-  
-  <input class="showMe" type="image" src="./pic/showMe.png" name="submit" value="submit">
 
   <form action="puzzle.php" method="post">
   <div class="inputDiv"><input type="textbox" id="name-textbox" value="Enter your Name to see the Puzzle (support for only 'metro' and 'nice')" onclick="clearFields();"></input></div>
   <br>
-  <input class="showMe" type="image" src="./pic/showMe.png">
+  <input class="showMe" type="image" src="./pic/showMe.png" name="submit" value="submit">
 
   </form>
 
