@@ -24,10 +24,12 @@
   	<div class="divTitle"><font class="font">Name in Synonyms</font></div>
   	<br>	
   </div>
-  <div class="inputDiv"><input type="textbox" id="textbox" value="Enter your Name to see the Puzzle" onclick="clearFields();"></input></div>
+  <form method="POST">
+  <div class="inputDiv"><input type="textbox" id="textbox" name="puzzleWord" value="Enter your Name to see the Puzzle" onclick="clearFields();"></input></div>
+  
   <br>
-  <form method="POST" action="game.php">
-  <input class="showMe" type="image" src="./pic/showMe.png">
+  
+  <input class="showMe" type="image" src="./pic/showMe.png" name="submit" value="submit">
   </form>
 
 
