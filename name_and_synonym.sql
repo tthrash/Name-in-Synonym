@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Mar 11, 2017 at 04:41 AM
--- Server version: 5.7.10-log
--- PHP Version: 7.0.13
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -23,77 +14,58 @@ use ics325;
 -- --------------------------------------------------------
 
 --
--- Table structure for table logical_chars
+-- Make sure to drop any redundant tables.
 --
-
-CREATE TABLE logical_chars (
-  id int(11) NOT NULL,
-  word varchar(25) NOT NULL,
-  logical_char varchar(25) NOT NULL,
-  position int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- drop table puzzle_words;
+-- drop table puzzles;
+-- drop table users;
+-- drop table characters;
+-- drop table words;
 
 -- --------------------------------------------------------
-
 --
--- Table structure for table puzzles
+-- Table structure for table users
 --
 
-CREATE TABLE puzzles (
-  id int(11) NOT NULL,
-  name varchar(30) NOT NULL,
-  word_list varchar(255) NOT NULL,
-  created_by varchar(255) NOT NULL
+CREATE TABLE users (
+  user_email varchar(255),
+  display_name varchar(25) NOT NULL,
+  password varchar(64) NOT NULL,
+  id_verified tinyint(1) NOT NULL,
+  activation_token varchar(15) NOT NULL,
+  role tinyint(1) NOT NULL,
+  primary key (user_email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table puzzles
+-- Dumping data for table users
 --
 
-INSERT INTO puzzles (id, name, word_list, created_by) VALUES
-(1, 'metro', 'mutter,remove,atrocious,archaic,commence', 'fm2584uk@metrostate.edu'),
-(2, 'nice', 'number,archaic,commence,remove', 'hp6449qy@metrostate.edu');
-
--- --------------------------------------------------------
-
---
--- Table structure for table registered_users
---
-
-CREATE TABLE registered_users (
-  user_email varchar(255) NOT NULL,
-  display_name varchar(15) NOT NULL,
-  password char(64) NOT NULL,
-  id_verified tinyint(4) NOT NULL,
-  activation_token char(100) NOT NULL,
-  role tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table registered_users
---
-
-INSERT INTO registered_users (user_email, display_name, password, id_verified, activation_token, role) VALUES
+INSERT INTO users (user_email, display_name, password, id_verified, activation_token, role) VALUES
 ('fm2584uk@metrostate.edu', 'prashant', '', 1, '753951', 0),
 ('hp6449qy@metrostate.edu', 'tyler', '', 1, '1234', 0);
 
 -- --------------------------------------------------------
-
 --
--- Table structure for table synonyms
+-- Table structure for table word
 --
 
-CREATE TABLE synonyms (
-  id int(11) NOT NULL,
-  word varchar(25) NOT NULL,
-  rep_id int(11) NOT NULL
+CREATE TABLE words (
+  word_id int(11) AUTO_INCREMENT,
+  word_value varchar(25) NOT NULL,
+  rep_id int(11) NOT NULL,
+  primary key (word_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE words AUTO_INCREMENT=13;
+ALTER TABLE words
+  ADD CONSTRAINT rep_id_fk FOREIGN KEY (rep_id) REFERENCES words (word_id) ON UPDATE CASCADE;
+
 --
--- Dumping data for table synonyms
+-- Dumping data for table word
 --
 
-INSERT INTO synonyms (id, word, rep_id) VALUES
+INSERT INTO words (word_id, word_value, rep_id) VALUES
 (1, 'mutter', 1),
 (2, 'mumble', 1),
 (3, 'take', 3),
@@ -107,63 +79,77 @@ INSERT INTO synonyms (id, word, rep_id) VALUES
 (11, 'number', 11),
 (12, 'amount', 11);
 
+-- --------------------------------------------------------
 --
--- Indexes for dumped tables
+-- Table structure for table characters
 --
 
---
--- Indexes for table logical_chars
---
-ALTER TABLE logical_chars
-  ADD PRIMARY KEY (id);
+CREATE TABLE characters (
+  word_id int(11),
+  character_index smallint(25) NOT NULL,
+  character_value char(1) NOT NULL,
+  primary key (word_id, character_index, character_value)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE characters
+  ADD CONSTRAINT word_id_fk FOREIGN KEY (word_id) REFERENCES words (word_id) ON UPDATE CASCADE;
+  
+-- --------------------------------------------------------
 --
--- Indexes for table puzzles
+-- Table structure for table puzzles
 --
+
+CREATE TABLE puzzles (
+  puzzle_id int(11) NOT NULL AUTO_INCREMENT,
+  puzzle_name varchar(30) NOT NULL,
+  creator_email varchar(255) NOT NULL,
+  primary key (puzzle_id),
+  key (creator_email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE words AUTO_INCREMENT=3;
 ALTER TABLE puzzles
-  ADD PRIMARY KEY (id),
-  ADD KEY created_by (created_by);
-
+  ADD CONSTRAINT creator_email_fk FOREIGN KEY (creator_email) REFERENCES users (user_email) ON UPDATE CASCADE;
 --
--- Indexes for table registered_users
---
-ALTER TABLE registered_users
-  ADD PRIMARY KEY (user_email);
-
---
--- Indexes for table synonyms
---
-ALTER TABLE synonyms
-  ADD PRIMARY KEY (id);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Dumping data for table puzzles
 --
 
+INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
+(1, 'metro', 'fm2584uk@metrostate.edu'),
+(2, 'nice', 'hp6449qy@metrostate.edu');
+
+-- --------------------------------------------------------
 --
--- AUTO_INCREMENT for table logical_chars
---
-ALTER TABLE logical_chars
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table puzzles
---
-ALTER TABLE puzzles
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table synonyms
---
-ALTER TABLE synonyms
-  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- Constraints for dumped tables
+-- Table structure for table puzzle_words
 --
 
+CREATE TABLE puzzle_words (
+  puzzle_id int(11),
+  word_id int(11),
+  position_inName smallint(25),
+  primary key (puzzle_id, word_id, position_inName),
+  FOREIGN KEY (word_id)
+  REFERENCES words (word_id) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE puzzle_words
+  ADD CONSTRAINT puzzle_id_fk FOREIGN KEY (puzzle_id) REFERENCES puzzles (puzzle_id) ON UPDATE CASCADE;
 --
--- Constraints for table puzzles
+-- Dumping data for table puzzle_words
 --
-ALTER TABLE puzzles
-  ADD CONSTRAINT user_email_fk FOREIGN KEY (created_by) REFERENCES registered_users (user_email) ON UPDATE CASCADE;
+-- 'mutter,remove,atrocious,archaic,commence'
+-- 'number,archaic,commence,remove'
+
+INSERT INTO puzzle_words (puzzle_id, word_id, position_inName) VALUES
+(1,1,0),
+(1,4,1),
+(1,5,2),
+(1,7,3),
+(1,9,4),
+(2,11,0),
+(2,7,1),
+(2,9,2),
+(2,4,3);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
