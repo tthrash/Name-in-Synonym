@@ -22,14 +22,21 @@
   		<a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
   	</div>
   	<div class="divTitle"><font class="font">Name in Synonyms</font></div>
-  	<br>	
+  	<br>
   </div>
+<<<<<<< HEAD
   <form method="POST">
   <div class="inputDiv"><input type="textbox" id="textbox" name="puzzleWord" value="Enter your Name to see the Puzzle" onclick="clearFields();"></input></div>
   
   <br>
   
   <input class="showMe" type="image" src="./pic/showMe.png" name="submit" value="submit">
+=======
+  <form action="puzzle.php" method="post">
+  <div class="inputDiv"><input type="textbox" id="name-textbox" value="Enter your Name to see the Puzzle (support for only 'metro' and 'nice')" onclick="clearFields();"></input></div>
+  <br>
+  <input class="showMe" type="image" src="./pic/showMe.png">
+>>>>>>> 262bda5bc519885556d9fc713fa4f7572aed616e
   </form>
 
 

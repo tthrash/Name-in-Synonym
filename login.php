@@ -108,9 +108,9 @@
               </div>
           </form> 
           <div class='message'>
-          <font class='messageText'>
+          <div class='messageText'>
           Don't have an account?  <a href=''>Create One!</a><br>
-          Forgot Password?  <a href=''>Request a reset!</a></font> 
+          Forgot Password?  <a href=''>Request a reset!</a></div> 
           </div>
         </div>";
   ?>
