@@ -50,20 +50,20 @@
 	font-size: 25px;
 }
 .showMe{
-    background-color: #4CAF50;
-    border: none;
-    color: white;
+    background-color: #70baeb;
+    border: 2px solid black;
+    color: black;
     padding: 15px 32px;
-	width: 260px;
-	height: 60px;
+	width: 230px;
+	height: 80px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size:28px;
+    font-size:30px;
     margin: 4px 2px;
     cursor: pointer;
 	border-radius: 12px;
-	margin-left: 550px;
+	margin-left: 580px;
 }
 .align{
 	position: relative;
