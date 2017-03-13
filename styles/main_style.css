@@ -16,6 +16,7 @@
 	height: 30px;
 	margin-left: 270px;
 	width: 440px;
+	font-family: Times New Roman, Times, serif;
 }
 .imageDiv{
 	position: relative;
@@ -87,13 +88,55 @@
 }
 .main-tables{
 	text-align: left;
-    padding: 15px;
+  padding: 15px;
 	font-size: 28px;
-    width: 55%;
+  width: 55%;
 	margin: 30px;
 	border-collapse: separate;
-    border-spacing: 2px;
+  border-spacing: 2px;
 }
 .main-tables td{
+	padding: 5px;
+}
+
+.pop_up {
+	position: fixed;
+  text-align: :center;
+  z-index: 20;
+  bottom: 25%;
+  width: 100% !important;
+  height: 250;
+}
+
+.pop_up_glyphicon {
+	font-size: 100px;
+	float: left;
+	width: 50%;
+	height: 100%;
+	padding-top: 15px;
+	color: #D24D57;
+}
+
+.pop_up_background {
+	font-size: 22px;
+	width: 300px;
+	background: yellow;
+	height: 160px;
+	border-style: solid;
+	max-width: 300px;
+	border-width: thick;
+}
+
+.pop_up_button {
+	clear: both;
+	width: 80px;
+	background-color: #70baeb;
+	border: 2px solid black;
+	color: black;
+}
+
+.pop_up_text {
+	width: 50%;
+	float:right;
 	padding: 5px;
 }

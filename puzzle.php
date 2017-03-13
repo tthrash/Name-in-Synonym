@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="styles/main_style.css" type="text/css"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>Final Project</title>
 </head>
-<title>Final Project</title>
 <body>
 	<?php
 		if(isset($_POST['submit_solution']))
@@ -40,6 +43,13 @@
   	<br>	
   </div>
   <center>
+	<div id="pop_up_fail" class="container pop_up">
+	<div class="pop_up_background">
+		<span class="glyphicon glyphicon-info-sign pop_up_glyphicon"></span>
+		<div class="pop_up_text">Incorrect! <br>Try Again!</div>
+		<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
+	</div>
+</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
   <form action="#" method="post">
    <table class="main-tables">
@@ -59,6 +69,11 @@
     <input class="showMe align" type="submit" name="show_solution" value="Show Solution">
    </form>
    </center>
-  
 </body>
+<script>
+	function toggle_display(o) {
+		var el = document.getElementById(o)
+		el.style.display = "none";
+	}
+</script>
 </html>
