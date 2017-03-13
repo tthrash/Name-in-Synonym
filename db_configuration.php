@@ -1,9 +1,9 @@
 <?php
 	
   DEFINE('DATABASE_HOST', 'localhost');
-	DEFINE('DATABASE_DATABASE', 'name_and_synonym');
-	DEFINE('DATABASE_USER', 'prashant');
-	DEFINE('DATABASE_PASSWORD', 'password$2'); 
+	DEFINE('DATABASE_DATABASE', '   ');
+	DEFINE('DATABASE_USER', 'root');
+	DEFINE('DATABASE_PASSWORD', '  '); 
 
 	
 $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
