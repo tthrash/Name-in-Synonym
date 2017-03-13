@@ -13,7 +13,7 @@
 		
 		if(isset($_POST['submit_solution']))
 		{
-			redirect('create_puzzle.php');
+			redirect('process_puzzle.php');
 		}else if (isset($_POST['show_solution']))
 		{
 			redirect('index.php'); // get rid of this and check for this when we check for submit, then if it is set
