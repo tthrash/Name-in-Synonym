@@ -52,7 +52,7 @@
 		</div>
 	</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
-  <form action="#" method="post">
+  <form action="<?php echo htmlspecialchars("submit_validation.php");?>" method="post">
    <table class="main-tables">
 	   <tr>
 		  <th>Clue</th>
@@ -84,11 +84,11 @@
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value="'.$word_value[$j].'"readonly/>';
+							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value="'.$word_value[$j].'"readonly/>';
 						}
 						else
 						{
-							echo '<input type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value=""/>';
+							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value=""/>';
 						}
 					}
 				}
