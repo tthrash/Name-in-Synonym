@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="styles/main_style.css" type="text/css"> 
+	<title>Final Project</title>
 </head>
-<title>Final Project</title>
 <body>
 	<?php
 		require('create_puzzle.php');
@@ -43,6 +43,14 @@
   	<br>	
   </div>
   <center>
+	<div id="pop_up_fail" class="container pop_up">
+		<div class="pop_up_background">
+			
+			<img class="pop_up_img_fail" src="pic/info_circle.png">
+			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
+			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
+		</div>
+	</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
   <form action="#" method="post">
    <table class="main-tables">
@@ -97,6 +105,11 @@
     <input class="showMe align" type="submit" name="show_solution" value="Show Solution">
    </form>
    </center>
-  
 </body>
+<script>
+	function toggle_display(o) {
+		var el = document.getElementById(o)
+		el.style.display = "none";
+	}
+</script>
 </html>
