@@ -1,7 +1,0 @@
-<div id="pop_up_fail" class="container pop_up">
-	<div class="pop_up_background">
-		<span class="glyphicon glyphicon-info-sign"></span>
-		<div class="pop_up_text">Would you like to try again</div>
-		<button class="pop_up_button" onclick="">OK</button>
-	</div>
-</div>

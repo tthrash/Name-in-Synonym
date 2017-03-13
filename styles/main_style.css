@@ -108,13 +108,10 @@
   height: 250;
 }
 
-.pop_up_glyphicon {
-	font-size: 100px;
+.pop_up_img_fail {
 	float: left;
-	width: 50%;
-	height: 100%;
-	padding-top: 15px;
-	color: #D24D57;
+	width: 140px;
+	height: 130px;
 }
 
 .pop_up_background {
@@ -133,6 +130,7 @@
 	background-color: #70baeb;
 	border: 2px solid black;
 	color: black;
+	border-radius: 5px;
 }
 
 .pop_up_text {
