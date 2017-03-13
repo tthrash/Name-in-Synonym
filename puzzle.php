@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="styles/main_style.css" type="text/css"> 
+	<title>Final Project</title>
 </head>
-<title>Final Project</title>
 <body>
 	<?php
+		require('create_puzzle.php');
+		
 		if(isset($_POST['submit_solution']))
 		{
 			redirect('create_puzzle.php');
 		}else if (isset($_POST['show_solution']))
 		{
-			redirect('index.php');
+			redirect('index.php'); // get rid of this and check for this when we check for submit, then if it is set
+			                                   // call a different php function that will display the full table in this php page.
 		}
 		function redirect($url) {
 			ob_start();
@@ -40,6 +43,14 @@
   	<br>	
   </div>
   <center>
+	<div id="pop_up_fail" class="container pop_up">
+		<div class="pop_up_background">
+			
+			<img class="pop_up_img_fail" src="pic/info_circle.png">
+			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
+			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
+		</div>
+	</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
   <form action="#" method="post">
    <table class="main-tables">
@@ -50,8 +61,43 @@
   <?php
 	if(isset($_POST['submit']))
 	{
-		// echo "<p>".$_POST['puzzleWord']."</p>";
-		
+		if(isset($_POST['puzzleWord']))
+		{
+			$nameEntered = $_POST['puzzleWord'];
+			$nameEntered = strtolower($nameEntered);
+			$nameEntered = trim($nameEntered);
+			$puzzle_id = checkName($nameEntered);
+			if($puzzle_id != null)
+			{
+				$nameLen = strlen($nameEntered);
+				for($i = 0; $i < $nameLen; ++$i)
+				{
+					$word_id = getWordId($puzzle_id, $i);
+					$word_value = getWordValue($word_id);
+					$clue_word = getClueWord($word_id);
+					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
+					echo '<tr>
+							 <td>'.$clue_word.'</td>
+							 <td>';
+				    $wordlen = strlen($word_value);
+					for($j = 0; $j < $wordlen; ++$j)
+					{
+						if(in_array($j, $char_indexes))
+						{
+							echo '<input type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value="'.$word_value[$j].'"readonly/>';
+						}
+						else
+						{
+							echo '<input type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value=""/>';
+						}
+					}
+				}
+			}
+			else{
+				// set name-textbox on index.php to error message that name doesn't exist
+				// re
+			}
+		}
 	}
   ?>
 	</table>
@@ -59,6 +105,11 @@
     <input class="showMe align" type="submit" name="show_solution" value="Show Solution">
    </form>
    </center>
-  
 </body>
+<script>
+	function toggle_display(o) {
+		var el = document.getElementById(o)
+		el.style.display = "none";
+	}
+</script>
 </html>
