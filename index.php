@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles/main_style.css" type="text/css">
+=======
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/main_style.css" type="text/css">
+>>>>>>> 534ff3664bf03f98b245baf0ab1a09cfb63c865f
 </head>
 <title>Final Project</title>
 <body>
