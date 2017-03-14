@@ -85,7 +85,7 @@
 					$clue_word = getClueWord($word_id);
 					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
 					echo '<tr>
-							 <td><div'.$clue_word.'</td>
+							 <td>'.$clue_word.'</td>
 							 <td>';
 				    $wordlen = strlen($word_value);
 					for($j = 0; $j < $wordlen; ++$j)
@@ -110,18 +110,18 @@
   ?>
 	</table>
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
-    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="">
+    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
    </center>
 </body>
 <script>
 	function submit_validation()
 	{
 		var words = "<?php echo $words ?>";
-		var words_correct = true;
+		var wordsArray = words.split(",");
 		var table = document.getElementById("puzzle_table");
 		var tableLength = table.rows.length;
+		var words_correct = true;
 		var childrenLength = 0;
-		var wordsArray = words.split(",");
 		
 		for (var i = 1; i < tableLength; i++)
 		{
@@ -144,6 +144,24 @@
 		else{ // failure case
 			alert("Failure!");
 		}
+	}
+	
+	function show_solution()
+	{
+		var words = "<?php echo $words ?>";
+		var wordsArray = words.split(",");
+		var table = document.getElementById("puzzle_table");
+		var tableLength = table.rows.length;
+		var childrenLength = 0;
+		
+		for (var i = 1; i < tableLength; i++)
+		{
+			childrenLength = table.rows[i].cells[1].children.length;
+			for (var j = 0; j < childrenLength; j++)
+			{
+				table.rows[i].cells[1].children[j].value = wordsArray[(i-1)].substring(j, (j+1));
+			}
+        }
 	}
 	
 	
