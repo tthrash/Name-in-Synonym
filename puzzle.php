@@ -42,14 +42,14 @@
   	<div class="divTitle font">Name in Synonyms</div>
   	<br>	
   </div>
-	<div id="pop_up_fail" class="container pop_up">
+	<!-- <div id="pop_up_fail" class="container pop_up">
 		<div class="pop_up_background">
 			
 			<img class="pop_up_img_fail" src="pic/info_circle.png">
 			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
 			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
 		</div>
-	</div>
+	</div> -->
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
  
    <table class="main-tables" id="puzzle_table">
@@ -142,7 +142,8 @@
 			alert("Sucess!");
 		}
 		else{ // failure case
-			alert("Failure!");
+			alert("Not correct. Try again.");
+			clear_puzzle();
 		}
 	}
 	
@@ -164,8 +165,27 @@
         }
 	}
 	
+	function clear_puzzle()
+	{
+		var table = document.getElementById("puzzle_table");
+		var tableLength = table.rows.length;
+		var childrenLength = 0;
+		
+		for (var i = 1; i < tableLength; i++)
+		{
+			childrenLength = table.rows[i].cells[1].children.length;
+			for (var j = 0; j < childrenLength; j++)
+			{
+				
+				if(!(table.rows[i].cells[1].children[j].className.includes("active")))
+				{
+					table.rows[i].cells[1].children[j].value = "";
+				}
+			}
+        }
+	}
 	
-	function toggle_display(o) {
+		function toggle_display(o) {
 		var el = document.getElementById(o)
 		el.style.display = "none";
 	}
