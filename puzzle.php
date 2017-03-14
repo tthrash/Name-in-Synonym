@@ -11,9 +11,9 @@
 	<?php
 		require('create_puzzle.php');
 		
-		if(isset($_POST['submit_validation.php']))
+		if(isset($_POST['submit_solution']))
 		{
-			redirect('process_puzzle.php');
+			redirect('submit_validation.php');
 		}else if (isset($_POST['show_solution']))
 		{
 			redirect('index.php'); // get rid of this and check for this when we check for submit, then if it is set
