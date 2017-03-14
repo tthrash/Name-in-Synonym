@@ -10,21 +10,6 @@
 <body>
  	<?php
  		require('create_puzzle.php');
-		/*
-		if(isset($_POST['submit_solution']))
-		{
-			redirect('submit_validation.php');
-		}else if (isset($_POST['show_solution']))
-		{
-			redirect('index.php'); // get rid of this and check for this when we check for submit, then if it is set
-			                                   // call a different php function that will display the full table in this php page.
-		}
-		function redirect($url) {
-			ob_start();
-			header('Location: '.$url);
-			ob_end_flush();
-			die();
-		} */
 	?> 
   <h2>Final Project</h2>
   <h3>Team: DOLPHIN</h3>
@@ -195,4 +180,5 @@
 		el.style.display = "none";
 	}
 </script>
+<!-- <script type="text/javascript" src="javascript/puzzle.js"></script> -->
 </html>
