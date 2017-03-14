@@ -8,9 +8,9 @@
 	<title>Final Project</title>
 </head>
 <body>
-	<?php
-		require('create_puzzle.php');
-		
+ 	<?php
+ 		require('create_puzzle.php');
+		/*
 		if(isset($_POST['submit_solution']))
 		{
 			redirect('submit_validation.php');
@@ -24,8 +24,8 @@
 			header('Location: '.$url);
 			ob_end_flush();
 			die();
-		}
-	?>
+		} */
+	?> 
   <h2>Final Project</h2>
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
@@ -51,13 +51,14 @@
 		</div>
 	</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
-  <form action="#" method="post">
-   <table class="main-tables">
+ 
+   <table class="main-tables" id="puzzle_table">
 	   <tr>
 		  <th>Clue</th>
 		  <th>Synonym</th>
 	   </tr>
   <?php
+	$words = "";
 	if(isset($_POST['submit']))
 	{
 		if(isset($_POST['puzzleWord']))
@@ -73,21 +74,29 @@
 				{
 					$word_id = getWordId($puzzle_id, $i);
 					$word_value = getWordValue($word_id);
+					if($i == 0)
+					{
+						$words .= $word_value;
+					}
+					else
+					{
+						$words .= ','.$word_value;
+					}
 					$clue_word = getClueWord($word_id);
 					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
 					echo '<tr>
-							 <td>'.$clue_word.'</td>
+							 <td><div'.$clue_word.'</td>
 							 <td>';
 				    $wordlen = strlen($word_value);
 					for($j = 0; $j < $wordlen; ++$j)
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value="'.$word_value[$j].'"readonly/>';
+							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value="'.$word_value[$j].'"readonly/>';
 						}
 						else
 						{
-							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_id.'_'.$j.'" value=""/>';
+							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
 						}
 					}
 				}
@@ -100,12 +109,44 @@
 	}
   ?>
 	</table>
-	<input class="main-buttons" type="submit" name="submit_solution" value="Submit Solution">
-    <input class="main-buttons" type="submit" name="show_solution" value="Show Solution">
-   </form>
+	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
+    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="">
    </center>
 </body>
 <script>
+	function submit_validation()
+	{
+		var words = "<?php echo $words ?>";
+		var words_correct = true;
+		var table = document.getElementById("puzzle_table");
+		var tableLength = table.rows.length;
+		var childrenLength = 0;
+		var wordsArray = words.split(",");
+		
+		for (var i = 1; i < tableLength; i++)
+		{
+			var word = "";
+			childrenLength = table.rows[i].cells[1].children.length;
+			for (var j = 0; j < childrenLength; j++)
+			{
+				word += table.rows[i].cells[1].children[j].value;
+			}
+			
+			if(wordsArray[(i-1)] != word)
+			{
+				words_correct = false;
+			}
+        }
+		if(words_correct) // success case
+		{
+			alert("Sucess!");
+		}
+		else{ // failure case
+			alert("Failure!");
+		}
+	}
+	
+	
 	function toggle_display(o) {
 		var el = document.getElementById(o)
 		el.style.display = "none";
