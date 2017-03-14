@@ -35,9 +35,9 @@
   	<a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
   	<div class="imageDiv">
   		<input class="headerButton" type="image" src="./pic/list.png">
-		<input class="headerButton" type="image" src="./pic/addPuzzle.png">
-  		<input class="headerButton" type="image" src="./pic/addWord.png">
-  		<input class="headerButton" type="image" src="./pic/login.png">
+      	<input class="headerButton" type="image" src="./pic/addPuzzle.png">
+      	<a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
+      	<a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
   	</div>
   	<div class="divTitle font">Name in Synonyms</div>
   	<br>	

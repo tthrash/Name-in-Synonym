@@ -87,7 +87,7 @@
     <div class="imageDiv">
       <input class="headerButton" type="image" src="./pic/list.png">
       <input class="headerButton" type="image" src="./pic/addPuzzle.png">
-      <input class="headerButton" type="image" src="./pic/addWord.png">
+      <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
       <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
     </div>
     <div class="divTitle"><font class="font">Name in Synonyms</font></div>
