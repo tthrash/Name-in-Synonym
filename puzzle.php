@@ -11,7 +11,7 @@
 	<?php
 		require('create_puzzle.php');
 		
-		if(isset($_POST['submit_solution']))
+		if(isset($_POST['submit_validation.php']))
 		{
 			redirect('process_puzzle.php');
 		}else if (isset($_POST['show_solution']))
@@ -30,7 +30,7 @@
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
-
+  <center>
   <div class="header">
   	<a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
   	<div class="imageDiv">
@@ -42,7 +42,6 @@
   	<div class="divTitle font">Name in Synonyms</div>
   	<br>	
   </div>
-  <center>
 	<div id="pop_up_fail" class="container pop_up">
 		<div class="pop_up_background">
 			
@@ -52,7 +51,7 @@
 		</div>
 	</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
-  <form action="<?php echo htmlspecialchars("submit_validation.php");?>" method="post">
+  <form action="#" method="post">
    <table class="main-tables">
 	   <tr>
 		  <th>Clue</th>
@@ -101,8 +100,8 @@
 	}
   ?>
 	</table>
-	<input class="showMe align" type="submit" name="submit_solution" value="Submit Solution">
-    <input class="showMe align" type="submit" name="show_solution" value="Show Solution">
+	<input class="main-buttons" type="submit" name="submit_solution" value="Submit Solution">
+    <input class="main-buttons" type="submit" name="show_solution" value="Show Solution">
    </form>
    </center>
 </body>

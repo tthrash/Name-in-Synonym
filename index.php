@@ -19,7 +19,7 @@
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
-
+	<center>
   <div class="header">
     <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
@@ -32,14 +32,12 @@
     <br>
   </div>
 
-
   <form action="puzzle.php" method="post">
   <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" value="Enter your Name to see the Puzzle (support for only 'metro' and 'nice')" onclick="clearFields();"></input></div>
   <br>
-  <input class="showMe" type="submit" name="submit" value="Show me..">
+  <input class="main-buttons" type="submit" name="submit" value="Show me..">
   </form>
-
-
+  </center>
 <script type="text/javascript">
   function clearFields(){
     document.getElementById("name-textbox").value = "";

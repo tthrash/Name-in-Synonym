@@ -1,3 +1,6 @@
+/* *{
+	border: 2px solid #000000;
+} */
 .header{
 	border-radius: 25px;
 	height: 150px;
@@ -14,15 +17,15 @@
 	position: relative;
 	top: 20px;
 	height: 30px;
-	margin-left: 270px;
+	right: 12%;
 	width: 440px;
 	font-family: Times New Roman, Times, serif;
 }
 .imageDiv{
 	position: relative;
-	top: 5px;
-	height: 14px;
-	margin-left: 770px;
+	height: 12px;
+	top:5%;
+	left: 28%;
 	width: 600px;
 }
 .headerButton{
@@ -38,7 +41,7 @@
 	border-width: 3px;
     border-style: solid;
 	margin-top: 80px;
-	margin-left: 270px;
+	left: 20%;
 }
 #name-textbox{
 	background-color: transparent;
@@ -50,7 +53,7 @@
 	width:840px;
 	font-size: 25px;
 }
-.showMe{
+.main-buttons{
     background-color: #70baeb;
     border: 2px solid black;
     color: black;
@@ -64,7 +67,7 @@
     margin: 4px 2px;
     cursor: pointer;
 	border-radius: 12px;
-	margin-left: 580px;
+	left: 20%;
 }
 .align{
 	position: relative;
@@ -88,12 +91,12 @@
 }
 .main-tables{
 	text-align: left;
-  padding: 15px;
+    padding: 15px;
 	font-size: 28px;
-  width: 55%;
+    width: 55%;
 	margin: 30px;
 	border-collapse: separate;
-  border-spacing: 2px;
+    border-spacing: 2px;
 }
 .main-tables td{
 	padding: 5px;
