@@ -42,16 +42,16 @@
   	<div class="divTitle font">Name in Synonyms</div>
   	<br>	
   </div>
-	<!-- <div id="pop_up_fail" class="container pop_up">
+	<div id="pop_up_fail" class="container pop_up" style="display:none">
 		<div class="pop_up_background">
 			
 			<img class="pop_up_img_fail" src="pic/info_circle.png">
 			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
 			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
 		</div>
-	</div> -->
+	</div>
   <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
- 
+	<div>
    <table class="main-tables" id="puzzle_table">
 	   <tr>
 		  <th>Clue</th>
@@ -109,6 +109,8 @@
 	}
   ?>
 	</table>
+	<img id="succes_photo" class="success" src="pic/thumbs_up.png" alt="Success!" style="display:none">
+	</div>
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
     <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
    </center>
@@ -139,10 +141,13 @@
         }
 		if(words_correct) // success case
 		{
-			alert("Sucess!");
+			//alert("Sucess!");
+			var el = document.getElementById("succes_photo");
+			el.style.display = "block";
 		}
 		else{ // failure case
-			alert("Not correct. Try again.");
+			var el = document.getElementById("pop_up_fail");
+			el.style.display = "block";
 			clear_puzzle();
 		}
 	}
