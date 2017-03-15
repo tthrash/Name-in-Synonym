@@ -43,8 +43,8 @@ CREATE TABLE users (
 --
 
 INSERT INTO users (user_email, display_name, password, id_verified, activation_token, role) VALUES
-('fm2584uk@metrostate.edu', 'prashant', '', 1, '753951', 0),
-('hp6449qy@metrostate.edu', 'tyler', '', 1, '1234', 0);
+('fm2584uk@metrostate.edu', 'prashant', SHA1('password'), 1, '753951', 0),
+('hp6449qy@metrostate.edu', 'tyler', SHA1('password'), 1, '1234', 0);
 
 -- --------------------------------------------------------
 --
