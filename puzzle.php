@@ -85,6 +85,7 @@
 							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
 						}
 					}
+					echo '</tr>';
 				}
 			}
 			else{
