@@ -23,8 +23,8 @@
   <div class="header">
     <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
-      <input class="headerButton" type="image" src="./pic/list.png">
-      <input class="headerButton" type="image" src="./pic/addPuzzle.png">
+	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
+	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
       <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
       <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
     </div>
@@ -33,9 +33,9 @@
   </div>
 
   <form action="puzzle.php" method="post">
-  <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" value="Enter your Name to see the Puzzle (support for only 'metro' and 'nice')" onclick="clearFields();"></input></div>
+  <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" value="Enter your Name to see the Puzzle" onclick="clearFields();"></input></div>
   <br>
-  <input class="main-buttons" type="submit" name="submit" value="Show me..">
+  <input class="main-buttons align" type="submit" name="submit" value="Show me..">
   </form>
   </div>
 <script type="text/javascript">

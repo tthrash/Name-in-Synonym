@@ -33,6 +33,14 @@
 	left: 35%;
 	width: 850px;
 }
+.inputTextbox
+{
+	position: relative;
+	height: 12px;
+	top:5%;
+	left: 35%;
+	width: 850px;
+}
 .headerButton{
 	height: 130px;
 }
@@ -40,13 +48,14 @@
 	font-size: 55px;
 }
 .inputDiv{
+	position:relative;
 	border-radius: 25px;
 	height: 130px;
 	width: 850px;
 	border-width: 3px;
     border-style: solid;
 	margin-top: 80px;
-	left: 20%;
+	left: 12%;
 }
 #name-textbox{
 	background-color: transparent;
@@ -59,11 +68,12 @@
 	font-size: 25px;
 }
 .main-buttons{
+	position: relative;
     background-color: #70baeb;
     border: 2px solid black;
     color: black;
     padding: 15px 32px;
-	width: 230px;
+	width: 250px;
 	height: 80px;
     text-align: center;
     text-decoration: none;
@@ -72,13 +82,12 @@
     margin: 4px 2px;
     cursor: pointer;
 	border-radius: 12px;
-	left: 20%;
+	left: 30%;
 }
 .align{
-	position: relative;
-	display: inline-block;
-	margin: 10px;
-	/* left: 400px; */
+	position: absolute;
+	margin: 4px 2px;
+	left: 35%;
 }
 .main-tables tr:nth-child(even) {
    background-color: #FFF8DC;
@@ -95,12 +104,14 @@
 	/* #56A0D3 */
 }
 .main-tables{
+	position: relative;
 	text-align: left;
-  padding: 15px;
+    padding: 15px;
 	font-size: 28px;
 	margin: 30px;
+	left: 29%;
 	border-collapse: separate;
-  border-spacing: 2px;
+    border-spacing: 2px;
 	display:inline-block;
 }
 .main-tables td{
@@ -169,4 +180,10 @@
 	float: right;
 	display:inline-block;
 	margin-top: 30px;
+}
+.header2{
+	position: relative;
+	font-size: 40px; 
+	margin: 10px;
+	left:30%;
 }

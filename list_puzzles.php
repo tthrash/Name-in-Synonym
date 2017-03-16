@@ -19,8 +19,8 @@
   <div class="header">
     <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
-      <input class="headerButton" type="image" src="./pic/list.png">
-      <input class="headerButton" type="image" src="./pic/addPuzzle.png">
+	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
+	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
       <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
       <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
     </div>
@@ -35,7 +35,6 @@
 			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
 		</div>
   </div>
-  <div class="style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
   <div>
    <table class="main-tables">
 	   <tr>
@@ -43,14 +42,26 @@
 		  <th>Actions</th>
 	   </tr>
   <?php
-  
+		
+	  	$sql = 'SELECT puzzle_name FROM puzzles;';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sql);
+		
+		while($row = $result->fetch_assoc())
+		{
+			echo '<tr>
+					 <td>'.$row["puzzle_name"].'</td>
+					  <td></td>
+					 <td>';
+		}
+		
   ?>
 	</table>
 	<img id="succes_photo" class="success" src="pic/thumbs_up.png" alt="Success!" style="display:none">
 	</div>
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
     <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
-	<form action="index.php">
+	<form action="index.php" class="align">
 		<input class="main-buttons" type="submit" name="return_home" value="Return Home">
 	</form>
 	</div>
