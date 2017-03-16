@@ -19,7 +19,7 @@
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
-	<center>
+  <div class="main-container">
   <div class="header">
     <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
@@ -37,7 +37,7 @@
   <br>
   <input class="main-buttons" type="submit" name="submit" value="Show me..">
   </form>
-  </center>
+  </div>
 <script type="text/javascript">
   function clearFields(){
     document.getElementById("name-textbox").value = "";

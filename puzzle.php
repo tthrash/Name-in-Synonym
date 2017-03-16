@@ -15,28 +15,28 @@
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
-  <center>
+  <div class="main-container">
   <div class="header">
-  	<a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
-  	<div class="imageDiv">
-  		<input class="headerButton" type="image" src="./pic/list.png">
-      	<input class="headerButton" type="image" src="./pic/addPuzzle.png">
-      	<a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-      	<a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-  	</div>
-  	<div class="divTitle font">Name in Synonyms</div>
-  	<br>	
+    <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
+    <div class="imageDiv">
+      <input class="headerButton" type="image" src="./pic/list.png">
+      <input class="headerButton" type="image" src="./pic/addPuzzle.png">
+      <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
+      <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
+    </div>
+    <div class="divTitle"><font class="font">Name in Synonyms</font></div>
+    <br>
   </div>
-	<div id="pop_up_fail" class="container pop_up" style="display:none">
+  <div id="pop_up_fail" class="container pop_up" style="display:none">
 		<div class="pop_up_background">
 			
 			<img class="pop_up_img_fail" src="pic/info_circle.png">
 			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
 			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
 		</div>
-	</div>
-  <div style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
-	<div>
+  </div>
+  <div class="style="font-size: 40px; margin: 10px;">Here's your "Name in Synonyms"</div>
+  <div>
    <table class="main-tables" id="puzzle_table">
 	   <tr>
 		  <th>Clue</th>
@@ -52,6 +52,7 @@
 			$nameEntered = strtolower($nameEntered);
 			$nameEntered = trim($nameEntered);
 			$puzzle_id = checkName($nameEntered);
+			
 			if($puzzle_id != null)
 			{
 				$nameLen = strlen($nameEntered);
@@ -77,7 +78,7 @@
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value="'.$word_value[$j].'"readonly/>';
+							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
 						}
 						else
 						{
@@ -98,7 +99,10 @@
 	</div>
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
     <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
-   </center>
+	<form action="index.php">
+		<input class="main-buttons" type="submit" name="return_home" value="Return Home">
+	</form>
+	</div>
 </body>
 <script>
 	function submit_validation()

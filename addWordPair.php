@@ -81,7 +81,7 @@
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
-
+  <div class="main-container">
   <div class="header">
     <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
@@ -103,7 +103,6 @@
     <div class="imagediv"><img src="./pic/equals.png"></div>
   </div>
   <input  class="addButton" type="submit" name="submit" value="Add Word Pairs">
-
-
+  </div>
 </body>
 </html>

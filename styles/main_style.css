@@ -1,6 +1,11 @@
 /* *{
 	border: 2px solid #000000;
 } */
+.main-container
+{
+	width: 1350px;
+	margin: auto;
+}
 .header{
 	border-radius: 25px;
 	height: 150px;
@@ -10,23 +15,23 @@
 .logo{
 	height: 130px;
 	margin-top: 10px;
-	margin-left: 3px;
+	margin-left: 5px;
+	margin-right: 10px;
 	float: left;
 }
 .divTitle{
 	position: relative;
-	top: 20px;
+	top: 19%;
 	height: 30px;
-	right: 12%;
-	width: 440px;
+	width: 720px;
 	font-family: Times New Roman, Times, serif;
 }
 .imageDiv{
 	position: relative;
 	height: 12px;
 	top:5%;
-	left: 28%;
-	width: 600px;
+	left: 35%;
+	width: 850px;
 }
 .headerButton{
 	height: 130px;
