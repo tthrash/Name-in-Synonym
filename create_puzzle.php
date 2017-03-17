@@ -11,6 +11,7 @@
 		if ($num_rows == 0)
 		{
 			create_puzzle($name);
+			create_puzzle_words($name);
 		}
 		
 		$result =  $db->query($sql);
@@ -32,7 +33,6 @@
 					(DEFAULT, \''.$name.'\', \'hp6449qy@metrostate.edu\');';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
-		$row = $result->fetch_assoc();
 	}
 	
 	function create_puzzle_words($name)
@@ -47,10 +47,20 @@
 		for($i = 0; $i < $namelen; $i++)
 		{
 			$character = $name[$i];
-			$sql = 'SELECT word_id FROM characters WHERE character_value = \''.$character.'\' GROUP BY word_id;';
+			$sql =  'SELECT word_id
+						FROM characters 
+						WHERE word_id IN (SELECT word_id FROM words WHERE word_id <> rep_id)
+						AND word_id >= 
+						(SELECT FLOOR( MAX(word_id) * RAND()) FROM characters) 
+						AND character_value = \''.$character.'\'
+						ORDER BY word_id LIMIT 1;';
 			$result =  $db->query($sql);
+			$row = $result->fetch_assoc();
+			$word_id = $row["word_id"];
 			
-			
+			$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_inName) VALUES
+						('.$puzzle_id.','.$word_id.','.$i.');';
+			$result =  $db->query($sql);
 		}
 	}
 	function getWordId($puzzleId, $position_inName)
