@@ -64,7 +64,6 @@
 			return $table;
 		}
 	?>
-  
   </div>
 </body>
 </html>
