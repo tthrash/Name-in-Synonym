@@ -60,6 +60,7 @@
 							/*
 							*********************************************************************************
 								need to connect to db and input puzzle, word pair, char breakdown, puzzle_words
+								should also test to see if letter is in Synonym
 							*********************************************************************************
 							*/
 						}
@@ -109,6 +110,21 @@
 			<div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter a name to create a puzzle"></input>
 			</div>
 			<br><input class="main-buttons align" type="submit" name="submit" value="Show me.."></form>';
+		}
+		
+		// returns true if char is found in word else error
+		function contains_char($word, $index, $contains) {
+			$char = substr($word, $index, 1);
+			if ( strcmp($char, "") == 0) {
+				return "index error"; // index outside size of word
+			} else {
+				$temp = strpos($contains, $char);
+				if ( strcmp($temp,"FALSE") == 0) {
+					return "char error"; // char not found in $contains
+				} else {
+					return True; 
+				}
+			}
 		}
 	?>
   </div>
