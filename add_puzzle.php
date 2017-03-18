@@ -42,10 +42,10 @@
 			else if(isset($_POST["word"])) {	// User submited puzzle
 				$name = $size = "";
 				$list = array();
-				if(empty($_POST["name"]) && empty($_POST["size"])) {
+				if(empty($_POST["word"]) && empty($_POST["size"])) {
 					//should not happen
 				} else {
-					$name = validate_input($_POST["name"]);
+					$name = validate_input($_POST["word"]);
 					$size = validate_input($_POST["size"]);
 					for ($j = 0; $j < $size; $j++) {
 						$tempWord = "word". $j;
@@ -64,9 +64,10 @@
 							*********************************************************************************
 							*/
 						}
-						// Just to see if values were in list
-						echo "<p>" . print_r($list) . "</p>";
 					}
+					// Just to see if values were in list
+					echo "<br>";
+					print_r($list);
 				}
 			}
 		}
