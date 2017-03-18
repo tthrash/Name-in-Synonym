@@ -26,13 +26,16 @@
     <br>
   </div>
 	<font class="crumb">Name in Synonym <img src="./pic/arrow.png"/> Add Puzzle</font>
+	<?php
+ 		require_once('create_puzzle.php');
+	?> 
 	<?PHP
 		$input = "";
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (isset($_POST["puzzleWord"])) {	// User submited a word
 				$input = validate_input($_POST["puzzleWord"]);	//
 				if (strlen($input) > 0) {
-					echo create_puzzle(strlen($input), $input);
+					echo create_puzzle_table(strlen($input), $input);
 				}
 				else {
 					echo '<script>alert("Invalid Input!");</script>' . create_word_input();
@@ -57,6 +60,7 @@
 						else {
 							// valid input
 							array_push($list, strtolower(validate_input($_POST[$tempWord])), strtolower(validate_input($_POST[$tempClue])));
+							insertIntoWords(array_pop($list), array_pop($list)); // just testing sql
 							/*
 							*********************************************************************************
 								need to connect to db and input puzzle, word pair, char breakdown, puzzle_words
@@ -85,7 +89,7 @@
 		}
 		
 		// creates the create puzzle table
-		function create_puzzle($size, $word) {
+		function create_puzzle_table($size, $word) {
 			$table = "";
 			$table .= "<div class='add_wrapper'><h1>Enter the words and clues for <div class='red'>" . $word . "</div></h1>";
 			$table .= "<form action='add_puzzle.php' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (word)</th><th>Clue</th></thead>";
@@ -123,7 +127,7 @@
 				if ( strcmp($temp,"FALSE") == 0) {
 					return "char error"; // char not found in $contains
 				} else {
-					return True; 
+					return True; // char was found
 				}
 			}
 		}

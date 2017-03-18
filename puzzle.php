@@ -180,7 +180,7 @@
         }
 	}
 	
-		function toggle_display(o) {
+	function toggle_display(o) {
 		var el = document.getElementById(o)
 		el.style.display = "none";
 	}
