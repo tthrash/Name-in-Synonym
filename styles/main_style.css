@@ -47,6 +47,11 @@
 .font{
 	font-size: 55px;
 }
+.table_image{
+	width:35px;
+	height:35px;
+	border:0;
+}
 .inputDiv{
 	position:relative;
 	border-radius: 25px;
@@ -110,6 +115,7 @@
 	font-size: 28px;
 	margin: 30px;
 	left: 29%;
+	width: 50%;
 	border-collapse: separate;
     border-spacing: 2px;
 	display:inline-block;

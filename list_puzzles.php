@@ -43,7 +43,7 @@
 	   </tr>
   <?php
 		
-	  	$sql = 'SELECT puzzle_name FROM puzzles;';
+	  	$sql = 'SELECT * FROM puzzles;';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
 		
@@ -51,7 +51,17 @@
 		{
 			echo '<tr>
 					 <td>'.$row["puzzle_name"].'</td>
-					 <td></td>
+					 <td>
+						 <a href="puzzle.php?puzzleName="'.$row["puzzle_name"].'">
+							<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img>
+						 </a>
+						 <a href="change_puzzle.php?puzzleName="'.$row["puzzle_name"].'">
+							<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img>
+						 </a>
+						 <a href="change_puzzle.php?puzzleName="'.$row["puzzle_name"].'">
+							<img class="table_image" src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img>
+						 </a>
+					 </td>
 					 </tr>';
 		}
 		
