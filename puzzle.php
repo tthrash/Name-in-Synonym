@@ -100,9 +100,6 @@
 	</div>
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
     <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
-	<form action="index.php" class="align">
-		<input class="main-buttons" type="submit" name="return_home" value="Return Home">
-	</form>
 	</div>
 </body>
 <script>

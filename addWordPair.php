@@ -97,21 +97,59 @@
     <div class="divTitle"><font class="font">Name in Synonyms</font></div>
     <br>
   </div>
-  <div class="text">
+  <br>
+  <div class="text" id="confirmText">
     <font class="fontword">Name In Synonym <img src="./pic/arrow.png"> Add Word Pairs<br>
-      Enter a synonym (main word) and the clue word for it</font>
+      Enter all the synonyms seperated by comma</font>
   </div>
   <br><br>
-  <form action="puzzle.php" method="post">
+  <form method="post">
   <div class="inputDiv"><input type="textbox" name="addWord" id="name-textbox"></input></div>
   <br>
-  <input  class="addButton" type="submit" name="submit" value="Add Word Pairs">
+  <input  class="addButton" type="submit" name="submit" value="Add Word Pairs" onclick="confirmation()">
   </form>
   </div>
 <script type="text/javascript">
-  function clearFields(){
-    document.getElementById("name-textbox").value = "";
+  function confirmation(){
+    document.getElementById("confirmText").innerHTML = 'blah';
   }
 </script>
+<?php 
+require('db_configuration.php');
+
+if(isset($_POST['submit'])){
+  
+  $words = trim($_POST['addWord']);
+  //echo $_POST['addWord'];
+  if($_POST['addWord'] == ''){
+    echo "<p class= \"fontword\">You did not enter any words. Please try again.</p>";
+  }
+  else if(count(explode(',', $words)) < 2){
+    echo "<p class= \"fontword\">You must enter two or more words seperated by a comma. Please try again.</p>";
+  }else{
+
+    //var_dump(explode(',', $words));
+
+    $list = explode(',', $words);
+
+     for($i = 0; $i < count($list);$i++){
+      
+      //insert each words into word table.
+      var_dump($list[$i]);
+
+      $letters=str_split($list[$i]);
+      for($j = 0; $j < count($letters); $j++) {
+
+      //insert each letter into char table.
+      var_dump($letters[$j]);
+      };
+
+     };
+
+  }
+  
+}
+
+?>
 </body>
 </html>
