@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/main_style.css" type="text/css">
   <style>
   .text{
     position: relative;
@@ -65,8 +69,8 @@
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
-    margin-left: 540px;
-    margin-top: 120px;
+    margin-left: 430px;
+    margin-top: 50px;
   }
 
   </style>
@@ -83,7 +87,7 @@
   <br><br><br>
   <div class="main-container">
   <div class="header">
-    <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
+    <a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
 	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
 	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
@@ -97,12 +101,17 @@
     <font class="fontword">Name In Synonym <img src="./pic/arrow.png"> Add Word Pairs<br>
       Enter a synonym (main word) and the clue word for it</font>
   </div>
-  <div class="divInputs">
-    <div class="inputleft"><input type="text" class="textbox" name="mainWord"></div>
-    <div class="inputright"><input type="text" class="textbox" name="clueWord"></div>
-    <div class="imagediv"><img src="./pic/equals.png"></div>
-  </div>
+  <br><br>
+  <form action="puzzle.php" method="post">
+  <div class="inputDiv"><input type="textbox" name="addWord" id="name-textbox"></input></div>
+  <br>
   <input  class="addButton" type="submit" name="submit" value="Add Word Pairs">
+  </form>
   </div>
+<script type="text/javascript">
+  function clearFields(){
+    document.getElementById("name-textbox").value = "";
+  }
+</script>
 </body>
 </html>
