@@ -58,7 +58,7 @@ CREATE TABLE words (
   primary key (word_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE words AUTO_INCREMENT=26;
+ALTER TABLE words AUTO_INCREMENT=35;
 ALTER TABLE words
   ADD CONSTRAINT rep_id_fk FOREIGN KEY (rep_id) REFERENCES words (word_id) ON UPDATE CASCADE;
 
@@ -91,7 +91,16 @@ INSERT INTO words (word_id, word_value, rep_id) VALUES
 (22, 'bargin', 9),
 (23, 'numb', 11),
 (24, 'aim', 11),
-(25, 'no', 11);
+(25, 'no', 11),
+(26, 'far', 5),
+(27, 'hold', 5),
+(28, 'jump', 7),
+(29, 'pull', 7),
+(30, 'queen', 9),
+(31, 'stop', 9),
+(32, 'xray', 11),
+(33, 'yawn', 11),
+(34, 'zoo', 11);
 
 -- --------------------------------------------------------
 --
@@ -133,7 +142,16 @@ INSERT INTO characters (word_id, character_index, character_value) VALUES
 (22, 0, 'b'), (22, 1, 'a'), (22, 2, 'r'), (22, 3, 'g'), (22, 4, 'i'), (22, 5, 'n'),
 (23, 0, 'n'), (23, 1, 'u'), (23, 2, 'm'), (23, 3, 'b'),
 (24, 0, 'a'), (24, 1, 'i'), (24, 2, 'm'),
-(25, 3, 'n'), (25, 1, 'o');
+(25, 3, 'n'), (25, 1, 'o'),
+(26, 0, 'f'), (26, 1, 'a'),(26, 2, 'r'),
+(27, 0, 'h'), (27, 1, 'o'), (27, 2, 'l'), (27, 3, 'd'),
+(28, 0, 'j'), (28, 1, 'u'), (28, 2, 'm'), (28, 3, 'p'),
+(29, 0, 'p'), (29, 1, 'u'), (29, 2, 'l'), (29, 3, 'l'),
+(30, 0, 'q'), (30, 1, 'u'), (30, 2, 'e'), (30, 3, 'e'), (30, 4, 'n'),
+(31, 0, 's'), (31, 1, 't'), (31, 2, 'o'), (31, 3, 'p'),
+(32, 0, 'x'), (32, 1, 'r'), (32, 2, 'a'), (32, 3, 'y'),
+(33, 0, 'y'), (33, 1, 'a'), (33, 2, 'w'), (33, 3, 'n'),
+(34, 0, 'z'), (34, 1, 'o'), (34, 2, 'o');
 
 -- --------------------------------------------------------
 --
