@@ -21,7 +21,7 @@
   <br><br><br>
   <div class="main-container">
   <div class="header">
-    <a href="http://puzzles.thisisjava.com/"><img class="logo" src="./pic/logo.png"></img></a>
+    <a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
     <div class="imageDiv">
 	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
 	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
