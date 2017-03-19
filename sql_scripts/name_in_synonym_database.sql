@@ -17,11 +17,11 @@ use ics325;
 -- Make sure to drop any redundant tables.
 --
 
--- drop table puzzle_words;
--- drop table puzzles;
--- drop table users;
--- drop table characters;
--- drop table words;
+drop table puzzle_words;
+drop table puzzles;
+drop table users;
+drop table characters;
+drop table words;
 
 -- --------------------------------------------------------
 --
@@ -58,7 +58,7 @@ CREATE TABLE words (
   primary key (word_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE words AUTO_INCREMENT=13;
+ALTER TABLE words AUTO_INCREMENT=26;
 ALTER TABLE words
   ADD CONSTRAINT rep_id_fk FOREIGN KEY (rep_id) REFERENCES words (word_id) ON UPDATE CASCADE;
 
@@ -78,7 +78,20 @@ INSERT INTO words (word_id, word_value, rep_id) VALUES
 (9, 'commence', 9),
 (10, 'begin', 9),
 (11, 'number', 11),
-(12, 'amount', 11);
+(12, 'amount', 11),
+(13, 'mat', 1),
+(14, 'mad', 1),
+(15, 'took', 3),
+(16, 'run', 3),
+(17, 'action', 5),
+(18, 'bold', 5),
+(19, 'arrow', 7),
+(20, 'ocean', 7),
+(21, 'come', 9),
+(22, 'bargin', 9),
+(23, 'numb', 11),
+(24, 'aim', 11),
+(25, 'no', 11);
 
 -- --------------------------------------------------------
 --
@@ -107,7 +120,20 @@ INSERT INTO characters (word_id, character_index, character_value) VALUES
 (9, 0, 'c'), (9, 1, 'o'), (9, 2, 'm'), (9, 3, 'm'), (9, 4, 'e'), (9, 5, 'n'), (9, 6, 'c'), (9, 7, 'e'),
 (10, 0, 'b'), (10, 1, 'e'), (10, 2, 'g'), (10, 3, 'i'), (10, 4, 'n'),
 (11, 0, 'n'), (11, 1, 'u'), (11, 2, 'm'), (11, 3, 'b'), (11, 4, 'e'), (11, 5, 'r'),
-(12, 0, 'a'), (12, 1, 'm'), (12, 2, 'o'), (12, 3, 'u'), (12, 4, 'n'), (12, 5, 't');
+(12, 0, 'a'), (12, 1, 'm'), (12, 2, 'o'), (12, 3, 'u'), (12, 4, 'n'), (12, 5, 't'),
+(13, 0, 'm'), (13, 1, 'a'), (13, 2, 't'),
+(14, 0, 'm'), (14, 1, 'a'), (14, 2, 'd'),
+(15, 0, 't'), (15, 1, '0'), (15, 2, '0'), (15, 3, 'k'),
+(16, 0, 'r'), (16, 1, 'u'), (16, 2, 'n'),
+(17, 0, 'a'), (17, 1, 'c'), (17, 2, 't'), (17, 3, 'i'), (17, 4, 'o'), (17, 5, 'n'),
+(18, 0, 'b'), (18, 1, '0'), (18, 2, 'l'), (18, 3, 'd'),
+(19, 0, 'a'), (19, 1, 'r'), (19, 2, 'r'), (19, 3, 'o'), (19, 4, 'w'),
+(20, 0, 'o'), (20, 1, 'c'), (20, 2, 'e'),(20, 3, 'a'), (20, 4, 'n'),
+(21, 0, 'c'), (21, 1, 'o'), (21, 2, 'm'), (9, 3, 'e'), 
+(22, 0, 'b'), (22, 1, 'a'), (22, 2, 'r'), (22, 3, 'g'), (22, 4, 'i'), (22, 5, 'n'),
+(23, 0, 'n'), (23, 1, 'u'), (23, 2, 'm'), (23, 3, 'b'),
+(24, 0, 'a'), (24, 1, 'i'), (24, 2, 'm'),
+(25, 3, 'n'), (25, 1, 'o');
 
 -- --------------------------------------------------------
 --
