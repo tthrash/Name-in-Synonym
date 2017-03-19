@@ -67,10 +67,5 @@
 		
   ?>
 	</table>
-	</div>
-	<form action="index.php" class="align">
-		<input class="main-buttons" type="submit" name="return_home" value="Return Home">
-	</form>
-	</div>
 </body>
 </html>
