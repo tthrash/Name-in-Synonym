@@ -167,7 +167,7 @@ if(isset($_POST['submit'])){
                // }
 
                $num_rows = $result->num_rows;
-               var_dump($list[$i]);
+               //var_dump($list[$i]);
 
                if($num_rows == 0){ 
                //The word does not exist in the DB.
