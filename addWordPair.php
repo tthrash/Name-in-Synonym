@@ -79,7 +79,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles/main_style.css" type="text/css">
 </head>
-<script src="jquery.js"></script>
 <title>Final Project</title>
 <body>
   <h2>Final Project</h2>
@@ -99,10 +98,19 @@
     <br>
   </div>
   <br>
-  <div class="result" id="confirmText">
-    <font class="fontword">Name In Synonym <img src="./pic/arrow.png"> Add Word Pairs<br>
-      Enter all the synonyms seperated by comma</font>
-  </div>
+  <?php
+     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+          echo "<div class='result' id='confirmText'>";
+          echo "<font class='fontword'>Thank you. The synonym list is added to the database.<br>";
+          echo "Would you like to add another set of synonyms?</font>";
+          echo "</div>";
+     }else{
+          echo "<div class='result' id='confirmText'>";
+          echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Add Word Pairs<br>";
+          echo "Enter all the synonyms seperated by comma</font>";
+          echo "</div>";
+     }
+  ?>
   <br><br>
   <form method="post" id="inputForm">
   <div class="inputDiv"><input type="textbox" name="addWord" id="name-textbox"></input></div>
@@ -110,27 +118,7 @@
   <input class="addButton" id="addButton" type="submit" name="submit" value="Add Word Pairs">
   </form>
   </div>
-<script>
-  $(document).ready(function () {
-    $("#inputForm").submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type:"POST",
-            url: 'addWordPair.php',
-            method: 'POST',
-            data : $("#inputForm").serialize(), //pass your form elements as key-value pairs
-            success: function (response) {
-               echo "we are here";
-                $(".result").HTML("blah");
-            },
-            error: function(){
-               echo "error myan!";
-            }
-        });
-        return false;
-    });
-  }
-</script>
+
 <?php 
 //require('db_configuration.php');
 require('create_puzzle.php');
