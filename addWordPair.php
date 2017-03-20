@@ -79,6 +79,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles/main_style.css" type="text/css">
 </head>
+<script src="jquery.js"></script>
 <title>Final Project</title>
 <body>
   <h2>Final Project</h2>
@@ -98,55 +99,119 @@
     <br>
   </div>
   <br>
-  <div class="text" id="confirmText">
+  <div class="result" id="confirmText">
     <font class="fontword">Name In Synonym <img src="./pic/arrow.png"> Add Word Pairs<br>
       Enter all the synonyms seperated by comma</font>
   </div>
   <br><br>
-  <form method="post">
+  <form method="post" id="inputForm">
   <div class="inputDiv"><input type="textbox" name="addWord" id="name-textbox"></input></div>
   <br>
-  <input  class="addButton" type="submit" name="submit" value="Add Word Pairs" onclick="confirmation()">
+  <input class="addButton" id="addButton" type="submit" name="submit" value="Add Word Pairs">
   </form>
   </div>
-<script type="text/javascript">
-  function confirmation(){
-    document.getElementById("confirmText").innerHTML = 'blah';
+<script>
+  $(document).ready(function () {
+    $("#inputForm").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type:"POST",
+            url: 'addWordPair.php',
+            method: 'POST',
+            data : $("#inputForm").serialize(), //pass your form elements as key-value pairs
+            success: function (response) {
+               echo "we are here";
+                $(".result").HTML("blah");
+            },
+            error: function(){
+               echo "error myan!";
+            }
+        });
+        return false;
+    });
   }
 </script>
 <?php 
-require('db_configuration.php');
+//require('db_configuration.php');
+require('create_puzzle.php');
 
 if(isset($_POST['submit'])){
   
-  $words = trim($_POST['addWord']);
-  //echo $_POST['addWord'];
-  if($_POST['addWord'] == ''){
-    echo "<p class= \"fontword\">You did not enter any words. Please try again.</p>";
-  }
-  else if(count(explode(',', $words)) < 2){
-    echo "<p class= \"fontword\">You must enter two or more words seperated by a comma. Please try again.</p>";
-  }else{
+     $words = trim($_POST['addWord']);
+     //echo $_POST['addWord'];
+     if($_POST['addWord'] == ''){
+          echo "<p class= \"fontword\">You did not enter any words. Please try again.</p>";
+     }
+     else if(count(explode(',', $words)) < 2){
+          echo "<p class= \"fontword\">You must enter two or more words seperated by a comma. Please try again.</p>";
+     }
+     else{
 
-    //var_dump(explode(',', $words));
+          //var_dump(explode(',', $words));
 
-    $list = explode(',', $words);
+          $list = explode(',', $words);
 
-     for($i = 0; $i < count($list);$i++){
+          for($i = 0; $i < count($list);$i++){
+               
+               $list[$i] = trim($list[$i]);
       
-      //insert each words into word table.
-      var_dump($list[$i]);
+               //Check to see if entered word exists in the DB.
+               $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $list[$i] . '\';';
+               $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+               $result =  $db->query($sqlcheck);
+               // if($result){
+               //      echo "Connected successfully!";
+               // } 
+               // else {
+               //      echo"Cannot connect.";
+               // }
 
-      $letters=str_split($list[$i]);
-      for($j = 0; $j < count($letters); $j++) {
+               $num_rows = $result->num_rows;
+               var_dump($list[$i]);
 
-      //insert each letter into char table.
-      var_dump($letters[$j]);
-      };
+               if($num_rows == 0){ 
+               //The word does not exist in the DB.
+                    //echo "The word is new";
 
-     };
+                    //get the repId for words in pair
+                    if($i == 0){
+                         $repId = getMaxWordId();
+                    }else{
+                         $repId = getMaxWordId($list[0]);
+                    }
 
-  }
+                    //insert each new word into word table.
+                    $sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $list[$i] . '\', \'' . $repId . '\');';
+                    $result =  $db->query($sqlAddWord);
+
+                    $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $list[$i] . '\';';
+                    $result =  $db->query($sql);
+                    $row = $result->fetch_assoc();
+                    $word_id = $row["word_id"]; 
+                    //echo $word_id;      
+
+                    $letters=str_split($list[$i]);
+                    for($j = 0; $j < count($letters); $j++) {
+                         //insert each letter into char table.
+                         $sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\''. $word_id . '\', \'' . $j .'\', \''. $letters[$j].'\');';
+                         $result =  $db->query($sqlAddLetters);
+                         // if($result){
+                         //       echo "Connected successfully!";
+                         // } 
+                         // else {
+                         //      echo"Cannot connect.";
+                         //      echo $result;
+                         // }                      
+                         //var_dump($letters[$j]);
+                    };
+                    }else{ 
+                    //The word already exists in the database.
+                    //echo "the word already exists.";
+                    //Do Nothing if the word already exists in the DB.
+               }
+          };
+
+     }
   
 }
 
