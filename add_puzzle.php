@@ -201,15 +201,15 @@
 				    $wordlen = strlen($word_value);
 					for($j = 0; $j < $wordlen; ++$j)
 					{
-						echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
-						/*if(in_array($j, $char_indexes))
+						
+						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
 						}
 						else
 						{
-							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
-						}*/
+							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+						}
 					}
 					echo '</tr>';
 				}
