@@ -31,7 +31,6 @@
 	?> 
 	<?PHP
 		$input = "";
-		$completed = false;
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (isset($_POST["puzzleWord"])) {	// User submited a word
 				$input = validate_input($_POST["puzzleWord"]);	//
@@ -95,17 +94,13 @@
 								}
 								//array_push($list, $word1, $word2); // just for testing
 							}
-							$completed = true;
 						}
 					}
 				}
-			}	
-			else if ($completed == true){
-				//puzzleAddedTable();
-				echo "IN correct spot";
+				echo '<table class="main-tables" id="puzzle_table"><tr><th>Clue</th><th>Synonym</th></tr>';
+				puzzleAddedTable();
+				echo "</table>";
 			}
-			echo "post but not else if";
-			echo $completed;
 		}
 		else {
 			echo create_word_input();
@@ -175,8 +170,11 @@
 		}
 		
 		function puzzleAddedTable() {
+			$words = "";
+			$nameEntered = $_POST['word'];
+			$nameEntered = strtolower($nameEntered);
+			$nameEntered = trim($nameEntered);
 			$puzzle_id = checkName($nameEntered);
-			
 			if($puzzle_id != null)
 			{
 				$nameLen = strlen($nameEntered);
