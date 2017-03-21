@@ -1,10 +1,8 @@
 <?php
 	DEFINE('DATABASE_HOST', 'localhost');
 	DEFINE('DATABASE_DATABASE', 'ics325');
-	//DEFINE('DATABASE_USER', 'root');
-	//DEFINE('DATABASE_PASSWORD', 'ics3117');
-	DEFINE('DATABASE_USER', 'username');
-	DEFINE('DATABASE_PASSWORD', 'password');
+	DEFINE('DATABASE_USER', 'root');
+	DEFINE('DATABASE_PASSWORD', 'ics3117');
 	
 $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 if (mysqli_connect_errno()) {
