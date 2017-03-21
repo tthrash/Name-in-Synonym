@@ -78,15 +78,19 @@
 			if ($num_rows2 == 0) {
 				$sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId() . '\');';
 				$sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId() . '\');';
+				//echo '<p>'. $sqlInsert . '</p>';
+				//echo '<p>'. $sqlInsert2 . '</p>';
 				$result =  $db->query($sqlInsert);
 				$result =  $db->query($sqlInsert2);
 			} else {
 				$sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId($word2) . '\');';
+				//echo '<p>'. $sqlInsert . '</p>';
 				$result =  $db->query($sqlInsert);
 			}
 		} else {	// $word 1 found
 			if ($num_rows2 == 0) {
 				$sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId($word1) . '\');';
+				//echo '<p>'. $sqlInsert2 . '</p>';
 				$result =  $db->query($sqlInsert2);
 			} else { // both found
 				$sqlCheckLink = 'SELECT rep_id FROM words WHERE (word_value = \'' . $word1 . '\' OR word_value=\'' . $word2 . '\');';
@@ -104,11 +108,72 @@
 		}
 	}
 	
+	function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
+		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES (DEFAULT, \'' . $nameOfPuzzle. '\', \'' . $email . '\');';
+		//echo '<p>'. $sql . '</p>';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sql);
+		//echo '<p>'. $result . '</p>';
+	}
+	
+	function insertIntoPuzzleWords($puzzle_id, $word_id, $position_inName) {
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_inName) VALUES (\'' . $puzzle_id. '\', \'' . $word_id . '\', \'' . $position_inName .'\');';
+		//echo '<p>'. $sql . '</p>';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sql);
+		//echo '<p>'. $result . '</p>';
+	}
+	
+	// param is word_id not word
+	function insertIntoCharacters($word_id) {
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		
+		$sqlCharSearch = 'SELECT word_id FROM characters WHERE word_id=\'' . $word_id . '\';';
+		$result = $db->query($sqlCharSearch); // search for chars if they are in list
+		$num_rows = $result->num_rows;
+		if ($num_rows == 0) {
+			$sqlWord = 'SELECT word_value FROM words WHERE word_id=\'' . $word_id . '\';';
+			$result = $db->query($sqlWord);
+			$row = $result->fetch_assoc();
+			$word_value = $row["word_value"];
+			
+			for ($i = 0; $i < strlen($word_value); $i++) {
+				$char = substr($word_value, $i, 1);
+				$sql = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\'' . $word_id  . '\', \'' . $i . '\', \'' . $char . '\');';
+				//echo '<p>'. $sql . '</p>';
+				$result =  $db->query($sql);
+				//echo '<p>'. $result . '</p>';
+			}
+		}
+		
+	}
+	
+	// returns the puzzle_id of param or the max puzzle_id if no param provided
+	function getMaxPuzzleId($index = -1) {
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		if ($index == -1) {
+			$sql = 'SELECT MAX(puzzle_id) AS Count FROM puzzles;';
+			$result =  $db->query($sql);
+			$row = $result->fetch_assoc();
+			$count = $row["Count"];
+			return ($count + 1);
+		} else {
+			$sql = 'SELECT puzzle_id FROM puzzles WHERE puzzle_name =\'' . $index . '\';';
+			$result =  $db->query($sql);
+			$row = $result->fetch_assoc();
+			$puzzle_id = $row["puzzle_id"];
+			return ($puzzle_id);
+		}
+	}
+	
+	
+	
 	// returns the word_id of param or the max word_id if no param provided
 	function getMaxWordId($index = -1) {
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		if ($index == -1) {
-			$sql = 'SELECT MAX(word_id) AS Count FROM words';
+			$sql = 'SELECT MAX(word_id) AS Count FROM words;';
 			$result =  $db->query($sql);
 			$row = $result->fetch_assoc();
 			$count = $row["Count"];
@@ -120,7 +185,6 @@
 			$word_id = $row["word_id"];
 			return ($word_id);
 		}
-		
 	}
 	
 	function getWordId($puzzleId, $position_inName)

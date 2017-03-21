@@ -31,6 +31,7 @@
 	?> 
 	<?PHP
 		$input = "";
+		$completed = false;
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (isset($_POST["puzzleWord"])) {	// User submited a word
 				$input = validate_input($_POST["puzzleWord"]);	//
@@ -48,32 +49,63 @@
 				if(empty($_POST["word"]) && empty($_POST["size"])) {
 					//should not happen
 				} else {
-					$name = validate_input($_POST["word"]);
+					$name = strtolower(validate_input($_POST["word"]));
 					$size = validate_input($_POST["size"]);
+					$puzzleflag = FALSE;
+					$errorflag = FALSE;
 					for ($j = 0; $j < $size; $j++) {
 						$tempWord = "word". $j;
 						$tempClue = "clue" . $j;
 						if(empty($_POST[$tempWord]) && empty($_POST[$tempClue])) {
 							// left one of the Synonym or Clues empty
 							// let user know of error
+							if ($errorflag == FALSE) {
+								echo create_puzzle_table($size, $name);
+								echo display_error("Please give every synonym and clue a value!");
+								$errorflag = TRUE;
+							}
 						}
 						else {
 							// valid input
-							array_push($list, strtolower(validate_input($_POST[$tempWord])), strtolower(validate_input($_POST[$tempClue])));
-							insertIntoWords(array_pop($list), array_pop($list)); // just testing sql
-							/*
-							*********************************************************************************
-								need to connect to db and input puzzle, word pair, char breakdown, puzzle_words
-								should also test to see if letter is in Synonym
-							*********************************************************************************
-							*/
+							$word1 = strtolower(validate_input($_POST[$tempWord]));
+							$word2 = strtolower(validate_input($_POST[$tempClue]));
+							//echo "words: " . $word1. $word2;
+							$char = substr($name, $j, 1);
+							//echo "char: " . $char;
+							$index = strpos($word1, $char);
+							//echo "index: " . $index;
+							if ($index === false){
+								echo display_error("Char not found in word!");
+							} else {
+								if ($puzzleflag === FALSE) {
+									// add to puzzle
+									insertIntoPuzzle($name);
+									$puzzleflag = TRUE;
+								}
+								// add to words
+								insertIntoWords($word1, $word2);
+								
+								// add to char
+								insertIntoCharacters(getMaxWordId($word1));
+								insertIntoCharacters(getMaxWordId($word2));
+								// add to puzzle words
+								if ($j % 2 == 0) {
+									insertIntoPuzzleWords(getMaxPuzzleId($name), getMaxWordId($word1), $j);
+									insertIntoPuzzleWords(getMaxPuzzleId($name), getMaxWordId($word2), ($j + 1));
+								}
+								//array_push($list, $word1, $word2); // just for testing
+							}
+							$completed = true;
 						}
 					}
-					// Just to see if values were in list
-					echo "<br>";
-					print_r($list);
 				}
+			}	
+			else if ($completed == true){
+				//puzzleAddedTable();
+				echo "IN correct spot";
 			}
+			echo "post but not else if";
+			echo $completed;
 		}
 		else {
 			echo create_word_input();
@@ -131,6 +163,62 @@
 				}
 			}
 		}
+		
+		function display_error($message = -1) {
+			$string = "";
+			if ($message == -1) {
+				$string = "<script>alert('invalid input try again');</script>";
+			} else {
+				$string = "<script>alert('" . $message . "');</script>";
+			}
+			return $string;
+		}
+		
+		function puzzleAddedTable() {
+			$puzzle_id = checkName($nameEntered);
+			
+			if($puzzle_id != null)
+			{
+				$nameLen = strlen($nameEntered);
+				for($i = 0; $i < $nameLen; ++$i)
+				{
+					$word_id = getWordId($puzzle_id, $i);
+					$word_value = getWordValue($word_id);
+					if($i == 0)
+					{
+						$words .= $word_value;
+					}
+					else
+					{
+						$words .= ','.$word_value;
+					}
+					$clue_word = getClueWord($word_id);
+					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
+					echo '<tr>
+							 <td>'.$clue_word.'</td>
+							 <td>';
+				    $wordlen = strlen($word_value);
+					for($j = 0; $j < $wordlen; ++$j)
+					{
+						if(in_array($j, $char_indexes))
+						{
+							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+						}
+						else
+						{
+							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
+						}
+					}
+					echo '</tr>';
+				}
+			}
+			else{
+				// set name-textbox on index.php to error message that name doesn't exist
+				// re
+			}
+		}
+		
+		
 	?>
   </div>
 </body>
