@@ -88,18 +88,17 @@
 								insertIntoCharacters(getMaxWordId($word1));
 								insertIntoCharacters(getMaxWordId($word2));
 								// add to puzzle words
-								if ($j % 2 == 0) {
 									insertIntoPuzzleWords(getMaxPuzzleId($name), getMaxWordId($word1), $j);
-									insertIntoPuzzleWords(getMaxPuzzleId($name), getMaxWordId($word2), ($j + 1));
-								}
 								//array_push($list, $word1, $word2); // just for testing
 							}
 						}
 					}
 				}
+				echo createHeader(validate_input($_POST["word"]));
 				echo '<table class="main-tables" id="puzzle_table"><tr><th>Clue</th><th>Synonym</th></tr>';
 				puzzleAddedTable();
 				echo "</table>";
+				echo createFooter();
 			}
 		}
 		else {
@@ -175,13 +174,17 @@
 			$nameEntered = strtolower($nameEntered);
 			$nameEntered = trim($nameEntered);
 			$puzzle_id = checkName($nameEntered);
+			//echo $puzzle_id;
 			if($puzzle_id != null)
 			{
 				$nameLen = strlen($nameEntered);
+				//echo $nameLen;
 				for($i = 0; $i < $nameLen; ++$i)
 				{
 					$word_id = getWordId($puzzle_id, $i);
+					//echo $word_id;
 					$word_value = getWordValue($word_id);
+					//echo $word_value;
 					if($i == 0)
 					{
 						$words .= $word_value;
@@ -198,14 +201,15 @@
 				    $wordlen = strlen($word_value);
 					for($j = 0; $j < $wordlen; ++$j)
 					{
-						if(in_array($j, $char_indexes))
+						echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+						/*if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
 						}
 						else
 						{
 							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
-						}
+						}*/
 					}
 					echo '</tr>';
 				}
@@ -216,7 +220,13 @@
 			}
 		}
 		
+		function createHeader($word) {
+			return '<div style="text-align:center;font-size:60px;padding:0px;margin:0px;">Thank you.<br>The puzzle "<div class="red" style="display:inline;font-size:60px">'. $word . '"</div> is added to the database.</div>'; 
+		}
 		
+		function createFooter() {
+			return '<p style="font-size:45px;">You can access your puzzle in the "List"</p>';
+		}
 	?>
   </div>
 </body>
