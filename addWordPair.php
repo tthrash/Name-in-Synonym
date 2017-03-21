@@ -99,7 +99,7 @@
   </div>
   <br>
   <?php
-     if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['addWord'] == ''){
+     if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['addWord'] == ''){
           echo "<div class='result' id='confirmText'>";
           echo "<font class='fontword'>Thank you. The synonym list is added to the database.<br>";
           echo "Would you like to add another set of synonyms?</font>";
