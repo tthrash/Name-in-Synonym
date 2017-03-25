@@ -52,13 +52,13 @@
 			echo '<tr>
 					 <td>'.$row["puzzle_name"].'</td>
 					 <td>
-						 <a href="puzzle.php?puzzleName="'.$row["puzzle_name"].'">
+						 <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">
 							<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
-						 <a href="change_puzzle.php?puzzleName="'.$row["puzzle_name"].'">
+						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'&button=edit">
 							<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
-						 <a href="change_puzzle.php?puzzleName="'.$row["puzzle_name"].'">
+						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'&button=delete">
 							<img class="table_image" src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
 					 </td>
