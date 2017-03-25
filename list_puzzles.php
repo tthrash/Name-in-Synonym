@@ -50,7 +50,7 @@
 		while($row = $result->fetch_assoc())
 		{
 			echo '<tr>
-					 <td>'.$row["puzzle_name"].'</td>
+					 <td><a href=puzzle.php?puzzleName="'.$row["puzzle_name"].'>'.$row["puzzle_name"].'</a></td>
 					 <td>
 						 <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">
 							<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img>
