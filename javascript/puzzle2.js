@@ -1,7 +1,6 @@
-	function submit_validation()
+function submit_validation()
 	{
 		var words = "<?php echo $words ?>";
-		alert(words);
 		var wordsArray = words.split(",");
 		var table = document.getElementById("puzzle_table");
 		var tableLength = table.rows.length;
@@ -35,7 +34,7 @@
 		}
 	}
 	
-	function show_solution()
+	function show_solution(words)
 	{
 		var words = "<?php echo $words ?>";
 		var wordsArray = words.split(",");
@@ -73,7 +72,7 @@
         }
 	}
 	
-		function toggle_display(o) {
-		var el = document.getElementById(o);
+	function toggle_display(o) {
+		var el = document.getElementById(o)
 		el.style.display = "none";
 	}

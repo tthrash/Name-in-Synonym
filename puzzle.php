@@ -110,10 +110,10 @@
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation();">
     <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution();">
 	</div>
-<script>
+	
+ 	<script>
 	function submit_validation()
 	{
-		alert("Sucess!");
 		var words = "<?php echo $words ?>";
 		var wordsArray = words.split(",");
 		var table = document.getElementById("puzzle_table");
@@ -150,7 +150,6 @@
 	
 	function show_solution()
 	{
-		alert("Sucess!");
 		var words = "<?php echo $words ?>";
 		var wordsArray = words.split(",");
 		var table = document.getElementById("puzzle_table");
@@ -188,10 +187,9 @@
 	}
 	
 	function toggle_display(o) {
-		var el = document.getElementById(o)
+		var el = document.getElementById(o);
 		el.style.display = "none";
 	}
-</script>
+	</script> 
 </body>
-<!-- <script type="text/javascript" src="javascript/puzzle.js"></script> -->
 </html>
