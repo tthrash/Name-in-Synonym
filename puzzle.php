@@ -43,18 +43,20 @@
 		  <th>Synonym</th>
 	   </tr>
   <?php
+    $words = "";
 	if(isset($_POST['submit']))
 	{
 		if(isset($_POST['puzzleWord']))
 		{
 			$nameEntered = $_POST['puzzleWord'];
-			createPuzzle($nameEntered);
+			$words = createPuzzle($nameEntered);
 		}
 	}else if(isset($_GET['puzzleName']))
 	{
 		$nameEntered = $_GET['puzzleName'];
-		createPuzzle($nameEntered);
+		$words = createPuzzle($nameEntered);
 	}
+	
 	
 	function createPuzzle($nameEntered)
 	{
@@ -102,6 +104,7 @@
 				// set name-textbox on index.php to error message that name doesn't exist
 				// re
 			}
+			return $words;
 	}
   ?>
 	</table>
