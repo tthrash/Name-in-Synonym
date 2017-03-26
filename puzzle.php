@@ -17,20 +17,20 @@
   <br><br><br>
   <div class="main-container">
   <div class="header">
-    <a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
+    <a href="./index.php"><img class="logo" alt="logo button to index page" src="./pic/logo.png" ></a>
     <div class="imageDiv">
-	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
-	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
-      <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-      <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
+	  <a href="./list_puzzles.php"><input class="headerButton" type="image" alt="list button" src="./pic/list.png"></a>
+	  <a href="./add_puzzle.php"><input class="headerButton" type="image" alt="add puzzle button" src="./pic/addPuzzle.png"></a>
+      <a href="./addWordPair.php"><input class="headerButton" type="image" alt="add word button" src="./pic/addWord.png"></a>
+      <a href="./login.php"><input class="headerButton" type="image" alt="login button" src="./pic/login.png"></a>
     </div>
-    <div class="divTitle"><font class="font">Name in Synonyms</font></div>
+    <div class="divTitle"><div class="font">Name in Synonyms</div></div>
     <br>
   </div>
   <div id="pop_up_fail" class="container pop_up" style="display:none">
 		<div class="pop_up_background">
 			
-			<img class="pop_up_img_fail" src="pic/info_circle.png">
+			<img class="pop_up_img_fail" alt="fail puzzle pop up" src="pic/info_circle.png">
 			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
 			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
 		</div>
@@ -50,7 +50,7 @@
 			$nameEntered = $_POST['puzzleWord'];
 			createPuzzle($nameEntered);
 		}
-	}else if(($_GET['puzzleName']))
+	}else if(isset($_GET['puzzleName']))
 	{
 		$nameEntered = $_GET['puzzleName'];
 		createPuzzle($nameEntered);
@@ -88,11 +88,11 @@
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+							echo '<input class="word_char active" type="text" maxlength="1" value="'.$word_value[$j].'" readonly/>';
 						}
 						else
 						{
-							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
+							echo '<input class="word_char" type="text" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
 						}
 					}
 					echo '</tr>';
@@ -110,7 +110,6 @@
 	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
     <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
 	</div>
-</body>
 <script>
 	function submit_validation()
 	{
@@ -151,6 +150,7 @@
 	
 	function show_solution()
 	{
+		alert("Sucess!");
 		var words = "<?php echo $words ?>";
 		var wordsArray = words.split(",");
 		var table = document.getElementById("puzzle_table");
@@ -192,5 +192,6 @@
 		el.style.display = "none";
 	}
 </script>
+</body>
 <!-- <script type="text/javascript" src="javascript/puzzle.js"></script> -->
 </html>
