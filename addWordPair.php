@@ -128,10 +128,10 @@ if(isset($_POST['submit'])){
      $words = trim($_POST['addWord']);
      //echo $_POST['addWord'];
      if($_POST['addWord'] == ''){
-          echo "<p class= \"fontword\">You did not enter any words. Please try again.</p>";
+          echo "<p class= \"fontword\" style=\" color:red;\">You did not enter any words. Please try again.</p>";
      }
      else if(count(explode(',', $words)) < 2){
-          echo "<p class= \"fontword\">You must enter two or more words seperated by a comma. Please try again.</p>";
+          echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words seperated by a comma. Please try again.</p>";
      }
      else{
 
