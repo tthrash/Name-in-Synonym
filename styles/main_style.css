@@ -58,14 +58,14 @@
 	height: 130px;
 	width: 850px;
 	border-width: 3px;
-    border-style: solid;
+  border-style: solid;
 	margin-top: 80px;
 	left: 12%;
 }
 #name-textbox{
 	background-color: transparent;
-    border: 0px solid;
-    outline: none;
+  border: 0px solid;
+  outline: none;
 	margin-left: 15px;
 	margin-top: 10px;
 	height:100px;
@@ -74,18 +74,18 @@
 }
 .main-buttons{
 	position: relative;
-    background-color: #70baeb;
-    border: 2px solid black;
-    color: black;
-    padding: 15px 32px;
+  background-color: #70baeb;
+  border: 2px solid black;
+  color: black;
+  padding: 15px 32px;
 	width: 250px;
 	height: 80px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size:25px;
-    margin: 4px 2px;
-    cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size:25px;
+  margin: 4px 2px;
+  cursor: pointer;
 	border-radius: 12px;
 	left: 30%;
 }
@@ -95,14 +95,14 @@
 	left: 35%;
 }
 .main-tables tr:nth-child(even) {
-   background-color: #FFF8DC;
+  background-color: #FFF8DC;
 }
 .main-tables tr:nth-child(odd) {
-   background-color: #EFDFBB;
+  background-color: #EFDFBB;
 }
 .main-tables tr:nth-child(1)
 {
-   background-color: #F0E130; 
+  background-color: #F0E130; 
 }
 .table_header{
 	background-color: #BDB76B;
@@ -111,17 +111,22 @@
 .main-tables{
 	position: relative;
 	text-align: left;
-    padding: 15px;
+  padding: 15px;
 	font-size: 28px;
 	margin: 30px;
 	left: 29%;
 	width: 50%;
 	border-collapse: separate;
-    border-spacing: 2px;
-	display:inline-block;
+  border-spacing: 2px;
+	/*display:inline-block; */
 }
 .main-tables td{
 	padding: 5px;
+}
+
+.main-tables a {
+	color: black;
+	text-decoration:none;
 }
 
 .pop_up {

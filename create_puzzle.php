@@ -277,4 +277,127 @@
 			return null; // flow of control shouldn't go here for the most part
 		}
 	}
+	
+	//testing input to steralize
+		function validate_input($data) {
+			$data = trim($data);
+			$data = stripslashes($data);
+			$data = htmlspecialchars($data);
+			$data = preg_replace('/\s+/', '', $data);
+			return $data;
+		}
+		
+		// creates the create puzzle table
+		function create_puzzle_table($size, $word) {
+			$table = "";
+			$table .= "<div class='add_wrapper'><h1>Enter the words and clues for <div class='red'>" . $word . "</div></h1>";
+			$table .= "<form action='add_puzzle.php' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (word)</th><th>Clue</th></thead>";
+			for ($i = 0; $i < $size; $i++) {
+				if ($i == 0) {
+					$table .= "<tbody>";
+				}
+				$char = substr($word, $i, 1);
+				if ($i == 0) {
+					$table .= "<tr><td>" . ($i + 1) . "</td><td>" . strtoupper($char) . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='word". $i . "' autofocus/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
+				}
+				else {
+					$table .= "<tr><td>" . ($i + 1) . "</td><td>" . strtoupper($char) . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='word". $i . "'/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
+				}
+			}
+			$table .= "</tbody></table><input type='hidden' name='word' value='". $word . "'/><input type='hidden' name='size' value='". $size . "'/><input class='puzzleButton' type='submit' name='submit' value='Create Puzzle'></form></div>";
+			return $table;
+		}
+		
+		// creates the form for user to submit word
+		function create_word_input() {
+			return '<p class="title">Enter a name</p><form action="add_puzzle.php" method="post">
+			<div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter a name to create a puzzle"></input>
+			</div>
+			<br><input class="main-buttons align" type="submit" name="submit" value="Show me.."></form>';
+		}
+		
+		// returns true if char is found in word else error
+		function contains_char($word, $index, $contains) {
+			$char = substr($word, $index, 1);
+			if ( strcmp($char, "") == 0) {
+				return "index error"; // index outside size of word
+			} else {
+				$temp = strpos($contains, $char);
+				if ( strcmp($temp,"FALSE") == 0) {
+					return "char error"; // char not found in $contains
+				} else {
+					return True; // char was found
+				}
+			}
+		}
+		
+		function display_error($message = -1) {
+			$string = "";
+			if ($message == -1) {
+				$string = "<script>alert('invalid input try again');</script>";
+			} else {
+				$string = "<script>alert('" . $message . "');</script>";
+			}
+			return $string;
+		}
+		
+		function puzzleAddedTable() {
+			$words = "";
+			$nameEntered = $_POST['word'];
+			$nameEntered = strtolower($nameEntered);
+			$nameEntered = trim($nameEntered);
+			$puzzle_id = checkName($nameEntered);
+			//echo $puzzle_id;
+			if($puzzle_id != null)
+			{
+				$nameLen = strlen($nameEntered);
+				//echo $nameLen;
+				for($i = 0; $i < $nameLen; ++$i)
+				{
+					$word_id = getWordId($puzzle_id, $i);
+					//echo $word_id;
+					$word_value = getWordValue($word_id);
+					//echo $word_value;
+					if($i == 0)
+					{
+						$words .= $word_value;
+					}
+					else
+					{
+						$words .= ','.$word_value;
+					}
+					$clue_word = getClueWord($word_id);
+					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
+					echo '<tr>
+							 <td>'.$clue_word.'</td>
+							 <td>';
+				    $wordlen = strlen($word_value);
+					for($j = 0; $j < $wordlen; ++$j)
+					{
+						
+						if(in_array($j, $char_indexes))
+						{
+							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+						}
+						else
+						{
+							echo '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+						}
+					}
+					echo '</tr>';
+				}
+			}
+			else{
+				// set name-textbox on index.php to error message that name doesn't exist
+				// re
+			}
+		}
+		
+		function createHeader($word) {
+			return '<div style="text-align:center;font-size:60px;padding:0px;margin:0px;">Thank you.<br>The puzzle "<div class="red" style="display:inline;font-size:60px">'. $word . '"</div> is added to the database.</div>'; 
+		}
+		
+		function createFooter() {
+			return '<p style="font-size:45px;">You can access your puzzle in the "List"</p>';
+		}
 ?>

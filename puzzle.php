@@ -107,8 +107,8 @@
 	</table>
 	<img id="succes_photo" class="success" src="pic/thumbs_up.png" alt="Success!" style="display:none">
 	</div>
-	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation()">
-    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution()">
+	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation();">
+    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution();">
 	</div>
 </body>
 <script>
