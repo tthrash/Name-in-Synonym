@@ -50,7 +50,7 @@
 		while($row = $result->fetch_assoc())
 		{
 			echo '<tr>
-					 <td><a href=puzzle.php?puzzleName="'.$row["puzzle_name"].'>'.$row["puzzle_name"].'</a></td>
+					 <td><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">'.$row["puzzle_name"].'</a></td>
 					 <td>
 						 <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">
 							<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img>
@@ -58,11 +58,16 @@
 						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'&button=edit">
 							<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
-						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'&button=delete">
-							<img class="table_image" src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img>
+						 <a href="list_puzzles.php?puzzleName='.$row["puzzle_name"].'&button=delete">
+							<img class="table_image" name = "delete"src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
 					 </td>
 					 </tr>';
+		}
+		if (isset($_GET['puzzleName'])) {
+			//echo "You want to delte ". htmlspecialchars($_GET["puzzleName"]);
+			//$sql = "DELETE FROM puzzles WHERE puzzle_name = '$_GET[puzzleName]'";
+			//echo $sql;
 		}
 		
   ?>

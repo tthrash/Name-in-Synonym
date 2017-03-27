@@ -313,7 +313,7 @@
 			return '<p class="title">Enter a name</p><form action="add_puzzle.php" method="post">
 			<div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter a name to create a puzzle"></input>
 			</div>
-			<br><input class="main-buttons align" type="submit" name="submit" value="Show me.."></form>';
+			<br><input class="main-buttons align" type="submit" name="submit" value="Next.."></form>';
 		}
 		
 		// returns true if char is found in word else error
