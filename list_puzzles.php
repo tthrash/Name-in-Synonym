@@ -64,6 +64,7 @@
 					 </td>
 					 </tr>';
 		}
+		// *** delete button functionality ***
 		if(isset($_GET['puzzleID']))
 		{
 			if($_GET['button'] == 'delete')

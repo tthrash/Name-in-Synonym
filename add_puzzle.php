@@ -33,7 +33,7 @@
 		$input = "";
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (isset($_POST["puzzleWord"])) {	// User submited a word
-				$input = validate_input($_POST["puzzleWord"]);	//
+				$input = validate_input($_POST["puzzleWord"]);
 				if (strlen($input) > 0) {
 					echo create_puzzle_table(strlen($input), $input);
 				}
