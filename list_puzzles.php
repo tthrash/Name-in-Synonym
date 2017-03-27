@@ -42,7 +42,7 @@
 		  <th>Actions</th>
 	   </tr>
   <?php
-		
+		session_start();
 	  	$sql = 'SELECT * FROM puzzles;';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
@@ -58,16 +58,37 @@
 						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'&button=edit">
 							<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
-						 <a href="list_puzzles.php?puzzleName='.$row["puzzle_name"].'&button=delete">
-							<img class="table_image" name = "delete"src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img>
+						 <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">
+							<img class="table_image" src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
 					 </td>
 					 </tr>';
 		}
-		if (isset($_GET['puzzleName'])) {
-			//echo "You want to delte ". htmlspecialchars($_GET["puzzleName"]);
-			//$sql = "DELETE FROM puzzles WHERE puzzle_name = '$_GET[puzzleName]'";
-			//echo $sql;
+			if(isset($_GET['puzzleID'])){
+			$id = $_GET['puzzleID'];
+			$con = mysqli_connect("localhost","root","root");
+			$records = mysqli_select_db($con, 'ics325');
+		
+				if (!$con || !$records){
+					echo "Failed to connect to MySQL/Database: " . mysqli_connect_error();
+				}
+				else{
+
+					$sql1 = "DELETE FROM puzzle_words WHERE puzzle_id=$id";
+					//echo $sql1."</br>";
+					if(mysqli_query($con, $sql1)){
+					//echo "Record Deleted Successfully from puzzle_words </br>";
+					}
+				
+					$sql2 = "DELETE FROM puzzles WHERE puzzle_id=$id";
+					//echo $sql2."</br>";
+				
+					if(mysqli_query($con, $sql2)){
+					//echo "Record Deleted Successfully from puzzles & puzzle_words";
+					}
+			}
+			header("Location:list_puzzles.php");
+		
 		}
 		
   ?>
