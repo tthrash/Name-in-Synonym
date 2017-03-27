@@ -288,10 +288,10 @@
 		}
 		
 		// creates the create puzzle table
-		function create_puzzle_table($size, $word) {
+		function create_puzzle_table($size, $word, $action = "add_puzzle.php") {
 			$table = "";
 			$table .= "<div class='add_wrapper'><h1>Enter the words and clues for <div class='red'>" . $word . "</div></h1>";
-			$table .= "<form action='add_puzzle.php' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (word)</th><th>Clue</th></thead>";
+			$table .= "<form action='" . $action . "' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (word)</th><th>Clue</th></thead>";
 			for ($i = 0; $i < $size; $i++) {
 				if ($i == 0) {
 					$table .= "<tbody>";
@@ -341,9 +341,14 @@
 			return $string;
 		}
 		
-		function puzzleAddedTable() {
+		function puzzleAddedTable($name = -1) {
 			$words = "";
-			$nameEntered = $_POST['word'];
+			if ($name == -1) {
+				$nameEntered = $_POST['word'];
+			}
+			else {
+				$nameEntered = $name;
+			}
 			$nameEntered = strtolower($nameEntered);
 			$nameEntered = trim($nameEntered);
 			$puzzle_id = checkName($nameEntered);
@@ -372,12 +377,14 @@
 							 <td>'.$clue_word.'</td>
 							 <td>';
 				    $wordlen = strlen($word_value);
+					$flag = false;
 					for($j = 0; $j < $wordlen; ++$j)
 					{
 						
-						if(in_array($j, $char_indexes))
+						if(in_array($j, $char_indexes) && $flag === false)
 						{
 							echo '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$word_value[$j].'"readonly/>';
+							$flag = true;
 						}
 						else
 						{
