@@ -27,8 +27,9 @@
 		}
 	}
 	
-	function create_puzzle($name, $email = 'hp6449qy@metrostate.edu')
+	function create_puzzle($name)
 	{
+		$email = 'hp6449qy@metrostate.edu';
 		// ***** will need user name eventually. For now we will a default user name. *****
 		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 					(DEFAULT, \''.$name.'\', \'' . $email . '\');';

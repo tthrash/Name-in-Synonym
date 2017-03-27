@@ -55,7 +55,7 @@
 						 <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">
 							<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
-						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'&button=edit">
+						 <a href="change_puzzle.php?puzzleID='.$row["puzzle_id"].'&button=edit">
 							<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
 						 <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">
@@ -64,32 +64,21 @@
 					 </td>
 					 </tr>';
 		}
-			if(isset($_GET['puzzleID'])){
-			$id = $_GET['puzzleID'];
-			$con = mysqli_connect("localhost","root","root");
-			$records = mysqli_select_db($con, 'ics325');
+		if(isset($_GET['puzzleID']))
+		{
+			if($_GET['button'] == 'delete')
+			{
+					$id = $_GET['puzzleID'];
 		
-				if (!$con || !$records){
-					echo "Failed to connect to MySQL/Database: " . mysqli_connect_error();
-				}
-				else{
-
-					$sql1 = "DELETE FROM puzzle_words WHERE puzzle_id=$id";
-					//echo $sql1."</br>";
-					if(mysqli_query($con, $sql1)){
-					//echo "Record Deleted Successfully from puzzle_words </br>";
-					}
+					$sql = 'DELETE FROM puzzle_words WHERE puzzle_id='.$id.';';
+					$result =  $db->query($sql);
 				
-					$sql2 = "DELETE FROM puzzles WHERE puzzle_id=$id";
-					//echo $sql2."</br>";
-				
-					if(mysqli_query($con, $sql2)){
-					//echo "Record Deleted Successfully from puzzles & puzzle_words";
-					}
+					$sql = 'DELETE FROM puzzles WHERE puzzle_id='.$id.';';
+					$result =  $db->query($sql);
 			}
 			header("Location:list_puzzles.php");
-		
 		}
+		
 		
   ?>
   </table>
