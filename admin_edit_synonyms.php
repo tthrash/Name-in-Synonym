@@ -114,25 +114,18 @@ if(isset($_GET['word']))
         $result =  $db->query($sqlcheck);
         $row = $result->fetch_assoc();
         $repId = $row["rep_id"];
-        $show="";
+        $show=$wordProvided;
             
         $sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
         $result =  $db->query($sqlGetSynonyms);
        
         while($row = $result->fetch_assoc()){
-           //$data [] = $row->fetch_assoc();
-           // var_dump($row);
-           // echo $row["word_value"];
-            if($show == "")
+            $data = $row["word_value"];
+            if($data != $wordProvided)
             {
-                $show = $row["word_value"];
-            }
-            else
-            {
-                $show = $show.", ".$row["word_value"];
+                $show = $show.", ".$data;
             }
         }
-         //echo $show;
     }
 }
 
