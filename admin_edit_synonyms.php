@@ -104,6 +104,7 @@
 
 	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 
+<<<<<<< HEAD
 	$wordProvided = '';
 	if(isset($_GET['word']))
 	{
@@ -136,6 +137,35 @@
 			 //echo $show;
 		}
 	}
+=======
+if(isset($_GET['word']))
+{
+    $wordProvided = $_GET['word'];
+    //echo $wordProvided;
+    if($wordProvided != NULL)
+    {
+        $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
+        $result =  $db->query($sqlcheck);
+        $row = $result->fetch_assoc();
+        $repId = $row["rep_id"];
+        $show=$wordProvided;
+            
+        $sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
+        $result =  $db->query($sqlGetSynonyms);
+       
+        while($row = $result->fetch_assoc()){
+            $data = $row["word_value"];
+            if($data != $wordProvided)
+            {
+                $show = $show.", ".$data;
+            }
+        }
+    }
+}
+
+?>
+  <?php
+>>>>>>> e3ca195264c748c9ebb081daf8e2969685960772
      if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['addWord'] == ''){
           echo "<div class='result' id='confirmText'>";
           echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
