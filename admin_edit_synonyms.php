@@ -86,7 +86,6 @@
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
   <div class="main-container">
-
       <div class="header">
         <a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
         <div class="imageDiv">
@@ -107,59 +106,6 @@
 
  if(isset($_GET['word']))
  {
-
-  <div class="header">
-    <a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
-    <div class="imageDiv">
-	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
-	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
-      <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-      <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-    </div>
-    <div class="divTitle"><font class="font">Name in Synonyms</font></div>
-    <br>
-  </div>
-  <br>
-<?php 
-	//require('db_configuration.php');
-	require('create_puzzle.php');
-
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-
-	$wordProvided = '';
-	if(isset($_GET['word']))
-	{
-		$wordProvided = $_GET['word'];
-		//echo $wordProvided;
-		if($wordProvided != NULL)
-		{
-			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
-			$result =  $db->query($sqlcheck);
-			$row = $result->fetch_assoc();
-			$repId = $row["rep_id"];
-			$show="";
-				
-			$sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
-			$result =  $db->query($sqlGetSynonyms);
-		   
-			while($row = $result->fetch_assoc()){
-			   //$data [] = $row->fetch_assoc();
-			   // var_dump($row);
-			   // echo $row["word_value"];
-				if($show == "")
-				{
-					$show = $row["word_value"];
-				}
-				else
-				{
-					$show = $show.", ".$row["word_value"];
-				}
-			}
-			 //echo $show;
-		}
-	}
-if(isset($_GET['word']))
-{
     $wordProvided = $_GET['word'];
     //echo $wordProvided;
     if($wordProvided != NULL)
@@ -290,26 +236,5 @@ if(isset($_POST['submit'])){
 
 ?>
 
-  <?php
-     if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['addWord'] == ''){
-          echo "<div class='result' id='confirmText'>";
-          echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
-          echo "Would you like to update another set of synonyms?</font>";
-          echo "</div>";
-     }else{
-          echo "<div class='result' id='confirmText'>";
-          echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
-          echo "Here are all the synonyms of the word \"<font color='blue'> ".$wordProvided . " </font>\" <br>";
-          echo "You can add, delete, or update any word in the list</font>";
-          echo "</div>";
-     }
-  ?>
-
-  <form method="post" id="inputForm">
-  <div class="inputDiv"><input type="textbox" name="updateWord" id="name-textbox" value="<?php  echo htmlentities($show) ?>"></input></div>
-  <br>
-  <input class="addButton" id="addButton" type="submit" name="submit" value="Update Word Pairs">
-  </form>
-  </div>
 </body>
 </html>
