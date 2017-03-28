@@ -279,7 +279,7 @@
 		}
 	}
 	
-	//testing input to steralize
+	    //testing input to steralize
 		function validate_input($data) {
 			$data = trim($data);
 			$data = stripslashes($data);
@@ -288,7 +288,7 @@
 			return $data;
 		}
 		
-		// creates the create puzzle table
+		// creates the create puzzle table (puzzle_name_size, puzzle_name)
 		function create_puzzle_table($size, $word, $action = "add_puzzle.php") {
 			$table = "";
 			$table .= "<div class='add_wrapper'><h1>Enter the words and clues for <div class='red'>" . $word . "</div></h1>";
