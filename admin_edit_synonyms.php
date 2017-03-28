@@ -104,7 +104,6 @@
 
 	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 
-<<<<<<< HEAD
 	$wordProvided = '';
 	if(isset($_GET['word']))
 	{
@@ -137,7 +136,6 @@
 			 //echo $show;
 		}
 	}
-=======
 if(isset($_GET['word']))
 {
     $wordProvided = $_GET['word'];
@@ -165,7 +163,6 @@ if(isset($_GET['word']))
 
 ?>
   <?php
->>>>>>> e3ca195264c748c9ebb081daf8e2969685960772
      if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['addWord'] == ''){
           echo "<div class='result' id='confirmText'>";
           echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
