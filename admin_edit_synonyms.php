@@ -156,8 +156,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['updateWord'] == ''){
 <?php 
 
 if(isset($_POST['submit'])){
-    ECHO $_POST['updateWord'];
-    echo $show;
+    //ECHO $_POST['updateWord'];
+    //echo $show;
 
     $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
     var_dump($synonyms);
