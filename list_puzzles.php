@@ -76,8 +76,8 @@
 				
 					$sql = 'DELETE FROM puzzles WHERE puzzle_id='.$id.';';
 					$result =  $db->query($sql);
+					header("Location:list_puzzles.php");
 			}
-			header("Location:list_puzzles.php");
 		}
 		
 		
