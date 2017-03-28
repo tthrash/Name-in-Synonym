@@ -26,23 +26,36 @@
     <br>
   </div>
 	<font class="crumb">Name in Synonym <img src="./pic/arrow.png"/> Add Puzzle</font>
-	<?php
- 		require_once('create_puzzle.php');
-	?> 
-	<?PHP
+<?php
+ 		require_once('create_puzzle.php'); 
+		
 		$input = "";
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (isset($_POST["puzzleWord"])) {	// User submited a word
+		if ($_SERVER["REQUEST_METHOD"] == "POST")
+		{
+			if (isset($_POST["puzzleWord"]))
+			{	// User submited a puzzle name
 				$input = validate_input($_POST["puzzleWord"]);
 				if (strlen($input) > 0) {
-					echo create_puzzle_table(strlen($input), $input);
+					// first we need to check if the puzzle name already exists.
+					$nameExist = false;
+					$nameExist = checkName($input);
+					if(!$nameExist)
+					{
+						// puzzle name doesn't exist
+						echo create_puzzle_table(strlen($input), $input);
+					}
+					else{
+						// puzzle name already exists
+						echo puzzle_already_exists($input);
+					}
 				}
 				else {
 					echo '<script>alert("Invalid Input!");</script>' . create_word_input();
 				}
 				
 			}
-			else if(isset($_POST["word"])) {	// User submited puzzle
+			else if(isset($_POST["word"]))
+			{	// User submited puzzle
 				$name = $size = "";
 				$list = array();
 				if(empty($_POST["word"]) && empty($_POST["size"])) {
@@ -103,6 +116,7 @@
 			}
 		}
 		else {
+			// first place the program goes when the user selects "add a puzzle"
 			echo create_word_input();
 		}
 	?>

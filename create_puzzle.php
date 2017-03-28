@@ -10,10 +10,23 @@
 		
 		if ($num_rows == 0)
 		{
-			create_puzzle($name);
-			create_puzzle_words($name);
+			return false;
+		}else if ($num_rows == 1){
+			return true;
 		}
-		
+		else{
+			return null;
+		}
+	}
+	function puzzle_already_exists($puzzle_name)
+	{
+		$message = '<p style="font-size:40px;">The puzzle name "'.$puzzle_name.'" already exists. You can access the puzzle in the "List".</p>';
+		return $message;
+	}
+	function getPuzzleId($puzzle_name)
+	{
+		$sql = 'SELECT * FROM puzzles WHERE puzzle_name = \''.$puzzle_name.'\';';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
 		$num_rows = $result->num_rows;
 		
@@ -22,9 +35,8 @@
 			$row = $result->fetch_assoc();
 			return $row["puzzle_id"];
 		}
-		else{
-			// error -- there should only be one row now.
-		}
+		else
+			return null;
 	}
 	
 	function create_puzzle($name)
@@ -279,7 +291,7 @@
 		}
 	}
 	
-	//testing input to steralize
+	    //testing input to steralize
 		function validate_input($data) {
 			$data = trim($data);
 			$data = stripslashes($data);
@@ -288,7 +300,7 @@
 			return $data;
 		}
 		
-		// creates the create puzzle table
+		// creates the create puzzle table (puzzle_name_size, puzzle_name)
 		function create_puzzle_table($size, $word, $action = "add_puzzle.php") {
 			$table = "";
 			$table .= "<div class='add_wrapper'><h1>Enter the words and clues for <div class='red'>" . $word . "</div></h1>";
