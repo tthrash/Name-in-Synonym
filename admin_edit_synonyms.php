@@ -138,21 +138,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['updateWord'] == ''){
   echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
   echo "Would you like to update another set of synonyms?</font>";
   echo "</div>";
+
+  echo "<form method='post' id='inputForm'>";
+  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox'></input></div>";
+  echo "<br>
+        <input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
+        </form>
+        </div>";
 }else{
   echo "<div class='result' id='confirmText'>";
   echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
   echo "Here are all the synonyms of the word \"<font color='blue'>  $wordProvided  </font>\" <br>";
   echo "You can add, delete, or update any word in the list</font>";
   echo "</div>";
+
+  echo "<form method='post' id='inputForm'>";
+  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox' value='$show' ></input></div>";
+  echo "<br>
+        <input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
+        </form>
+        </div>";
 }
 ?>
 
-<form method="post" id="inputForm">
-    <div class="inputDiv"><input type="textbox" name="updateWord" id="name-textbox" value="<?php  echo htmlentities($show) ?>"></input></div>
-    <br>
-    <input class="addButton" id="addButton" type="submit" name="submit" value="Update Word Pairs">
-</form>
-</div>
 <?php 
 
 if(isset($_POST['submit'])){
@@ -160,12 +168,12 @@ if(isset($_POST['submit'])){
     //echo $show;
 
     $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-    var_dump($synonyms);
+    //var_dump($synonyms);
     foreach ($synonyms as $word){
 
         $word_id = $word["word_id"];
         
-        var_dump($word_id);
+        //var_dump($word_id);
         $sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \''. $word_id. '\';';
         $result =  $db->query($sqlDeleteChar);
         // if($result)
@@ -188,7 +196,7 @@ if(isset($_POST['submit'])){
     }
 
     $newWords = trim($_POST['updateWord']);
-    echo $newWords;
+    //echo $newWords;
 
 
     $list = explode(',', $newWords);
@@ -202,7 +210,7 @@ if(isset($_POST['submit'])){
          $result =  $db->query($sqlcheck);
 
          $num_rows = $result->num_rows;
-         var_dump($list[$i]);
+         //var_dump($list[$i]);
 
         if($num_rows == 0){ 
             if($i == 0){
