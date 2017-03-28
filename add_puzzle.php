@@ -37,8 +37,17 @@
 				$input = validate_input($_POST["puzzleWord"]);
 				if (strlen($input) > 0) {
 					// first we need to check if the puzzle name already exists.
-					
-					echo create_puzzle_table(strlen($input), $input);
+					$nameExist = false;
+					$nameExist = checkName($input);
+					if(!$nameExist)
+					{
+						// puzzle name doesn't exist
+						echo create_puzzle_table(strlen($input), $input);
+					}
+					else{
+						// puzzle name already exists
+						echo puzzle_already_exists($input);
+					}
 				}
 				else {
 					echo '<script>alert("Invalid Input!");</script>' . create_word_input();

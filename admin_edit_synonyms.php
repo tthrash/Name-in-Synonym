@@ -99,45 +99,43 @@
   </div>
   <br>
 <?php 
-//require('db_configuration.php');
-require('create_puzzle.php');
+	//require('db_configuration.php');
+	require('create_puzzle.php');
 
-$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 
-if(isset($_GET['word']))
-{
-    $wordProvided = $_GET['word'];
-    //echo $wordProvided;
-    if($wordProvided != NULL)
-    {
-        $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
-        $result =  $db->query($sqlcheck);
-        $row = $result->fetch_assoc();
-        $repId = $row["rep_id"];
-        $show="";
-            
-        $sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
-        $result =  $db->query($sqlGetSynonyms);
-       
-        while($row = $result->fetch_assoc()){
-           //$data [] = $row->fetch_assoc();
-           // var_dump($row);
-           // echo $row["word_value"];
-            if($show == "")
-            {
-                $show = $row["word_value"];
-            }
-            else
-            {
-                $show = $show.", ".$row["word_value"];
-            }
-        }
-         //echo $show;
-    }
-}
-
-?>
-  <?php
+	$wordProvided = '';
+	if(isset($_GET['word']))
+	{
+		$wordProvided = $_GET['word'];
+		//echo $wordProvided;
+		if($wordProvided != NULL)
+		{
+			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
+			$result =  $db->query($sqlcheck);
+			$row = $result->fetch_assoc();
+			$repId = $row["rep_id"];
+			$show="";
+				
+			$sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
+			$result =  $db->query($sqlGetSynonyms);
+		   
+			while($row = $result->fetch_assoc()){
+			   //$data [] = $row->fetch_assoc();
+			   // var_dump($row);
+			   // echo $row["word_value"];
+				if($show == "")
+				{
+					$show = $row["word_value"];
+				}
+				else
+				{
+					$show = $show.", ".$row["word_value"];
+				}
+			}
+			 //echo $show;
+		}
+	}
      if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['addWord'] == ''){
           echo "<div class='result' id='confirmText'>";
           echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
@@ -146,7 +144,7 @@ if(isset($_GET['word']))
      }else{
           echo "<div class='result' id='confirmText'>";
           echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
-          echo "Here are all the synonyms of the word \"<font color='blue'>  $wordProvided  </font>\" <br>";
+          echo "Here are all the synonyms of the word \"<font color='blue'> ".$wordProvided . " </font>\" <br>";
           echo "You can add, delete, or update any word in the list</font>";
           echo "</div>";
      }
