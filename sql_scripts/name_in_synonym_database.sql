@@ -185,8 +185,8 @@ INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 CREATE TABLE puzzle_words (
   puzzle_id int(11),
   word_id int(11),
-  position_inName smallint(25),
-  primary key (puzzle_id, word_id, position_inName),
+  position_in_name smallint(25),
+  primary key (puzzle_id, word_id, position_in_name),
   FOREIGN KEY (word_id)
   REFERENCES words (word_id) ON UPDATE CASCADE,
   key (puzzle_id),
@@ -201,7 +201,7 @@ ALTER TABLE puzzle_words
 -- 'mutter,remove,atrocious,archaic,commence'
 -- 'number,archaic,commence,remove'
 
-INSERT INTO puzzle_words (puzzle_id, word_id, position_inName) VALUES
+INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
 (1,1,0),
 (1,4,1),
 (1,5,2),

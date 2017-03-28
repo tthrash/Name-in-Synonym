@@ -173,26 +173,29 @@ if(isset($_POST['submit'])){
 
         $word_id = $word["word_id"];
         
-        //var_dump($word_id);
+		// for later use to add new random puzzle_words
+		$sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word_id = '.$word_id.';';
+		$puzzle_words =  $db->query($sql_puzzle_words);
+		
         $sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \''. $word_id. '\';';
         $result =  $db->query($sqlDeleteChar);
-        // if($result)
-        // {
-        //     echo "deleted from characters";
-        // }
 
         $aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
         $result =  $db->query($aqlDeletePuzzleWord);
-        // if($result)
-        // {
-        //     echo "deleted from puzzle-words";
-        // }
+
         $sqlDeletewords = 'DELETE FROM words WHERE word_id = \''. $word_id  . '\';';
         $result = $db->query($sqlDeletewords);
-        // if($result)
-        // {
-        //     echo "deleted from words";
-        // }
+		
+		// add new random puzzle_words
+		
+		while($puzzle_word = $puzzle_words->fetch_assoc())
+		{
+			    $sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = '. $puzzle_word["puzzle_id"]. ';';
+				$result =  $db->query($sql_getPuzzle);
+				$row = $result->fetch_assoc();
+				$puzzle_name = $row["puzzle_name"];
+				random_puzzle_word($puzzle_word["puzzle_id"], $puzzle_name, $puzzle_word["position_in_name"]);
+		}
     }
 
     $newWords = trim($_POST['updateWord']);

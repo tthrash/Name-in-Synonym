@@ -60,7 +60,16 @@
 		$namelen = strlen($name);
 		for($i = 0; $i < $namelen; $i++)
 		{
-			$character = $name[$i];
+			random_puzzle_word($puzzle_id, $name, $i);
+		}
+	}
+	
+	// adds a random puzzle_word for the puzzle with name puzzle_name for the character at 
+	// index position_in_name in the puzzle_name.
+	function random_puzzle_word($puzzle_id, $puzzle_name, $position_in_name)
+	{
+			$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+			$character = $puzzle_name[$position_in_name];
 			$sql =  'SELECT word_id
 						FROM characters 
 						WHERE word_id IN (SELECT word_id FROM words WHERE word_id <> rep_id)
@@ -72,12 +81,10 @@
 			$row = $result->fetch_assoc();
 			$word_id = $row["word_id"];
 			
-			$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_inName) VALUES
-						('.$puzzle_id.','.$word_id.','.$i.');';
+			$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
+						('.$puzzle_id.','.$word_id.','.$position_in_name.');';
 			$result =  $db->query($sql);
-		}
 	}
-	
 	// Inserts word pairs into words table
 	function insertIntoWords($word1, $word2) {
 		$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $word1 . '\';';
@@ -129,9 +136,9 @@
 		//echo '<p>'. $result . '</p>';
 	}
 	
-	function insertIntoPuzzleWords($puzzle_id, $word_id, $position_inName) {
+	function insertIntoPuzzleWords($puzzle_id, $word_id, $position_in_name) {
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-		$sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_inName) VALUES (\'' . $puzzle_id. '\', \'' . $word_id . '\', \'' . $position_inName .'\');';
+		$sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES (\'' . $puzzle_id. '\', \'' . $word_id . '\', \'' . $position_in_name .'\');';
 		//echo '<p>'. $sql . '</p>';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
@@ -200,9 +207,9 @@
 		}
 	}
 	
-	function getWordId($puzzleId, $position_inName)
+	function getWordId($puzzleId, $position_in_name)
 	{
-		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = \''.$puzzleId.'\' AND position_inName = '.$position_inName.';';
+		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = \''.$puzzleId.'\' AND position_in_name = '.$position_in_name.';';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
 		$num_rows = $result->num_rows;

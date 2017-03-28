@@ -48,14 +48,14 @@
 		$result =  $db->query($sql);
 		
 		while($row = $result->fetch_assoc())
-		{
+		{ 
 			echo '<tr>
 					 <td><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">'.$row["puzzle_name"].'</a></td>
 					 <td>
 						 <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">
 							<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
-						 <a href="change_puzzle.php?puzzleID='.$row["puzzle_id"].'&button=edit">
+						 <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'"&button=edit">
 							<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img>
 						 </a>
 						 <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">

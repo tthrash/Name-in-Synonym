@@ -46,7 +46,7 @@
 					}
 					else{
 						// puzzle name already exists
-						echo puzzle_already_exists($input);
+						echo puzzle_already_exists($input); 
 					}
 				}
 				else {

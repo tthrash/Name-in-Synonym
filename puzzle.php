@@ -94,7 +94,7 @@
 					}
 					else
 					{
-						$words .= ','.$word_value;
+						$words .= ','.$word_value; 
 					}
 					// output the clue word of the word (the word_value with the word_id = rep_id of the word)
 					$clue_word = getClueWord($word_id);
