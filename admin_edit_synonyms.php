@@ -99,152 +99,143 @@
  </div>
  <br>
  <?php 
-//require('db_configuration.php');
- require('create_puzzle.php');
+	//require('db_configuration.php');
+	 require('create_puzzle.php');
 
- $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+	 $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 
- if(isset($_GET['word']))
- {
-    $wordProvided = $_GET['word'];
-    //echo $wordProvided;
-    if($wordProvided != NULL)
-    {
-        $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
-        $result =  $db->query($sqlcheck);
-        $row = $result->fetch_assoc();
-        $repId = $row["rep_id"];
-        $show=$wordProvided;
-
-        $sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
-        $result =  $db->query($sqlGetSynonyms);
-        $synonyms = array();
-        while($row = $result->fetch_assoc()){
-            array_push($synonyms, $row);
-            $data = $row["word_value"];
-            if($data != $wordProvided)
-            {
-                $show = $show.", ".$data;
-            }
-        }
-        //echo $show;
-    }
-}
-
-?>
-<?php
-if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['updateWord'] == ''){
-  echo "<div class='result' id='confirmText'>";
-  echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
-  echo "Would you like to update another set of synonyms?</font>";
-  echo "</div>";
-
-  echo "<form method='post' id='inputForm'>";
-  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox'></input></div>";
-  echo "<br>
-        <input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
-        </form>
-        </div>";
-}else{
-  echo "<div class='result' id='confirmText'>";
-  echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
-  echo "Here are all the synonyms of the word \"<font color='blue'>  $wordProvided  </font>\" <br>";
-  echo "You can add, delete, or update any word in the list</font>";
-  echo "</div>";
-
-  echo "<form method='post' id='inputForm'>";
-  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox' value='$show' ></input></div>";
-  echo "<br>
-        <input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
-        </form>
-        </div>";
-}
-?>
-
-<?php 
-
-if(isset($_POST['submit'])){
-    //ECHO $_POST['updateWord'];
-    //echo $show;
-
-    $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-    //var_dump($synonyms);
-    foreach ($synonyms as $word){
-
-        $word_id = $word["word_id"];
-        
-		// for later use to add new random puzzle_words
-		$sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word_id = '.$word_id.';';
-		$puzzle_words =  $db->query($sql_puzzle_words);
-		
-        $sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \''. $word_id. '\';';
-        $result =  $db->query($sqlDeleteChar);
-
-        $aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
-        $result =  $db->query($aqlDeletePuzzleWord);
-
-        $sqlDeletewords = 'DELETE FROM words WHERE word_id = \''. $word_id  . '\';';
-        $result = $db->query($sqlDeletewords);
-		
-		// add new random puzzle_words
-		
-		while($puzzle_word = $puzzle_words->fetch_assoc())
+	 if(isset($_GET['word']))
+	 {
+		$wordProvided = $_GET['word'];
+		if($wordProvided != NULL)
 		{
-			    $sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = '. $puzzle_word["puzzle_id"]. ';';
-				$result =  $db->query($sql_getPuzzle);
-				$row = $result->fetch_assoc();
-				$puzzle_name = $row["puzzle_name"];
-				random_puzzle_word($puzzle_word["puzzle_id"], $puzzle_name, $puzzle_word["position_in_name"]);
+			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
+			$result =  $db->query($sqlcheck);
+			$row = $result->fetch_assoc();
+			$repId = $row["rep_id"];
+			$show=$wordProvided;
+			
+			
+			$synonyms = array();
+			// adding the words that have the same rep id as the main search word into $synonyms. Adding each of the words values to $show
+			$sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
+			$result =  $db->query($sqlGetSynonyms);
+			while($row = $result->fetch_assoc()){
+				array_push($synonyms, $row);
+				$data = $row["word_value"];
+				if($data != $wordProvided)
+				{
+					$show = $show.", ".$data;
+				}
+			}
 		}
-    }
+	}
 
-    $newWords = trim($_POST['updateWord']);
-    //echo $newWords;
+	if($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['updateWord'] == ''){
+	  echo "<div class='result' id='confirmText'>";
+	  echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
+	  echo "Would you like to update another set of synonyms?</font>";
+	  echo "</div>";
 
+	  echo "<form method='post' id='inputForm'>";
+	  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox'></input></div>";
+	  echo "<br>
+			<input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
+			</form>
+			</div>";
+	}else{
+	  echo "<div class='result' id='confirmText'>";
+	  echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
+	  echo "Here are all the synonyms of the word \"<font color='blue'>  $wordProvided  </font>\" <br>";
+	  echo "You can add, delete, or update any word in the list</font>";
+	  echo "</div>";
 
-    $list = explode(',', $newWords);
+	  echo "<form method='post' id='inputForm'>";
+	  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox' value='$show' ></input></div>";
+	  echo "<br>
+			<input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
+			</form>
+			</div>";
+	}
 
-    for($i = 0; $i < count($list);$i++){
+	if(isset($_POST['submit']))
+	{
 
-         $list[$i] = trim($list[$i]);
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		foreach ($synonyms as $word){
 
-        //Check to see if entered word exists in the DB.
-         $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $list[$i] . '\';';
-         $result =  $db->query($sqlcheck);
+			$word_id = $word["word_id"];
+			
+			// for later use to add new random puzzle_words
+			$sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word_id = '.$word_id.';';
+			$puzzle_words =  $db->query($sql_puzzle_words);
+			
+			$sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \''. $word_id. '\';';
+			$result =  $db->query($sqlDeleteChar);
 
-         $num_rows = $result->num_rows;
-         //var_dump($list[$i]);
+			$aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
+			$result =  $db->query($aqlDeletePuzzleWord);
 
-        if($num_rows == 0){ 
-            if($i == 0){
-               $repId = getMaxWordId();
-           }
-           else
-           {
-               $repId = getMaxWordId($list[0]);
-           }
+			$sqlDeletewords = 'DELETE FROM words WHERE word_id = \''. $word_id  . '\';';
+			$result = $db->query($sqlDeletewords);
+			
+			
+			
+			// add new random puzzle_words
+			while($puzzle_word = $puzzle_words->fetch_assoc())
+			{
+					$sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = '. $puzzle_word["puzzle_id"]. ';';
+					$result =  $db->query($sql_getPuzzle);
+					$row = $result->fetch_assoc();
+					$puzzle_name = $row["puzzle_name"];
+					random_puzzle_word($puzzle_word["puzzle_id"], $puzzle_name, $puzzle_word["position_in_name"]);
+			}
+		}
 
-                    //insert each new word into word table.
-           $sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $list[$i] . '\', \'' . $repId . '\');';
-           $result =  $db->query($sqlAddWord);
+		$newWords = trim($_POST['updateWord']);
 
-           $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $list[$i] . '\';';
-           $result =  $db->query($sql);
-           $row = $result->fetch_assoc();
-           $word_id = $row["word_id"]; 
-                    //echo $word_id;      
+		$list = explode(',', $newWords);
 
-           $letters=str_split($list[$i]);
-           for($j = 0; $j < count($letters); $j++) {
-                         //insert each letter into char table.
-               $sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\''. $word_id . '\', \'' . $j .'\', \''. $letters[$j].'\');';
-               $result =  $db->query($sqlAddLetters);
-           };
-        }
-        //header("Location:admin_edit_synonyms.php");
-    }
-}
+		for($i = 0; $i < count($list);$i++){
 
+			 $list[$i] = trim($list[$i]);
+
+			//Check to see if entered word exists in the DB.
+			 $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $list[$i] . '\';';
+			 $result =  $db->query($sqlcheck);
+
+			 $num_rows = $result->num_rows;
+			 //var_dump($list[$i]);
+
+			if($num_rows == 0){ 
+				if($i == 0){
+				   $repId = getMaxWordId();
+			   }
+			   else
+			   {
+				   $repId = getMaxWordId($list[0]);
+			   }
+
+						//insert each new word into word table.
+			   $sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $list[$i] . '\', \'' . $repId . '\');';
+			   $result =  $db->query($sqlAddWord);
+
+			   $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $list[$i] . '\';';
+			   $result =  $db->query($sql);
+			   $row = $result->fetch_assoc();
+			   $word_id = $row["word_id"]; 
+						//echo $word_id;      
+
+			   $letters=str_split($list[$i]);
+			   for($j = 0; $j < count($letters); $j++) {
+							 //insert each letter into char table.
+				   $sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\''. $word_id . '\', \'' . $j .'\', \''. $letters[$j].'\');';
+				   $result =  $db->query($sqlAddLetters);
+			   };
+			}
+			//header("Location:admin_edit_synonyms.php");
+		}
+	}
 ?>
 
 </body>
