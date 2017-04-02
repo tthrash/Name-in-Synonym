@@ -110,7 +110,7 @@ INSERT INTO words (word_id, word_value, rep_id) VALUES
 CREATE TABLE characters (
   word_id int(11),
   character_index smallint(25) NOT NULL,
-  character_value char(1) NOT NULL,
+  character_value varchar(7) NOT NULL,
   primary key (word_id, character_index, character_value)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
