@@ -29,11 +29,11 @@ drop table words;
 --
 
 CREATE TABLE users (
-  user_email varchar(255) COMMENT 'email address is the key',
-  display_name varchar(25) NOT NULL COMMENT 'if the user doesn''t want to display the user name',
-  password varchar(64) NOT NULL COMMENT 'for storing the password',
+  user_email varchar(100) COMMENT 'email address is the key',
+  username varchar(50) NOT NULL COMMENT 'if the user doesn''t want to display the user name',
+  user_password varchar(65) NOT NULL COMMENT 'for storing the password',
   id_verified tinyint(1) NOT NULL COMMENT '0 for false, 1 for true',
-  activation_token varchar(15) NOT NULL  COMMENT 'for storing the activation code when the users register or forget password',
+  activation_token varchar(25) NOT NULL  COMMENT 'for storing the activation code when the users register or forget password',
   role tinyint(1) NOT NULL COMMENT '0 for ADMIN, 1 for registered user',
   primary key (user_email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,7 +42,7 @@ CREATE TABLE users (
 -- Dumping data for table users
 --
 
-INSERT INTO users (user_email, display_name, password, id_verified, activation_token, role) VALUES
+INSERT INTO users (user_email, username, user_password, id_verified, activation_token, role) VALUES
 ('fm2584uk@metrostate.edu', 'prashant', SHA1('password'), 1, '753951', 0),
 ('hp6449qy@metrostate.edu', 'tyler', SHA1('password'), 1, '1234', 0);
 
@@ -52,9 +52,9 @@ INSERT INTO users (user_email, display_name, password, id_verified, activation_t
 --
 
 CREATE TABLE words (
-  word_id int(11) AUTO_INCREMENT,
-  word_value varchar(25) NOT NULL COMMENT 'words that have been added',
-  rep_id int(11) NOT NULL COMMENT 'for storing the ID of the representative',
+  word_id int AUTO_INCREMENT,
+  word_value varchar(75) NOT NULL COMMENT 'words that have been added',
+  rep_id int NOT NULL COMMENT 'for storing the ID of the representative',
   primary key (word_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -108,9 +108,9 @@ INSERT INTO words (word_id, word_value, rep_id) VALUES
 --
 
 CREATE TABLE characters (
-  word_id int(11),
-  character_index smallint(25) NOT NULL,
-  character_value varchar(7) NOT NULL,
+  word_id int,
+  character_index tinyint NOT NULL,
+  character_value varchar(4) NOT NULL,
   primary key (word_id, character_index, character_value)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -159,9 +159,9 @@ INSERT INTO characters (word_id, character_index, character_value) VALUES
 --
 
 CREATE TABLE puzzles (
-  puzzle_id int(11) NOT NULL AUTO_INCREMENT,
-  puzzle_name varchar(30) NOT NULL,
-  creator_email varchar(255) NOT NULL,
+  puzzle_id int NOT NULL AUTO_INCREMENT,
+  puzzle_name varchar(75) NOT NULL,
+  creator_email varchar(100) NOT NULL,
   primary key (puzzle_id, puzzle_name),
   key (creator_email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -183,9 +183,9 @@ INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 --
 
 CREATE TABLE puzzle_words (
-  puzzle_id int(11),
-  word_id int(11),
-  position_in_name smallint(25),
+  puzzle_id int,
+  word_id int,
+  position_in_name tinyint,
   primary key (puzzle_id, word_id, position_in_name),
   FOREIGN KEY (word_id)
   REFERENCES words (word_id) ON UPDATE CASCADE,
