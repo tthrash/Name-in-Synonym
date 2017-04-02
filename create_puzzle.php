@@ -1,4 +1,5 @@
 <?php
+
 require('db_configuration.php');
 require('IndicTextAnalyzer\word_processor.php');
 
@@ -66,82 +67,116 @@ function create_puzzle_words($name)
 	$row = $result->fetch_assoc();
 	$puzzle_id = $row["puzzle_id"];
 
-	$namelen = getWordLength($name);
-	for($i = 0; $i < $namelen; $i++)
-	{
-		random_puzzle_word($puzzle_id, $name, $i);
-	}
-}
-
-// adds a random puzzle_word for the puzzle with name puzzle_name for the character at 
-// index position_in_name in the puzzle_name.
-function random_puzzle_word($puzzle_id, $puzzle_name, $position_in_name)
-{
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$db->set_charset("utf8");
-	$characters = getWordChars($puzzle_name);
-	$character = $characters[$position_in_name];
-
-	$sql =  'SELECT word_id
-	FROM characters 
-	WHERE word_id IN (SELECT word_id FROM words WHERE word_id <> rep_id)
-	AND word_id >= 
-	(SELECT FLOOR( MAX(word_id) * RAND()) FROM characters) 
-	AND character_value = \''.$character.'\'
-	ORDER BY word_id LIMIT 1;';
-	$result =  $db->query($sql);
-	if(!$result)
-	{
-		 echo "Checking word failed!" . $db->error;
-	}
-	$row = $result->fetch_assoc();
-	$word_id = $row["word_id"];
-
-	$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
-	('.$puzzle_id.','.$word_id.','.$position_in_name.');';
-	$result =  $db->query($sql);
-}
-
-// Inserts word pairs into words table
-function insertIntoWords($word1, $word2) 
-{
-	$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $word1 . '\';';
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$db->set_charset("utf8");
-	$result =  $db->query($sqlcheck);
-	$num_rows = $result->num_rows;
-	$sqlcheck2 = 'SELECT * FROM words WHERE word_value = \''. $word2 . '\';';
-	$result =  $db->query($sqlcheck2);
-	$num_rows2 = $result->num_rows;
-	if ($num_rows == 0) { // $word1 not found
-		if ($num_rows2 == 0) {
-			$sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId() . '\');';
-			$sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId() . '\');';
-			//echo '<p>'. $sqlInsert . '</p>';
-			//echo '<p>'. $sqlInsert2 . '</p>';
-			$result =  $db->query($sqlInsert);
-			$result =  $db->query($sqlInsert2);
-		} else {
-			$sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId($word2) . '\');';
-			//echo '<p>'. $sqlInsert . '</p>';
-			$result =  $db->query($sqlInsert);
-		}
-	} else {	// $word 1 found
-		if ($num_rows2 == 0) {
-			$sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId($word1) . '\');';
-			//echo '<p>'. $sqlInsert2 . '</p>';
-			$result =  $db->query($sqlInsert2);
-		} else { // both found
-			$sqlCheckLink = 'SELECT rep_id FROM words WHERE (word_value = \'' . $word1 . '\' OR word_value=\'' . $word2 . '\');';
-			$result =  $db->query($sqlCheckLink);
+		$sql = 'SELECT * FROM puzzles WHERE puzzle_name = \''.$name.'\';';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sql);
+		$num_rows = $result->num_rows;
+		
+		if ($num_rows == 0)
+		{
+			return false;
+		}else
+		{
+			
 			$row = $result->fetch_assoc();
-			$row2 = $result->fetch_assoc();
-			$id = $row["rep_id"];
-			$id2 = $row2["rep_id"];
-			if ($id != $id2) { // words not linked
-				// What do we want to do here?
-			} else { // words linked
-				//do nothing
+			$puzzle_id = $row["puzzle_id"];
+			$name = $row["puzzle_name"];
+			
+			$flag = puzzle_words_empty($puzzle_id);
+			if(!$flag)
+			{
+				$sql = 'DELETE FROM puzzle_words WHERE puzzle_id = \''.$puzzle_id.'\';';
+				$db->query($sql);
+			}
+			
+			$parsedWord = new wordProcessor($wordbuff, $language);
+			$namelen = count($parsedWord);
+			for($i = 0; $i < $namelen; $i++)
+			{
+				$character = $parsedWord[$i];
+				random_puzzle_word($puzzle_id, $character, $i);
+			}
+			return true;
+		}
+	}
+	
+	function puzzle_words_empty($puzzle_id)
+	{
+		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = \''.$puzzle_id.'\';';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sql);
+		$num_rows = $result->num_rows;
+		
+		if($num_rows > 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
+	// adds a random puzzle_word for the puzzle with name puzzle_name for the character at 
+	// index position_in_name in the puzzle_name.
+	function random_puzzle_word($puzzle_id, $character, $position_in_name)
+	{
+			$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+			$sql =  'SELECT word_id
+						FROM characters 
+						WHERE word_id IN (SELECT word_id FROM words WHERE word_id <> rep_id)
+						AND word_id >= 
+						(SELECT FLOOR( MAX(word_id) * RAND()) FROM characters) 
+						AND character_value = \''.$character.'\'
+						ORDER BY word_id LIMIT 1;';
+			$result =  $db->query($sql);
+			$row = $result->fetch_assoc();
+			$word_id = $row["word_id"];
+			
+			$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
+						('.$puzzle_id.','.$word_id.','.$position_in_name.');';
+			$result =  $db->query($sql);
+	}
+	// Inserts word pairs into words table
+	function insertIntoWords($word1, $word2)
+	{
+		$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $word1 . '\';';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sqlcheck);
+		$num_rows = $result->num_rows;
+		$sqlcheck2 = 'SELECT * FROM words WHERE word_value = \''. $word2 . '\';';
+		$result =  $db->query($sqlcheck2);
+		$num_rows2 = $result->num_rows;
+		if ($num_rows == 0) { // $word1 not found
+			if ($num_rows2 == 0) {
+				$sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId() . '\');';
+				$sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId() . '\');';
+				//echo '<p>'. $sqlInsert . '</p>';
+				//echo '<p>'. $sqlInsert2 . '</p>';
+				$result =  $db->query($sqlInsert);
+				$result =  $db->query($sqlInsert2);
+			} else {
+				$sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId($word2) . '\');';
+				//echo '<p>'. $sqlInsert . '</p>';
+				$result =  $db->query($sqlInsert);
+			}
+		} else {	// $word 1 found
+			if ($num_rows2 == 0) {
+				$sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId($word1) . '\');';
+				//echo '<p>'. $sqlInsert2 . '</p>';
+				$result =  $db->query($sqlInsert2);
+			} else { // both found
+				$sqlCheckLink = 'SELECT rep_id FROM words WHERE (word_value = \'' . $word1 . '\' OR word_value=\'' . $word2 . '\');';
+				$result =  $db->query($sqlCheckLink);
+				$row = $result->fetch_assoc();
+				$row2 = $result->fetch_assoc();
+				$id = $row["rep_id"];
+				$id2 = $row2["rep_id"];
+				if ($id != $id2) { // words not linked
+					// What do we want to do here?
+				} else { // words linked
+					//do nothing
+				}
 			}
 		}
 	}
