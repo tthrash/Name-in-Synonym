@@ -65,6 +65,7 @@
 			$nameEntered = strtolower($nameEntered);
 			// clean up the name entered
 			$nameEntered = validate_input($nameEntered);
+			//ho $nameEntered;
 			
 			// check if the name already exists
 			$nameExist = checkName($nameEntered);
@@ -75,17 +76,23 @@
 			}
 			
 			$puzzle_id = getPuzzleId($nameEntered);
+
 			if($puzzle_id != null)
 			{
 				// get length of puzzle name
-				$nameLen = strlen($nameEntered);
+				$nameLen = getWordLength($nameEntered);
+				echo $nameLen;
+
 				// for each character in the puzzle name
 				for($i = 0; $i < $nameLen; ++$i)
 				{
 					// get the word_id from the puzzle_words table at position $i in the puzzle name.
 					$word_id = getWordId($puzzle_id, $i);
+					echo $word_id;
+
 					// then get the word_value of that word_id
 					$word_value = getWordValue($word_id);
+					echo $word_value;
 					
 					// this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
 					if($i == 0)
@@ -98,11 +105,13 @@
 					}
 					// output the clue word of the word (the word_value with the word_id = rep_id of the word)
 					$clue_word = getClueWord($word_id);
+					echo $clue_word;
 					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
+					var_dump($char_indexes);
 					echo '<tr>
 							 <td>'.$clue_word.'</td>
 							 <td>';
-				    $wordlen = strlen($word_value);
+				    $wordlen = getWordLength($word_value);
 					for($j = 0; $j < $wordlen; ++$j)
 					{
 						if(in_array($j, $char_indexes))

@@ -42,11 +42,12 @@
 					if(!$nameExist)
 					{
 						// puzzle name doesn't exist
-						echo create_puzzle_table(strlen($input), $input);
+						echo create_puzzle_table($input);
 					}
 					else{
 						// puzzle name already exists
-						echo puzzle_already_exists($input); 
+						echo 
+						($input); 
 					}
 				}
 				else {

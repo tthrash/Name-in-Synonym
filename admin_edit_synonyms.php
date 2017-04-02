@@ -162,6 +162,7 @@
 	{
 
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+    $db->set_charset("utf8");
 		foreach ($synonyms as $word){
 
 			$word_id = $word["word_id"];
@@ -196,45 +197,7 @@
 
 		$list = explode(',', $newWords);
 
-		for($i = 0; $i < count($list);$i++){
-
-			 $list[$i] = trim($list[$i]);
-
-			//Check to see if entered word exists in the DB.
-			 $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $list[$i] . '\';';
-			 $result =  $db->query($sqlcheck);
-
-			 $num_rows = $result->num_rows;
-			 //var_dump($list[$i]);
-
-			if($num_rows == 0){ 
-				if($i == 0){
-				   $repId = getMaxWordId();
-			   }
-			   else
-			   {
-				   $repId = getMaxWordId($list[0]);
-			   }
-
-						//insert each new word into word table.
-			   $sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $list[$i] . '\', \'' . $repId . '\');';
-			   $result =  $db->query($sqlAddWord);
-
-			   $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $list[$i] . '\';';
-			   $result =  $db->query($sql);
-			   $row = $result->fetch_assoc();
-			   $word_id = $row["word_id"]; 
-						//echo $word_id;      
-
-			   $letters=str_split($list[$i]);
-			   for($j = 0; $j < count($letters); $j++) {
-							 //insert each letter into char table.
-				   $sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\''. $word_id . '\', \'' . $j .'\', \''. $letters[$j].'\');';
-				   $result =  $db->query($sqlAddLetters);
-			   };
-			}
-			//header("Location:admin_edit_synonyms.php");
-		}
+		insertWordsAndCharacter($list);
 	}
 ?>
 
