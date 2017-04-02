@@ -1,5 +1,6 @@
 <?php
 	require('db_configuration.php');
+	require("IndicTextAnalyzer/word_processor.php");
 	
 	function checkName($name)
 	{
@@ -53,22 +54,58 @@
 		$sql = 'SELECT * FROM puzzles WHERE puzzle_name = \''.$name.'\';';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sql);
-		$row = $result->fetch_assoc();
-		$puzzle_id = $row["puzzle_id"];
+		$num_rows = $result->num_rows;
 		
-		$namelen = strlen($name);
-		for($i = 0; $i < $namelen; $i++)
+		if ($num_rows == 0)
 		{
-			random_puzzle_word($puzzle_id, $name, $i);
+			return false;
+		}else
+		{
+			
+			$row = $result->fetch_assoc();
+			$puzzle_id = $row["puzzle_id"];
+			$name = $row["puzzle_name"];
+			
+			$flag = puzzle_words_empty($puzzle_id);
+			if(!$flag)
+			{
+				$sql = 'DELETE FROM puzzle_words WHERE puzzle_id = \''.$puzzle_id.'\';';
+				$db->query($sql);
+			}
+			
+			$parsedWord = new wordProcessor($wordbuff, $language);
+			$namelen = count($parsedWord);
+			for($i = 0; $i < $namelen; $i++)
+			{
+				$character = $parsedWord[$i];
+				random_puzzle_word($puzzle_id, $character, $i);
+			}
+			return true;
+		}
+	}
+	
+	function puzzle_words_empty($puzzle_id)
+	{
+		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = \''.$puzzle_id.'\';';
+		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$result =  $db->query($sql);
+		$num_rows = $result->num_rows;
+		
+		if($num_rows > 0)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 	
 	// adds a random puzzle_word for the puzzle with name puzzle_name for the character at 
 	// index position_in_name in the puzzle_name.
-	function random_puzzle_word($puzzle_id, $puzzle_name, $position_in_name)
+	function random_puzzle_word($puzzle_id, $character, $position_in_name)
 	{
 			$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-			$character = $puzzle_name[$position_in_name];
 			$sql =  'SELECT word_id
 						FROM characters 
 						WHERE word_id IN (SELECT word_id FROM words WHERE word_id <> rep_id)
@@ -85,7 +122,8 @@
 			$result =  $db->query($sql);
 	}
 	// Inserts word pairs into words table
-	function insertIntoWords($word1, $word2) {
+	function insertIntoWords($word1, $word2)
+	{
 		$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $word1 . '\';';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$result =  $db->query($sqlcheck);
