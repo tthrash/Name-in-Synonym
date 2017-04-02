@@ -168,8 +168,8 @@ function create_puzzle_words($name)
 			}
 		}
 	}
-}
-	
+
+
 function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
 	$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES (DEFAULT, \'' . $nameOfPuzzle. '\', \'' . $email . '\');';
 	//echo '<p>'. $sql . '</p>';
