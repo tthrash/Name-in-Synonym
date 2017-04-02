@@ -45,6 +45,7 @@
 		session_start();
 	  	$sql = 'SELECT * FROM puzzles;';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+		$db->set_charset("utf8");
 		$result =  $db->query($sql);
 		
 		while($row = $result->fetch_assoc())
