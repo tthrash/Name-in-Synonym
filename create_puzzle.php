@@ -571,7 +571,7 @@ function insertWordsAndCharacter($listOfWords)
 			//echo $word_id;      
 			$letters = new wordProcessor($listOfWords[$i],"");
 			$logicalChars = $letters->getLogicalChars();
-			var_dump(getLogicalChars());
+			var_dump($logicalChars);
 			for($j = 0; $j < count($logicalChars); $j++) {
 				//insert each letter into char table.
 				$sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\''. $word_id . '\', \'' . $j .'\', \''. $logicalChars[$j].'\');';
