@@ -17,11 +17,11 @@ use ics325;
 -- Make sure to drop any redundant tables.
 --
 
-drop table puzzle_words;
-drop table puzzles;
-drop table users;
-drop table characters;
-drop table words;
+DROP TABLE IF EXISTS puzzle_words;
+DROP TABLE IF EXISTS puzzles;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS words;
 
 -- --------------------------------------------------------
 --
