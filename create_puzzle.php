@@ -160,84 +160,17 @@
 				}
 			}
 		}
-<<<<<<< HEAD
-
-
 	function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
 		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES (DEFAULT, \'' . $nameOfPuzzle. '\', \'' . $email . '\');';
 		//echo '<p>'. $sql . '</p>';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-=======
-	}
-function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
-	$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES (DEFAULT, \'' . $nameOfPuzzle. '\', \'' . $email . '\');';
-	//echo '<p>'. $sql . '</p>';
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$db->set_charset("utf8");
-	$result =  $db->query($sql);
-	//echo '<p>'. $result . '</p>';
-}
-	
-function insertIntoPuzzleWords($puzzle_id, $word_id, $position_in_name) {
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES (\'' . $puzzle_id. '\', \'' . $word_id . '\', \'' . $position_in_name .'\');';
-	//echo '<p>'. $sql . '</p>';
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$db->set_charset("utf8");
-	$result =  $db->query($sql);
-	//echo '<p>'. $result . '</p>';
-}
-	
-// param is word_id not word
-function insertIntoCharacters($word_id) {
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$db->set_charset("utf8");
-	
-	$sqlCharSearch = 'SELECT word_id FROM characters WHERE word_id=\'' . $word_id . '\';';
-	$result = $db->query($sqlCharSearch); // search for chars if they are in list
-	$num_rows = $result->num_rows;
-	if ($num_rows == 0) {
-		$sqlWord = 'SELECT word_value FROM words WHERE word_id=\'' . $word_id . '\';';
-		$result = $db->query($sqlWord);
-		$row = $result->fetch_assoc();
-		$word_value = $row["word_value"];
-		
-		$letters = new wordProcessor($list[$i],"");
-		$logicalChars = $letters->getLogicalChars();
-		for ($i = 0; $i < count($logicalChars); $i++) {
-			$sql = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\'' . $word_id  . '\', \'' . $i . '\', \'' . $logicalChars[$i] . '\');';
-			//echo '<p>'. $sql . '</p>';
-			$result =  $db->query($sql);
-			//echo '<p>'. $result . '</p>';
-		}
-	}
-	
-}
-	
-// returns the puzzle_id of param or the max puzzle_id if no param provided
-function getMaxPuzzleId($index = -1) {
-	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	$db->set_charset("utf8");
-	if ($index == -1) {
-		$sql = 'SELECT MAX(puzzle_id) AS Count FROM puzzles;';
-		$result =  $db->query($sql);
-		$row = $result->fetch_assoc();
-		$count = $row["Count"];
-		return ($count + 1);
-	} else {
-		$sql = 'SELECT puzzle_id FROM puzzles WHERE puzzle_name =\'' . $index . '\';';
->>>>>>> 4091ee607dd4cdce873e7848de4799ff918f9129
-		$result =  $db->query($sql);
-		//echo '<p>'. $result . '</p>';
+		$db->query($sql);
 	}
 		
 	function insertIntoPuzzleWords($puzzle_id, $word_id, $position_in_name) {
-		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES (\'' . $puzzle_id. '\', \'' . $word_id . '\', \'' . $position_in_name .'\');';
-		//echo '<p>'. $sql . '</p>';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-		$result =  $db->query($sql);
-		//echo '<p>'. $result . '</p>';
+		$db->query($sql);
 	}
 		
 	// param is word_id not word
@@ -576,7 +509,7 @@ function getMaxPuzzleId($index = -1) {
 	function insertWordsAndCharacter($listOfWords)
 	{
 		for($i = 0; $i < count($listOfWords);$i++){
-			$listOfWords[$i] = validate_input($listOfWords[$i]);
+			$listOfWords[$i] = trim($listOfWords[$i]);
 			//Check to see if entered word exists in the DB.
 			$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
@@ -586,7 +519,6 @@ function getMaxPuzzleId($index = -1) {
 				echo"Checking word failed!" . $db->error;
 			} 
 			$num_rows = $result->num_rows;
-			//var_dump($list[$i]);
 			if($num_rows == 0)
 			{ 
 				if($i == 0){
