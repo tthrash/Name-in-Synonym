@@ -162,7 +162,6 @@
 	{
 
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-    $db->set_charset("utf8");
 		foreach ($synonyms as $word){
 
 			$word_id = $word["word_id"];
