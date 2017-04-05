@@ -116,11 +116,11 @@
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" maxlength="7" value="'.$word_value[$j].'" readonly/>';
+							echo '<input class="word_char active" type="text" maxlength="1" value="'.$word_value[$j].'" readonly/>';
 						}
 						else
 						{
-							echo '<input class="word_char" type="text" maxlength="7" name="'.$word_value.'_'.$j.'" value=""/>';
+							echo '<input class="word_char" type="text" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
 						}
 					}
 					echo '</tr>';
