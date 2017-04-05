@@ -76,24 +76,28 @@
 			}
 			
 			$puzzle_id = getPuzzleId($nameEntered);
+			$puzzle_word = getWordChars($nameEntered);
 
 			if($puzzle_id != null)
 			{
 				// get length of puzzle name
 				$nameLen = getWordLength($nameEntered);
-				echo $nameLen;
+				//echo "WordLen ". $nameLen;
 
 				// for each character in the puzzle name
 				for($i = 0; $i < $nameLen; ++$i)
 				{
 					// get the word_id from the puzzle_words table at position $i in the puzzle name.
 					$word_id = getWordId($puzzle_id, $i);
-					echo $word_id;
+					//echo "wid: ". $word_id;
 
 					// then get the word_value of that word_id
 					$word_value = getWordValue($word_id);
-					echo $word_value;
 					
+					//echo "word val: ".$word_value;
+					$word_value_char = getWordChars($word_value);
+					//echo "wordp: ";
+					//var_dump($word_value_char);
 					// this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
 					if($i == 0)
 					{
@@ -103,11 +107,12 @@
 					{
 						$words .= ','.$word_value; 
 					}
+					//echo "  word: " . $word_value;
 					// output the clue word of the word (the word_value with the word_id = rep_id of the word)
 					$clue_word = getClueWord($word_id);
-					echo $clue_word;
-					$char_indexes = getCharIndex($word_id, $nameEntered[$i]);
-					var_dump($char_indexes);
+					//echo " clue: ". $clue_word;
+					$char_indexes = getCharIndex($word_id, $puzzle_word[$i]);
+					//var_dump($char_indexes);
 					echo '<tr>
 							 <td>'.$clue_word.'</td>
 							 <td>';
@@ -116,7 +121,7 @@
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" maxlength="1" value="'.$word_value[$j].'" readonly/>';
+							echo '<input class="word_char active" type="text" maxlength="1" value="'.$word_value_char[$j].'" readonly/>';
 						}
 						else
 						{
