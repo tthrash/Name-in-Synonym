@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,9 +8,8 @@
 	<title>Final Project</title>
 </head>
 <?PHP
-		require('session_validation.php');
-	?>
-
+	require('session_validation.php');
+?>
 <body>
 	<h2>Final Project</h2>
 	<h3>Team: DOLPHIN</h3>
@@ -22,17 +20,18 @@
 			<?PHP echo getTopNav(); ?>
 		</div>
 	</div>
-	<div id="export">
-		<a href="/admin_edit_synonyms.php">Edit Synonyms</a>
-		<a href="/export_db.php">Export the database</a>
-	</div>
-	<div id="import">
-		<form action="upload.php" method="post" enctype="multipart/form-data">
-			Select file to upload:
-			<input type="file" name="fileToUpload" id="fileToUpload">
-			<input type="submit" value="Submit File" name="submit">
-		</form>
+	<div class="admin-wrapper">
+		<div id="export">
+			<a href="/admin_edit_synonyms.php">Edit Synonyms</a>
+			<a href="/export_db.php">Export the database</a>
+		</div>
+		<div id="import">
+			<form action="upload.php" method="post" enctype="multipart/form-data">
+				<label>Select file to upload:  <input type="file" name="fileToUpload" id="fileToUpload"></label>
+				<br>
+				<input type="submit" value="Submit File" name="submit">
+			</form>
+		</div>
 	</div>
 </body>
-
 </html>

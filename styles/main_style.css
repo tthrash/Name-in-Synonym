@@ -1,40 +1,7 @@
-/* *{
-	border: 2px solid #000000;
-} */
-
-.main-container {
-	width: 1350px;
-	margin: auto;
-}
-
-.header {
-	border-radius: 25px;
-	height: 150px;
-	width: 1500px;
-	background-color: #92d050;
-}
-
 .logo {
 	height: 130px;
 	margin-left: 10px;
 	float: left;
-}
-
-.divTitle {
-	position: relative;
-	top: 19%;
-	height: 30px;
-	width: 720px;
-	font-family: Times New Roman, Times, serif;
-}
-
-.imageDiv {
-	float: right;
-	/*position: relative;*/
-	height: 12px;
-	top: 5%;
-	left: 35%;
-	width: 850px;
 }
 
 .inputTextbox {
@@ -317,6 +284,7 @@ body {
 	border-radius: 20px;
 	border-width: medium;
 	border-style: solid;
+	font-size: 25px;
 }
 
 .navBar {
@@ -341,38 +309,58 @@ body {
 	text-decoration: none;
 	padding: 0;
 	margin: 0;
-	
 }
 
 #admin {
-	font-size: 25px;
+	
 	background-color: #2bb0dc;
 }
 
 #list {
-	font-size: 25px;
 	background-color: #EEE657;
 }
 
 #addpuzzle {
-	font-size: 25px;
-background-color: #F3C9BF;
-}
-
-#addword {
-	font-size: 25px;
 	background-color: #81E2E6;
 }
 
+#addword {
+	background-color: #F3C9BF;
+}
+
 #login {
-	font-size: 25px;
 	background-color: #2bb0dc;
 }
 
 #export {
-	width: 20%;
-	display: block;
+	padding-left: 1em;
+	padding-top: 1em;
+	width: 30%;
+	display: inline;
 	float: left;
 }
 
+#export a {
+	font-size: 25px;
+	display: block;
+}
 
+#import {
+	float: right;
+	padding-top: 1em;
+	font-size: 25px;
+	width: 30%;
+	display: inline;
+}
+
+#import input {
+	
+	font-size: 15px;
+	display: inline;
+}
+
+.admin-wrapper {
+	left: 33%;
+	width: 50%;
+	min-width: 400px;
+}

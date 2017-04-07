@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<?PHP
+		require('session_validation.php');
+	?>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,18 +18,11 @@
   <h3>Team: DOLPHIN</h3>
   <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
   <br><br><br>
-  <div class="main-container">
-  <div class="header">
-    <a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
-    <div class="imageDiv">
-	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
-	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
-      <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-      <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-    </div>
-    <div class="divTitle"><font class="font">Name in Synonyms</font></div>
-    <br>
-  </div>
+  <div class="nav-wrapper">
+		<div class="navBar">
+			<?PHP echo getTopNav(); ?>
+		</div>
+	</div>
   <div id="pop_up_fail" class="container pop_up" style="display:none">
 		<div class="pop_up_background">
 			
