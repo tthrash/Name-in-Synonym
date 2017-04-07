@@ -16,9 +16,7 @@
 
 .logo {
 	height: 130px;
-	margin-top: 10px;
-	margin-left: 5px;
-	margin-right: 10px;
+	margin-left: 10px;
 	float: left;
 }
 
@@ -53,7 +51,7 @@
 
 .font {
 	font-size: 55px;
-	padding-bottom: 2em;
+	vertical-align: super;
 }
 
 .table_image {
@@ -310,22 +308,71 @@ body {
 .navOption {
 	padding: 0;
 	margin: 0;
-	width: 9.5em;
-	height: 10em;
+	vertical-align: text-bottom;
+	width: 120px;
+	height: 130px;
 	text-align: center;
-	background-color: #2bb0dc;
 	display: inline;
 	border-color: white;
 	border-radius: 20px;
-	border-bottom-width: thin;
-	bottom: 10em;
+	border-width: medium;
+	border-style: solid;
 }
 
 .navBar {
-	display: inline-block;
-	line-height: 2em;
+	max-height: 150px;
+	width: 1380px;
+	display: block;
 	background-color: #92d050;
-	padding-top: 2em;
-	padding-bottom: 2em;
+	border-radius: 25px;
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+.nav-wrapper {
+	max-height: 150px;
+	width: 100%;
+	display: inline;
+	font-size: 55px;
+	font-family: Times New Roman, Times, serif;
+}
+
+.navBar a {
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
 	
 }
+
+#admin {
+	font-size: 25px;
+	background-color: #2bb0dc;
+}
+
+#list {
+	font-size: 25px;
+	background-color: #EEE657;
+}
+
+#addpuzzle {
+	font-size: 25px;
+background-color: #F3C9BF;
+}
+
+#addword {
+	font-size: 25px;
+	background-color: #81E2E6;
+}
+
+#login {
+	font-size: 25px;
+	background-color: #2bb0dc;
+}
+
+#export {
+	width: 20%;
+	display: block;
+	float: left;
+}
+
+

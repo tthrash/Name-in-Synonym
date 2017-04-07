@@ -28,26 +28,29 @@
 	function getTopNav() {
 		$topNav = "";
 		if (adminSessionExists()) {
-			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
-			<div class="imageDiv">
-			 <a href="./admin.php"><input class="headerButton" type="image" src="./pic/admin.png"></a>
-			 <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
-			 <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
-			 <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-			 <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-		 </div>
-		 <div class="divTitle"><font class="font">Name in Synonyms</font></div>
-		 <br>';
-		} else {
-			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
-			<div class="imageDiv">
-			 <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
-			 <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
-			 <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-			 <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-		 </div>
-		 <div class="divTitle"><font class="font">Name in Synonyms</font></div>
-		 <br>';
+			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
+				<font class="font">Name in Synonyms</font>
+				<a href="./admin.php"><button id="admin" class="navOption">Admin</button></a>
+				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> A<br> Puzzle</button></a>
+				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> Word<br> Pairs</button></a>
+				<a href="./login.php"><button id="login" class="navOption">Logout</button></a>';
+		} else if (sessionExists()) {
+			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
+				<font class="font">Name in Synonyms</font>
+				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> A<br> Puzzle</button></a>
+				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> Word<br> Pairs</button></a>
+				<a href="./login.php"><button id="login" class="navOption">Logout</button></a>';
+		}
+		else {
+			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
+				<font class="font">Name in Synonyms</font>
+				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> A<br> Puzzle</button></a>
+				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> Word<br> Pairs</button></a>
+				<a href="./login.php"><button id="login" class="navOption">Login</button></a>';
+			
 		}
 		return $topNav;
 	}
