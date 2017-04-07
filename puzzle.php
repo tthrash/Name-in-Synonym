@@ -62,9 +62,10 @@
 	{
 			$nameExist = false;
 			$words = "";
-			$nameEntered = strtolower($nameEntered);
 			// clean up the name entered
 			$nameEntered = validate_input($nameEntered);
+			$nameEntered = strtolower($nameEntered);
+			
 			//ho $nameEntered;
 			
 			// check if the name already exists
@@ -76,56 +77,56 @@
 			}
 			
 			$puzzle_id = getPuzzleId($nameEntered);
-			$puzzle_word = getWordChars($nameEntered);
 
 			if($puzzle_id != null)
 			{
+				$puzzle_name_chars = getWordChars($nameEntered);
 				// get length of puzzle name
-				$nameLen = getWordLength($nameEntered);
-				//echo "WordLen ". $nameLen;
-
+				$nameLen = count($puzzle_word);
+				
 				// for each character in the puzzle name
 				for($i = 0; $i < $nameLen; ++$i)
 				{
 					// get the word_id from the puzzle_words table at position $i in the puzzle name.
 					$word_id = getWordId($puzzle_id, $i);
-					//echo "wid: ". $word_id;
 
 					// then get the word_value of that word_id
 					$word_value = getWordValue($word_id);
 					
-					//echo "word val: ".$word_value;
-					$word_value_char = getWordChars($word_value);
-					//echo "wordp: ";
-					//var_dump($word_value_char);
+					// get the character array of the word
+					$word_chars = getWordChars($word_value);
+					
 					// this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
 					if($i == 0)
 					{
-						$words .= $word_value;
+						$words .= buildJScriptWords($word_chars);
 					}
 					else
 					{
-						$words .= ','.$word_value; 
+						$words .= ','.buildJScriptWords($word_chars);
 					}
-					//echo "  word: " . $word_value;
+					
 					// output the clue word of the word (the word_value with the word_id = rep_id of the word)
 					$clue_word = getClueWord($word_id);
-					//echo " clue: ". $clue_word;
-					$char_indexes = getCharIndex($word_id, $puzzle_word[$i]);
-					//var_dump($char_indexes);
+					
+					
+					$char_indexes = getCharIndex($word_id, $puzzle_name_chars[$i]);
+					
+					// Add clue word to first column of the row
 					echo '<tr>
 							 <td>'.$clue_word.'</td>
 							 <td>';
-				    $wordlen = getWordLength($word_value);
+					
+				    $wordlen = count($word_chars);
 					for($j = 0; $j < $wordlen; ++$j)
 					{
 						if(in_array($j, $char_indexes))
 						{
-							echo '<input class="word_char active" type="text" maxlength="1" value="'.$word_value_char[$j].'" readonly/>';
+							echo '<input class="word_char active" type="text" maxlength="7" value="'.$word_chars[$j].'" readonly/>';
 						}
 						else
 						{
-							echo '<input class="word_char" type="text" maxlength="1" name="'.$word_value.'_'.$j.'" value=""/>';
+							echo '<input class="word_char" type="text" maxlength="7" value=""/>';
 						}
 					}
 					echo '</tr>';
@@ -136,6 +137,24 @@
 				// re
 			}
 			return $words;
+	}
+	
+	// Takes in an array of characters and builds a string by seperating them with '-'.
+	function buildJScriptWords($word_chars)
+	{
+		$string = "";
+		$wordLng = count($word_chars);
+		for($i = 0; $i < $wordLng ; ++$i)
+		{
+			if($i != ($wordLng - 1))
+			{
+				$string .= $word_chars[$i].'-';
+			}
+			else{
+				$string .= $word_chars[$i];
+			}
+		}
+		return $string;
 	}
   ?>
 	</table>
