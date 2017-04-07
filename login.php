@@ -1,72 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-  .divContainer{
-    position: relative;
-    top: 20px;
-    height: 30px;
-    margin-left: 380px;
-    width: 640px;
-  }
-  .text{
-    font-size: 30px;
-  }
-  .textbox{
-    outline: none;
-    margin-left: 15px;
-    margin-top: 10px;
-    height:100px;
-    width:480px;
-    font-size: 40px;
-    border-style: outset;
-  }
-  .loginbutton{
-    position: relative;
-    margin-left: 290px;
-    margin-top: 30px;
-  }
-  .message{
-    position: relative;
-    margin-left: 260px;
-    margin-top: 30px;
-    height:100px;
-    width:480px;
-  }
-  .messageText{
-    font-size: 20px;
-  }
-  a{
-    color: red;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  </style>
+	<?PHP
+		require('session_validation.php');
+	?>
+	<style>
+		.divContainer {
+			position: relative;
+			top: 20px;
+			height: 30px;
+			margin-left: 380px;
+			width: 640px;
+		}
+		
+		.text {
+			font-size: 30px;
+		}
+		
+		.textbox {
+			outline: none;
+			margin-left: 15px;
+			margin-top: 10px;
+			height: 100px;
+			width: 480px;
+			font-size: 40px;
+			border-style: outset;
+		}
+		
+		.loginbutton {
+			position: relative;
+			margin-left: 290px;
+			margin-top: 30px;
+		}
+		
+		.message {
+			position: relative;
+			margin-left: 260px;
+			margin-top: 30px;
+			height: 100px;
+			width: 480px;
+		}
+		
+		.messageText {
+			font-size: 20px;
+		}
+		
+		a {
+			color: red;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+	</style>
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="styles/main_style.css" type="text/css">
 </head>
 <title>Final Project</title>
 <body>
-  <h2>Final Project</h2>
-  <h3>Team: DOLPHIN</h3>
-  <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
-  <br><br><br>
-
-  <div class="header">
-  	<a href="./index.php"><img class="logo" src="./pic/logo.png"></img></a>
-  	<div class="imageDiv">
-	  <a href="./list_puzzles.php"><input class="headerButton" type="image" src="./pic/list.png"></a>
-	  <a href="./add_puzzle.php"><input class="headerButton" type="image" src="./pic/addPuzzle.png"></a>
-      <a href="./addWordPair.php"><input class="headerButton" type="image" src="./pic/addWord.png"></a>
-      <a href="./login.php"><input class="headerButton" type="image" src="./pic/login.png"></a>
-  	</div>
-  	<div class="divTitle"><font class="font">Name in Synonyms</font></div>
-  	<br>	
-  </div>
-  <br><br><br>
- <?php
+	<h2>Final Project</h2>
+	<h3>Team: DOLPHIN</h3>
+	<h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
+	<br><br><br>
+	<div class="nav-wrapper">
+		<div class="navBar">
+			<?PHP echo getTopNav(); ?>
+		</div>
+	</div>
+	<br><br><br>
+	<?php
   // if(isset($_POST['submit'])){
   //   $user = $_POST['user'];
   //   $pass = $_POST['pass'];

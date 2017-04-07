@@ -1,42 +1,7 @@
-/* *{
-	border: 2px solid #000000;
-} */
-
-.main-container {
-	width: 1350px;
-	margin: auto;
-}
-
-.header {
-	border-radius: 25px;
-	height: 150px;
-	width: 1500px;
-	background-color: #92d050;
-}
-
 .logo {
 	height: 130px;
-	margin-top: 10px;
-	margin-left: 5px;
-	margin-right: 10px;
+	margin-left: 10px;
 	float: left;
-}
-
-.divTitle {
-	position: relative;
-	top: 19%;
-	height: 30px;
-	width: 720px;
-	font-family: Times New Roman, Times, serif;
-}
-
-.imageDiv {
-	float: right;
-	/*position: relative;*/
-	height: 12px;
-	top: 5%;
-	left: 35%;
-	width: 850px;
 }
 
 .inputTextbox {
@@ -53,7 +18,7 @@
 
 .font {
 	font-size: 55px;
-	padding-bottom: 2em;
+	vertical-align: super;
 }
 
 .table_image {
@@ -310,22 +275,92 @@ body {
 .navOption {
 	padding: 0;
 	margin: 0;
-	width: 9.5em;
-	height: 10em;
+	vertical-align: text-bottom;
+	width: 120px;
+	height: 130px;
 	text-align: center;
-	background-color: #2bb0dc;
 	display: inline;
 	border-color: white;
 	border-radius: 20px;
-	border-bottom-width: thin;
-	bottom: 10em;
+	border-width: medium;
+	border-style: solid;
+	font-size: 25px;
 }
 
 .navBar {
-	display: inline-block;
-	line-height: 2em;
+	max-height: 150px;
+	width: 1380px;
+	display: block;
 	background-color: #92d050;
-	padding-top: 2em;
-	padding-bottom: 2em;
+	border-radius: 25px;
+	padding-bottom: 8px;
+	padding-top: 8px;
+}
+
+.nav-wrapper {
+	max-height: 150px;
+	width: 100%;
+	display: inline;
+	font-size: 55px;
+	font-family: Times New Roman, Times, serif;
+}
+
+.navBar a {
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+}
+
+#admin {
 	
+	background-color: #2bb0dc;
+}
+
+#list {
+	background-color: #EEE657;
+}
+
+#addpuzzle {
+	background-color: #81E2E6;
+}
+
+#addword {
+	background-color: #F3C9BF;
+}
+
+#login {
+	background-color: #2bb0dc;
+}
+
+#export {
+	padding-left: 1em;
+	padding-top: 1em;
+	width: 30%;
+	display: inline;
+	float: left;
+}
+
+#export a {
+	font-size: 25px;
+	display: block;
+}
+
+#import {
+	float: right;
+	padding-top: 1em;
+	font-size: 25px;
+	width: 30%;
+	display: inline;
+}
+
+#import input {
+	
+	font-size: 15px;
+	display: inline;
+}
+
+.admin-wrapper {
+	left: 33%;
+	width: 50%;
+	min-width: 400px;
 }
