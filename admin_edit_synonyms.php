@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<?PHP
 		require('session_validation.php');
@@ -21,15 +20,15 @@
 		.fontword {
 			font-size: 30px;
 		}
-		
-		.divInputs {
+
+    .divInputs {
 			position: relative;
 			top: 80px;
 			height: 140px;
 			margin-left: 200px;
 			width: 980px;
 		}
-		
+    
 		.inputleft {
 			border-radius: 25px;
 			height: 130px;
@@ -83,7 +82,6 @@
 			margin-left: 430px;
 			margin-top: 50px;
 		}
-
 	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -91,7 +89,6 @@
 	<link rel="stylesheet" href="styles/main_style.css" type="text/css">
 </head>
 <title>Final Project</title>
-
 <body>
 	<h2>Final Project</h2>
 	<h3>Team: DOLPHIN</h3>
@@ -127,7 +124,8 @@
 			while($row = $result->fetch_assoc()){
 				array_push($synonyms, $row);
 				$data = $row["word_value"];
-				if($data != $wordProvided)
+				
+        if($data != $wordProvided)
 				{
 					$show = $show.", ".$data;
 				}
@@ -153,7 +151,6 @@
 	  echo "Here are all the synonyms of the word \"<font color='blue'>  $wordProvided  </font>\" <br>";
 	  echo "You can add, delete, or update any word in the list</font>";
 	  echo "</div>";
-
 	  echo "<form method='post' id='inputForm'>";
 	  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox' value='$show' ></input></div>";
 	  echo "<br>
@@ -182,9 +179,7 @@
 
 			$sqlDeletewords = 'DELETE FROM words WHERE word_id = \''. $word_id  . '\';';
 			$result = $db->query($sqlDeletewords);
-			
-			
-			
+      
 			// add new random puzzle_words
 			while($puzzle_word = $puzzle_words->fetch_assoc())
 			{
@@ -203,7 +198,5 @@
 		insertWordsAndCharacter($list);
 	}
 ?>
-
 </body>
-
 </html>
