@@ -28,7 +28,6 @@
     <br>
   </div>
   <div id="pop_up_fail" class="container pop_up" style="display:none">
-=======
 	<?php
 		require('create_puzzle.php');
 		require('session_validation.php');
@@ -43,7 +42,6 @@
 		</div>
 	</div>
 	<div id="pop_up_fail" class="container pop_up" style="display:none">
->>>>>>> 8f5bd71fc2e423d100a70d7a629051b60848a574
 		<div class="pop_up_background">
 
 			<img class="pop_up_img_fail" alt="fail puzzle pop up" src="pic/info_circle.png">
