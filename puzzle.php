@@ -157,38 +157,50 @@
 	</div>
 	
  <script>
+	// main function for the buttons when they're clicked.
 	function main_buttons (button_name)
 	{
+		// the words should be seperated by commas and the characters of the words by '-'.
 		var words = "<?php echo $words ?>";
 		var wordsArray = words.split(",");
+		// get the table and it's length.
 		var table = document.getElementById("puzzle_table");
 		var tableLength = table.rows.length;
+		// helper variables.
 		var words_correct = true;
 		var childrenLength = 0;
 		
+		// start at 1 because top row for the table is the header of the table.
 		for (var i = 1; i < tableLength; i++)
 		{
+			// for submit_solution
 			if(button_name == "submit")
 			{
+				// call submit_validation handler method for the submit solution button
 				words_correct = submit_validation(table, wordsArray[i-1], i);
 				
+				// break out of loop. If the next word is the last word and the user guessed it right, 
+				// then the words_correct would end up as true, even if one word was false.
 				if(words_correct === false)
 				{
 					break;
 				}
 			}
-			else if (button_name == "show")
+			else if (button_name == "show") // for show solution
 			{
+				// call show_solution handler method for the show solution button
 				show_solution(table, wordsArray[i-1], i);
 			}
         }
 		
 		if(button_name == "submit")
 		{
+			// checks if the words are correct by passing in words_correct boolean flag.
 			checkCorrect(words_correct);
 		}
 	}
 	
+	// 
 	function submit_validation(table, word, i)
 	{
 			var input_word = "";
@@ -212,7 +224,6 @@
 	// rebuild the word whose charactes are seperated by "-".
 	function rebuildWord(word)
 	{
-		
 		var built_word = "";
 		var word_characters = word.split("-");
 		var array_length = word_characters.length;
@@ -238,7 +249,7 @@
 			clear_puzzle();
 		}
 	}
-	
+	// displays the characters of the current word in the puzzle table from the for loop in main_buttons function. 
 	function show_solution(table, word, i)
 	{
 		var childrenLength = 0;
@@ -253,7 +264,7 @@
 			table.rows[i].cells[1].children[j].value = word_array[j];
 		}
 	}
-	
+	// clears the character values for all of the words in the puzzle table.
 	function clear_puzzle()
 	{
 		var table = document.getElementById("puzzle_table");
