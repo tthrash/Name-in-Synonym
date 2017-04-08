@@ -28,21 +28,37 @@
     <br>
   </div>
   <div id="pop_up_fail" class="container pop_up" style="display:none">
+=======
+	<?php
+		require('create_puzzle.php');
+		require('session_validation.php');
+	?>
+	<h2>Final Project</h2>
+	<h3>Team: DOLPHIN</h3>
+	<h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
+	<br><br><br>
+	<div class="nav-wrapper">
+		<div class="navBar">
+			<?PHP echo getTopNav(); ?>
+		</div>
+	</div>
+	<div id="pop_up_fail" class="container pop_up" style="display:none">
+>>>>>>> 8f5bd71fc2e423d100a70d7a629051b60848a574
 		<div class="pop_up_background">
-			
+
 			<img class="pop_up_img_fail" alt="fail puzzle pop up" src="pic/info_circle.png">
 			<div class="pop_up_text">Incorrect! <br>Try Again!</div>
 			<button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
 		</div>
-  </div>
-  <div class="header2">Here's your "Name in Synonyms"</div>
-  <div>
-   <table class="main-tables" id="puzzle_table">
-	   <tr>
-		  <th>Clue</th>
-		  <th>Synonym</th>
-	   </tr>
-  <?php
+	</div>
+	<div class="header2">Here's your "Name in Synonyms"</div>
+	<div>
+		<table class="main-tables" id="puzzle_table">
+			<tr>
+				<th>Clue</th>
+				<th>Synonym</th>
+			</tr>
+			<?php
     $words = "";
 	if(isset($_POST['submit']))
 	{
