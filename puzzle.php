@@ -8,26 +8,6 @@
 	<title>Final Project</title>
 </head>
 <body>
- 	<?php
- 		require('create_puzzle.php');
-	?> 
-  <h2>Final Project</h2>
-  <h3>Team: DOLPHIN</h3>
-  <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
-  <br><br><br>
-  <div class="main-container">
-  <div class="header">
-    <a href="./index.php"><img class="logo" alt="logo button to index page" src="./pic/logo.png" ></a>
-    <div class="imageDiv">
-	  <a href="./list_puzzles.php"><img class="headerButton" alt="list button" src="./pic/list.png"></a>
-	  <a href="./add_puzzle.php"><img class="headerButton" alt="add puzzle button" src="./pic/addPuzzle.png"></a>
-      <a href="./addWordPair.php"><img class="headerButton" alt="add word button" src="./pic/addWord.png"></a>
-      <a href="./login.php"><img class="headerButton" alt="login button" src="./pic/login.png"></a>
-    </div>
-    <div class="divTitle"><div class="font">Name in Synonyms</div></div>
-    <br>
-  </div>
-  <div id="pop_up_fail" class="container pop_up" style="display:none">
 	<?php
 		require('create_puzzle.php');
 		require('session_validation.php');
