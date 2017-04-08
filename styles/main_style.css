@@ -364,3 +364,32 @@ body {
 	width: 50%;
 	min-width: 400px;
 }
+
+.userTable {
+  padding: 2em;
+  min-width: 40%;
+  height: 2em;
+  text-align: center;
+  font-size: 26px;
+}
+
+.userTable thead tr {
+  background-color: #F0E130 !important;
+}
+
+.userTable td {
+  padding: .5em;
+}
+
+.userTable th {
+  padding: .5em;
+}
+
+.userTable tr:nth-child(even) {
+  width: 10em;
+  background-color: #FFF8DC;
+}
+
+.userTable tr:nth-child(odd) {
+  background-color: #EFDFBB;
+}

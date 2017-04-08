@@ -103,5 +103,4 @@
   ?>
 </body>
 <!-- <script type="text/javascript" src="javascript/puzzle.js"></script> -->
-
 </html>

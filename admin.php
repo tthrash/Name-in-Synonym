@@ -22,8 +22,9 @@
 	</div>
 	<div class="admin-wrapper">
 		<div id="export">
-			<a href="/admin_edit_synonyms.php">Edit Synonyms</a>
-			<a href="/export_db.php">Export the database</a>
+			<a href="admin_edit_synonyms.php">Edit Synonyms</a>
+      <a href="admin_manage_users.php">Manage Users</a>
+			<a href="export_db.php">Export the database</a>
 		</div>
 		<div id="import">
 			<form action="upload.php" method="post" enctype="multipart/form-data">
