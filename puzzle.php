@@ -19,10 +19,10 @@
   <div class="header">
     <a href="./index.php"><img class="logo" alt="logo button to index page" src="./pic/logo.png" ></a>
     <div class="imageDiv">
-	  <a href="./list_puzzles.php"><input class="headerButton" type="image" alt="list button" src="./pic/list.png"></a>
-	  <a href="./add_puzzle.php"><input class="headerButton" type="image" alt="add puzzle button" src="./pic/addPuzzle.png"></a>
-      <a href="./addWordPair.php"><input class="headerButton" type="image" alt="add word button" src="./pic/addWord.png"></a>
-      <a href="./login.php"><input class="headerButton" type="image" alt="login button" src="./pic/login.png"></a>
+	  <a href="./list_puzzles.php"><img class="headerButton" alt="list button" src="./pic/list.png"></a>
+	  <a href="./add_puzzle.php"><img class="headerButton" alt="add puzzle button" src="./pic/addPuzzle.png"></a>
+      <a href="./addWordPair.php"><img class="headerButton" alt="add word button" src="./pic/addWord.png"></a>
+      <a href="./login.php"><img class="headerButton" alt="login button" src="./pic/login.png"></a>
     </div>
     <div class="divTitle"><div class="font">Name in Synonyms</div></div>
     <br>
@@ -66,7 +66,6 @@
 			$nameEntered = validate_input($nameEntered);
 			$nameEntered = strtolower($nameEntered);
 			
-			//ho $nameEntered;
 			
 			// check if the name already exists
 			$nameExist = checkName($nameEntered);
@@ -82,7 +81,7 @@
 			{
 				$puzzle_name_chars = getWordChars($nameEntered);
 				// get length of puzzle name
-				$nameLen = count($puzzle_word);
+				$nameLen = count($puzzle_name_chars);
 				
 				// for each character in the puzzle name
 				for($i = 0; $i < $nameLen; ++$i)
@@ -109,15 +108,14 @@
 					// output the clue word of the word (the word_value with the word_id = rep_id of the word)
 					$clue_word = getClueWord($word_id);
 					
-					
 					$char_indexes = getCharIndex($word_id, $puzzle_name_chars[$i]);
-					
 					// Add clue word to first column of the row
 					echo '<tr>
 							 <td>'.$clue_word.'</td>
 							 <td>';
 					
 				    $wordlen = count($word_chars);
+					
 					for($j = 0; $j < $wordlen; ++$j)
 					{
 						if(in_array($j, $char_indexes))
@@ -139,19 +137,19 @@
 			return $words;
 	}
 	
-	// Takes in an array of characters and builds a string by seperating them with '-'.
+	// Takes in an array of characters and builds a string by seperating them with '-'. Returns the string.
 	function buildJScriptWords($word_chars)
 	{
 		$string = "";
 		$wordLng = count($word_chars);
 		for($i = 0; $i < $wordLng ; ++$i)
 		{
-			if($i != ($wordLng - 1))
+			if($i == 0)
 			{
-				$string .= $word_chars[$i].'-';
+				$string .= $word_chars[$i];
 			}
 			else{
-				$string .= $word_chars[$i];
+				$string .= '-'.$word_chars[$i];
 			}
 		}
 		return $string;
@@ -160,12 +158,12 @@
 	</table>
 	<img id="succes_photo" class="success" src="pic/thumbs_up.png" alt="Success!" style="display:none">
 	</div>
-	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="submit_validation();">
-    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="show_solution();">
+	<input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="main_buttons('submit');">
+    <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="main_buttons('show');">
 	</div>
 	
- 	<script>
-	function submit_validation()
+ <script>
+	function main_buttons (button_name)
 	{
 		var words = "<?php echo $words ?>";
 		var wordsArray = words.split(",");
@@ -176,18 +174,64 @@
 		
 		for (var i = 1; i < tableLength; i++)
 		{
-			var word = "";
-			childrenLength = table.rows[i].cells[1].children.length;
-			for (var j = 0; j < childrenLength; j++)
+			if(button_name == "submit")
 			{
-				word += table.rows[i].cells[1].children[j].value;
+				words_correct = submit_validation(table, wordsArray[i-1], i);
+				
+				if(words_correct === false)
+				{
+					break;
+				}
 			}
-			
-			if(wordsArray[(i-1)] != word)
+			else if (button_name == "show")
 			{
-				words_correct = false;
+				show_solution(table, wordsArray[i-1], i);
 			}
         }
+		
+		if(button_name == "submit")
+		{
+			checkCorrect(words_correct);
+		}
+	}
+	
+	function submit_validation(table, word, i)
+	{
+			var input_word = "";
+			var theWord = rebuildWord(word);
+			var childrenLength = table.rows[i].cells[1].children.length;
+			for (var j = 0; j < childrenLength; j++)
+			{
+				input_word += table.rows[i].cells[1].children[j].value;
+			}
+			
+			if(theWord != input_word)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+	}
+	
+	// rebuild the word whose charactes are seperated by "-".
+	function rebuildWord(word)
+	{
+		
+		var built_word = "";
+		var word_characters = word.split("-");
+		var array_length = word_characters.length;
+		
+		for(var i = 0; i < array_length; ++i)
+		{
+			built_word += word_characters[i];
+		}
+		return built_word;
+	}
+	
+	function checkCorrect(words_correct)
+	{
 		if(words_correct) // success case
 		{
 			//alert("Sucess!");
@@ -201,22 +245,19 @@
 		}
 	}
 	
-	function show_solution()
+	function show_solution(table, word, i)
 	{
-		var words = "<?php echo $words ?>";
-		var wordsArray = words.split(",");
-		var table = document.getElementById("puzzle_table");
-		var tableLength = table.rows.length;
 		var childrenLength = 0;
+		var word_array = null;
+		var nWord = word;
 		
-		for (var i = 1; i < tableLength; i++)
+		word_array = nWord.split("-");
+		childrenLength = table.rows[i].cells[1].children.length;
+		
+		for (var j = 0; j < childrenLength; j++)
 		{
-			childrenLength = table.rows[i].cells[1].children.length;
-			for (var j = 0; j < childrenLength; j++)
-			{
-				table.rows[i].cells[1].children[j].value = wordsArray[(i-1)].substring(j, (j+1));
-			}
-        }
+			table.rows[i].cells[1].children[j].value = word_array[j];
+		}
 	}
 	
 	function clear_puzzle()
@@ -230,7 +271,6 @@
 			childrenLength = table.rows[i].cells[1].children.length;
 			for (var j = 0; j < childrenLength; j++)
 			{
-				
 				if(!(table.rows[i].cells[1].children[j].className.includes("active")))
 				{
 					table.rows[i].cells[1].children[j].value = "";
@@ -243,6 +283,6 @@
 		var el = document.getElementById(o);
 		el.style.display = "none";
 	}
-	</script> 
+</script> 
 </body>
 </html>
