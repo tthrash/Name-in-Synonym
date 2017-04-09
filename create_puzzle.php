@@ -276,6 +276,8 @@ function getMaxPuzzleId($index = -1) {
 // returns the word_id of param or the max word_id if no param provided
 function getMaxWordId($index = -1) {
 	$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
+	//Please don't remove.
+	$db->set_charset("utf8");
 	if ($index == -1) {
 		$sql = 'SELECT MAX(word_id) AS Count FROM words;';
 		$result =  $db->query($sql);
@@ -612,6 +614,12 @@ function insertWordsAndCharacter($listOfWords)
 				$result =  $db->query($sqlAddLetters);
 				if(!$result)
 				{
+					//added this to see the exact error when ever character upload gets messy.
+					echo "new word:";
+					echo $word_id. " ";
+					var_dump($logicalChars);
+					echo $j;
+					echo $logicalChars[$j];
 				    echo"Insertng character failed!" . $db->error;				    
 	  			} 
 			};

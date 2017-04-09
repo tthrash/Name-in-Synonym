@@ -138,7 +138,8 @@ if(isset($_POST['submit']))
   }
   else
   {
-		$list = explode(',', $words);
+		
+		$list = explode(',', str_replace(' ','',$words));
 		//echo count($list);
 		//var_dump($list);
 		insertWordsAndCharacter($list);
