@@ -11,7 +11,7 @@
 		if ($db->connect_error)
 		{
 			trigger_error('Database connection failed: '  . $db->connect_error, E_USER_ERROR);
-			$db->close;
+			$db->close();
 			return false;
 		}
 		else
@@ -20,8 +20,8 @@
 			if(!$result)
 			{
 				trigger_error('Invalid SQL: ' . $sql_script . '; Error: ' . $db->error, E_USER_ERROR);
-				$result->close;
-				$db->close;
+				$result->close();
+				$db->close();
 				return false;
 			}
 			else
