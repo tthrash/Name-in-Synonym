@@ -127,7 +127,6 @@
 	  if($_POST['addWord'] == ''){
 		echo "<p class= \"fontword\" style=\" color:red;\">You did not enter ans words. Please try again.</p>";
 
-<<<<<<< HEAD
 	  }
 	  else if(count(explode(',', $words)) < 2)
 	  {
@@ -139,7 +138,6 @@
 			insertWordsAndCharacter($list);
 	  }
 	}
-=======
 if(isset($_POST['submit']))
 {
 
@@ -162,7 +160,6 @@ if(isset($_POST['submit']))
 		insertWordsAndCharacter($list);
   }
 }
->>>>>>> ee6c9ac7a70063829561068c9335e0ce7c952cb0
 ?>
 </body>
 
