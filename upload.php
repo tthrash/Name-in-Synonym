@@ -103,10 +103,10 @@
 				{
 					$repId = getMaxWordId($listOfWords[0]);
 				}
-				echo $repId . "-----";
+				//echo $repId . "-----";
 				//insert each new word into word table.
 				$sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $listOfWords[$i] . '\', \'' . $repId . '\');';
-				echo $sqlAddWord;
+				//echo $sqlAddWord;
 				$result =  $db->query($sqlAddWord);
 				if(!$result){
 				    echo"Inserting word failed!" . $db->error;
@@ -136,7 +136,6 @@
 						var_dump($logicalChars);
 						echo $j;
 						echo $logicalChars[$j];
-					    echo"Insertng character failed!" . $db->error;
 					    echo"Insertng character failed!" . $db->error;				    
 		  			} 
 				};
