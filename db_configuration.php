@@ -1,8 +1,8 @@
 <?php
-	DEFINE('DATABASE_HOST', 'localhost');
-	DEFINE('DATABASE_DATABASE', ' ');
-	DEFINE('DATABASE_USER', 'root');
-	DEFINE('DATABASE_PASSWORD', ' ');
+  DEFINE('DATABASE_HOST', 'localhost');
+  DEFINE('DATABASE_DATABASE', 'ics325');
+  DEFINE('DATABASE_USER', 'prashant');
+  DEFINE('DATABASE_PASSWORD', 'password$2');
 	
 	function run_sql($sql_script)
 	{
