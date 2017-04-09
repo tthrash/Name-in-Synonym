@@ -569,6 +569,10 @@ function insertWordsAndCharacter($listOfWords)
 {
 	for($i = 0; $i < count($listOfWords);$i++){
 		$listOfWords[$i] = trim($listOfWords[$i]);
+
+		// to remove invalid character eg: \u00a0
+		$listOfWords[$i] =  str_replace(chr(194).chr(160),'',$listOfWords[$i]);
+
 		//Check to see if entered word exists in the DB.
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
    		$db->set_charset("utf8");
@@ -615,7 +619,8 @@ function insertWordsAndCharacter($listOfWords)
 				if(!$result)
 				{
 					//added this to see the exact error when ever character upload gets messy.
-					echo "new word:";
+					echo " new word:";
+					echo $listOfWords[$i];
 					echo $word_id. " ";
 					var_dump($logicalChars);
 					echo $j;
