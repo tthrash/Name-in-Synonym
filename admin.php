@@ -9,6 +9,7 @@
 </head>
 <?PHP
 	require('session_validation.php');
+	require('upload.php');
 ?>
 <body>
 	<h2>Final Project</h2>
@@ -27,7 +28,7 @@
 			<a href="export_db.php">Export the database</a>
 		</div>
 		<div id="import">
-			<form action="upload.php" method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data">
 				<label>Select file to upload:  <input type="file" name="fileToUpload" id="fileToUpload"></label>
 				<br>
 				<input type="submit" value="Submit File" name="submit">
