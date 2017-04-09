@@ -26,8 +26,6 @@
 			}
 			else
 			{
-				$result->close;
-				$db->close;
 				return $result;
 			}
 		}
