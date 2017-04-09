@@ -1,9 +1,10 @@
 <?php 
 	header( 'Content-Type: text/html; charset=utf-8' ); 
-
+	require_once('db_configuration.php');
+	require('language_processor_functions.php');
+	require('common_sql_functions.php');
 	include './PHPExcel/PHPExcel/IOFactory.php';
-	//require ('db_configuration.php');
-	require('create_puzzle.php');
+	
 	$error = false;
 	$result = "";
 
@@ -13,7 +14,6 @@
 		deleteAllData();
 				
 		$inputFileName = $_FILES["fileToUpload"]["tmp_name"];
-		
 		
 		try {
 			$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
@@ -48,35 +48,23 @@
 	}
 
 	function deleteAllData(){
-		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-   		mysqli_query($db,'SET foreign_key_checks = 0');
+		run_sql('SET foreign_key_checks = 0');
+		
 		$sqlDeleteCharacters = 'DELETE FROM characters';
-		$result =  $db->query($sqlDeleteCharacters);
-		if(!$result)
-		{
-		    echo"Deleting characters failed!" . $db->error;
-	  	}
+		$result =  run_sql($sqlDeleteCharacters);
+		
 	  	$sqlDeletePuzzlewords = 'DELETE FROM puzzle_words';
-		$result =  $db->query($sqlDeletePuzzlewords);
-		if(!$result)
-		{
-		    echo"Deleting puzzlewords failed!" . $db->error;
-	  	}
+		$result =  run_sql($sqlDeletePuzzlewords);
+		
 	  	$sqlDeletePuzzles = 'DELETE FROM puzzles';
-		$result =  $db->query($sqlDeletePuzzles);
-		if(!$result)
-		{
-		    echo"Deleting puzzles failed!" . $db->error;
-	  	}
+		$result =  run_sql($sqlDeletePuzzles);
+		
 	  	$sqlDeleteWords = 'DELETE FROM words';
-		$result =  $db->query($sqlDeleteWords);
-		if(!$result)
-		{
-		    echo"Deleting words failed!" . $db->error;
-	  	}
-	  	mysqli_query($db,'SET foreign_key_checks = 1');
-	  	mysqli_query($db, 'ALTER TABLE words AUTO_INCREMENT = 1');
-	};
+		$result =  run_sql($sqlDeleteWords);
+		
+		run_sql('SET foreign_key_checks = 1');
+		run_sql('ALTER TABLE words AUTO_INCREMENT = 1');
+	}
 
 	//Will use this function for now until refactoring is done. Will update afterwards.
 	function insertnewWordsAndCharacter($listOfWords)
@@ -89,16 +77,11 @@
 			$listOfWords[$i] =  str_replace(chr(194).chr(160),'',$listOfWords[$i]);
 			
 			//Check to see if entered word exists in the DB.
-			$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-	   		$db->set_charset("utf8");
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
-			$result =  $db->query($sqlcheck);
-			if(!$result)
-			{
-			    echo"Checking word failed!" . $db->error;
-		  	} 
+			$result =   run_sql($sqlcheck);
+			
 			$num_rows = $result->num_rows;
-			//var_dump($list[$i]);
+			
 			if($num_rows == 0)
 			{ 
 				if($i == 0){
@@ -108,32 +91,25 @@
 				{
 					$repId = getMaxWordId($listOfWords[0]);
 				}
-				//echo $repId . "-----";
+				
 				//insert each new word into word table.
 				$sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $listOfWords[$i] . '\', \'' . $repId . '\');';
-				//echo $sqlAddWord;
-				$result =  $db->query($sqlAddWord);
-				if(!$result){
-				    echo"Inserting word failed!" . $db->error;
-		  		} 
+				$result =  run_sql($sqlAddWord);
 
 		  		// Get word id
 				$sql = 'SELECT word_id FROM words WHERE word_value =\'' . $listOfWords[$i] . '\';';
-				$result =  $db->query($sql);
-				if(!$result)
-				{
-				    echo"Getting word id failed!" . $db->error;			   
-		  		} 
+				$result =  run_sql($sql);
+				
 				$row = $result->fetch_assoc();
-				$word_id = $row["word_id"]; 
-				//echo $word_id;      
-				$letters = new wordProcessor($listOfWords[$i],"");
-				$logicalChars = $letters->getLogicalChars();
-				//var_dump($logicalChars);
-				for($j = 0; $j < count($logicalChars); $j++) {
+				$word_id = $row["word_id"];
+				
+				$logicalChars = getWordChars($listOfWords[$i]);
+				
+				for($j = 0; $j < count($logicalChars); $j++)
+				{
 					//insert each letter into char table.
 					$sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\''. $word_id . '\', \'' . $j .'\', \''. $logicalChars[$j].'\');';
-					$result =  $db->query($sqlAddLetters);
+					$result =  run_sql($sqlAddLetters);
 					if(!$result)
 					{
 						//added this to see the exact error when ever character upload gets messy.
@@ -146,7 +122,7 @@
 					echo $logicalChars[$j];
 				    echo"Insertng character failed!" . $db->error;				   			    
 		  			} 
-				};
+				}
 			}
 			else
 			{ 
