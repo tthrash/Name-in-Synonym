@@ -82,11 +82,12 @@
 	function insertnewWordsAndCharacter($listOfWords)
 	{
 		for($i = 0; $i < count($listOfWords);$i++){
-			$a = $listOfWords[$i];
+			
 			$listOfWords[$i] = rtrim($listOfWords[$i]);
+			
 			// to remove invalid character eg: \u00a0
 			$listOfWords[$i] =  str_replace(chr(194).chr(160),'',$listOfWords[$i]);
-			$t = $listOfWords[$i];
+			
 			//Check to see if entered word exists in the DB.
 			$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 	   		$db->set_charset("utf8");
