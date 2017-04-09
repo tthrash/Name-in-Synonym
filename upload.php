@@ -28,7 +28,6 @@
 		$sheet = $objPHPExcel->getSheet(0);
 		$highestRow = $sheet->getHighestRow();
 		$highestColumn = $sheet->getHighestColumn();
-
   		
 		for ($row = 2; $row <= $highestRow; $row++) {
 			//  Read the row of data into an array
