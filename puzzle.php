@@ -11,6 +11,8 @@
 	<?php
 		require('create_puzzle.php');
 		require('session_validation.php');
+		require('common_sql_functions.php');
+		require('utility_functions.php');
 	?>
 	<h2>Final Project</h2>
 	<h3>Team: DOLPHIN</h3>
@@ -99,15 +101,15 @@
 						$words .= ','.buildJScriptWords($word_chars);
 					}
 					
-					// output the clue word of the word (the word_value with the word_id = rep_id of the word)
+					// output the clue word of the word (the word_value with the word_id = rep_id of this word)
 					$clue_word = getClueWord($word_id);
 					
-					$char_indexes = getCharIndex($word_id, $puzzle_name_chars[$i]);
 					// Add clue word to first column of the row
 					echo '<tr>
 							 <td>'.$clue_word.'</td>
 							 <td>';
 					
+					$char_indexes = getCharIndex($word_id, $puzzle_name_chars[$i]);
 				    $wordlen = count($word_chars);
 					
 					for($j = 0; $j < $wordlen; ++$j)

@@ -3,6 +3,7 @@
 <head>
 	<?PHP
 		require('session_validation.php');
+		require('add_words_process.php');
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -119,31 +120,24 @@
 			<br>
 			<input class="addButton" id="addButton" type="submit" name="submit" value="Add Word Pairs">
 		</form>
-<?php 
-//require('db_configuration.php');
-require('create_puzzle.php');
+<?php
+	if(isset($_POST['submit']))
+	{
+	  $words = trim($_POST['addWord']);
+	  if($_POST['addWord'] == ''){
+		echo "<p class= \"fontword\" style=\" color:red;\">You did not enter ans words. Please try again.</p>";
 
-if(isset($_POST['submit']))
-{
-
-  $words = trim($_POST['addWord']);
-    //echo $_POST['addWord'];
-  if($_POST['addWord'] == ''){
-    echo "<p class= \"fontword\" style=\" color:red;\">You did not enter ans words. Please try again.</p>";
-
-  }
-  else if(count(explode(',', $words)) < 2)
-  {
-    echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words seperated by a comma. Please try again.</p>";
-  }
-  else
-  {
-		$list = explode(',', $words);
-		//echo count($list);
-		//var_dump($list);
-		insertWordsAndCharacter($list);
-  }
-}
+	  }
+	  else if(count(explode(',', $words)) < 2)
+	  {
+		echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words seperated by a comma. Please try again.</p>";
+	  }
+	  else
+	  {
+			$list = explode(',', $words);
+			insertWordsAndCharacter($list);
+	  }
+	}
 ?>
 </body>
 
