@@ -78,6 +78,11 @@
 	  	}
 	  	mysqli_query($db,'SET foreign_key_checks = 1');
 	  	mysqli_query($db, 'ALTER TABLE words AUTO_INCREMENT = 1');
+	  	if($result)
+			{
+				
+				echo "Import successful.";
+			}
 	};
 
 	//Will use this function for now until refactoring is done. Will update afterwards.
