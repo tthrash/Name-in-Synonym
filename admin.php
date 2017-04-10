@@ -9,7 +9,7 @@
 </head>
 <?PHP
 	require('session_validation.php');
-	require('upload.php');
+	//require('upload.php');
 ?>
 <body>
 	<h2>Final Project</h2>
@@ -30,12 +30,29 @@
       		<a href="admin_manage_users.php">[6] Manage Users (add, delete, update) (Extra Credit)</a>
 		</div>
 		<div id="import">
-			<form method="post" enctype="multipart/form-data">
+			<p id="error" style="display: none;">Error: You must select a file to import</p>
+
+			<?php 
+			require('upload.php');
+			if($error){?>
+			<p id="error" style="display:block;background-color: #ce4646;padding:5px;color:#fff;"><?php echo $result; ?></p>
+			<?php } ?>
+			<form method="post" name="importFrom" enctype="multipart/form-data" onsubmit="return validateForm()">
 				<label>Select file to upload:  <input type="file" name="fileToUpload" id="fileToUpload"></label>
 				<br>
 				<input type="submit" value="Submit File" name="submit">
 			</form>
 		</div>
 	</div>
+	<script>
+		function validateForm() {
+		    var eng = document.forms["importFrom"]["fileToUpload"].value;
+		    if (eng == "") {
+		    
+		    	document.getElementById("error").style = "display:block;background-color: #ce4646;padding:5px;color:#fff;";
+		        return false;
+		    }
+		}
+	</script>
 </body>
 </html>
