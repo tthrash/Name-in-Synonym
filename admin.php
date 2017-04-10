@@ -36,7 +36,7 @@
         </p>
         <?php } ?>
          <form class="upload" method="post" name="importFrom" enctype="multipart/form-data" onsubmit="return validateForm()">
-          <label class="upload">Select file to upload:  <input class="upload" type="file" name="fileToUpload" id="fileToUpload"></label>
+          <label class="upload"><input class="upload" type="file" name="fileToUpload" id="fileToUpload"></label>
           <input class="upload" type="submit" value="Submit File" name="submit">
         </form>
       </div>

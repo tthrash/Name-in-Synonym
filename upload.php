@@ -25,7 +25,6 @@
 			. '": ' . $e->getMessage());
 		}
 
-
 		$sheet = $objPHPExcel->getSheet(0);
 		$highestRow = $sheet->getHighestRow();
 		$highestColumn = $sheet->getHighestColumn();
