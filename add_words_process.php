@@ -7,7 +7,10 @@
 	function insertWordsAndCharacter($listOfWords)
 	{
 		$listOfWords = validate_array($listOfWords);
-		for($i = 0; $i < count($listOfWords);$i++){
+		//echo 'Count array: ' . count($listOfWords) . '<br>';
+		//print_r($listOfWords);
+		for($i = 0; $i < count($listOfWords);$i++)
+		{
 			//Check to see if entered word exists in the DB.
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
 			$result =  run_sql($sqlcheck);
