@@ -156,7 +156,14 @@
 		        //echo "the word already exists.";
 		         //Do Nothing if the word already exists in the DB.
 			}
+
 		}
+		//Trying to figure out where this goes. Right now it's printing out every row it reads.
+			// if($result)
+			// {
+				
+			// 	echo "IMported and uploaded.";
+			// }
 	}
 	
 	function gettheMaxWordId($index = -1)
