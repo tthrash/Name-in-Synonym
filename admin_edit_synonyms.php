@@ -3,6 +3,8 @@
 <head>
 	<?PHP
 		require('session_validation.php');
+		require_once('db_configuration.php');
+		require('create_puzzle.php');
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -100,18 +102,13 @@
 		</div>
 	</div>
 	<?php 
-	//require('db_configuration.php');
-	 require('create_puzzle.php');
-
-	 $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-
 	 if(isset($_GET['word']))
 	 {
 		$wordProvided = $_GET['word'];
 		if($wordProvided != NULL)
 		{
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
-			$result =  $db->query($sqlcheck);
+			$result =  run_sql($sqlcheck);
 			$row = $result->fetch_assoc();
 			$repId = $row["rep_id"];
 			$show=$wordProvided;
@@ -120,7 +117,7 @@
 			$synonyms = array();
 			// adding the words that have the same rep id as the main search word into $synonyms. Adding each of the words values to $show
 			$sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
-			$result =  $db->query($sqlGetSynonyms);
+			$result =  run_sql($sqlGetSynonyms);
 			while($row = $result->fetch_assoc()){
 				array_push($synonyms, $row);
 				$data = $row["word_value"];
@@ -161,30 +158,33 @@
 
 	if(isset($_POST['submit']))
 	{
-
-		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-		foreach ($synonyms as $word){
-
+		foreach ($synonyms as $word)
+		{
 			$word_id = $word["word_id"];
 			
 			// for later use to add new random puzzle_words
 			$sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word_id = '.$word_id.';';
-			$puzzle_words =  $db->query($sql_puzzle_words);
+			$puzzle_words = run_sql($sql_puzzle_words);
 			
 			$sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \''. $word_id. '\';';
-			$result =  $db->query($sqlDeleteChar);
+			run_sql($sqlDeleteChar);
 
 			$aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
-			$result =  $db->query($aqlDeletePuzzleWord);
-
+			run_sql($aqlDeletePuzzleWord);
+			SET foreign_key_checks = 0;
+			
+			run_sql('SET foreign_key_checks = 0;');
+			
 			$sqlDeletewords = 'DELETE FROM words WHERE word_id = \''. $word_id  . '\';';
-			$result = $db->query($sqlDeletewords);
+			run_sql($sqlDeletewords);
+			
+			run_sql('SET foreign_key_checks = 1;');
       
 			// add new random puzzle_words
 			while($puzzle_word = $puzzle_words->fetch_assoc())
 			{
 					$sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = '. $puzzle_word["puzzle_id"]. ';';
-					$result =  $db->query($sql_getPuzzle);
+					$result =  run_sql($sql_getPuzzle);
 					$row = $result->fetch_assoc();
 					$puzzle_name = $row["puzzle_name"];
 					random_puzzle_word($puzzle_word["puzzle_id"], $puzzle_name, $puzzle_word["position_in_name"]);
