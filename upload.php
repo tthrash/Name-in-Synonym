@@ -41,8 +41,8 @@
 			//filter through the array words since some of the word pair have commas at the end
 			$finalList= array_filter($words);
 			insertnewWordsAndCharacter($finalList);
-			
 		}
+		echo 'Import Successful!';
 	}
 
 	function deleteAllData(){
