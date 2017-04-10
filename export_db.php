@@ -52,8 +52,7 @@
      */
     function pullTableInfo() {
       $info = array();
-      $db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
-      $result = $db->query($this->exportSql);
+      $result = run_sql($this->exportSql);
       $num_rows = $result->num_rows;
       if ($num_rows > 0) {
         while ($row = $result->fetch_assoc()) {

@@ -42,7 +42,7 @@
 			$finalList= array_filter($words);
 			insertnewWordsAndCharacter($finalList);
 		}
-		echo 'Import Successful!';
+		echo '<h2 style="color:	green;" class="upload">Import Successful!</h2>';
 	}
 
 	function deleteAllData(){

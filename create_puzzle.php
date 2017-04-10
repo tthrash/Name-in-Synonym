@@ -1,6 +1,6 @@
 <?php
 	require_once('db_configuration.php');
-	require('language_processor_functions.php');
+	require_once('language_processor_functions.php');
 	
 	// Returns true if there is one puzzle name with this puzzle_name and false if the puzzle_name doesn't exist in the puzzles table.
 	// Returns null if there is more than one puzzle_id with this puzzle name.
