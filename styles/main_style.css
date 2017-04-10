@@ -335,7 +335,6 @@ body {
 #export {
 	padding-left: 1em;
 	padding-top: 1em;
-	width: 30%;
 	display: inline;
 	float: left;
 }
@@ -346,11 +345,13 @@ body {
 }
 
 #import {
+  display: inline;
+  /*
 	float: right;
 	padding-top: 1em;
 	font-size: 25px;
 	width: 30%;
-	display: inline;
+	display: inline;*/
 }
 
 #import input {
@@ -359,11 +360,7 @@ body {
 	display: inline;
 }
 
-.admin-wrapper {
-	left: 33%;
-	width: 50%;
-	min-width: 400px;
-}
+
 
 .userTable {
   padding: 2em;
@@ -392,4 +389,14 @@ body {
 
 .userTable tr:nth-child(odd) {
   background-color: #EFDFBB;
+}
+
+input {
+  
+}
+
+
+
+.upload {
+  display: inline !important;
 }
