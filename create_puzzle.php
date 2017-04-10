@@ -31,7 +31,9 @@
 			return $row["puzzle_id"];
 		}
 		else
+		{
 			return null;
+		}
 	}
 	function create_puzzle($name, $email = 'hp6449qy@metrostate.edu')
 	{
@@ -54,6 +56,7 @@
 			$puzzle_id = $row["puzzle_id"];
 			$puzzle_name = $row["puzzle_name"];
 			
+			// if puzzle words is not empty, delete all puzzle words for this puzzle
 			$flag = puzzle_words_empty($puzzle_id);
 			if(!$flag)
 			{
@@ -64,52 +67,61 @@
 			$parsedWord = getWordChars($puzzle_name);
 			$namelen = count($parsedWord);
 			$puzzlewords = [];
-			
+			$word_added = "";
 			for($i = 0; $i < $namelen; $i++)
 			{
-				random_puzzle_word($puzzle_id, $parsedWord[$i], $i, $puzzlewords);
+				$word_added = random_puzzle_word($puzzle_id, $parsedWord[$i], $i, $puzzlewords);
+				if($word_added != null)
+				{
+					array_push($puzzlewords, $word_added);
+				}
+				else{
+					// no word could be added. More should probably be done (some type of default action).
+					echo 'Error no word could be added for puzzle ' . $puzzle_name . ' at index ' . $i . ' for character ' . $parsedWord[$i] . '.';
+				}
 			}
 		}
 	}
 	
 	// adds a random puzzle_word for the puzzle with name puzzle_name for the character at 
-	// index $i in the puzzle_name.
-	function random_puzzle_word($puzzle_id, $character, $i, $puzzlewords)
+	// the index in the puzzle_name. $puzzlewords are the existing puzzle_words for the puzzle.
+	// Returns the word_id of the word added to puzzle_words. Returns null if no word could be
+	// added to the puzzle_words for this puzzle.
+	function random_puzzle_word($puzzle_id, $character, $index, $puzzlewords)
 	{
 				$sql =  'SELECT word_id
 					FROM characters 
-					WHERE character_value = \''. $character .'\'';
+					WHERE character_value = \''. $character .'\'
+					GROUP BY word_id;';
 				$result =  run_sql($sql);
-				if(!$result)
-				{
-					echo "Get clue word failed";
-				}
 				$rows =[];
 				while ($row= $result->fetch_assoc())
 				{
 					array_push($rows, $row);
 				}
-
-				echo $numofRows = $result->num_rows;
+				$added_word = null;
 				
 				while (true) 
-				{				
+				{
+					$numofRows = count($rows);
+					echo 'Rows count: ' . $numofRows . ' <br>';
 					$random = rand(0, $numofRows-1);
+					echo 'Random: ' . $random . ' <br>';
 					$word_id = $rows[$random]["word_id"];
 					
 					if(!in_array($word_id, $puzzlewords))
 					{
 						$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
-									('.$puzzle_id.','.$word_id.','.$i.');';
-						$result =  run_sql($sql);
-						if(!$result)
-						{
-							echo "Get clue word failed";
-						}
-						array_push($puzzlewords, $word_id);
+									('.$puzzle_id.','.$word_id.','.$index.');';
+						run_sql($sql);
+						$added_word = $word_id;
 						break;
 					}
+					else{
+						unset($rows[$random]);
+					}
 				}
+				return $added_word;
 	}
 	
 	// returns true if the puzzle doesn't have any puzzle words assigned to it; false if it does.
@@ -127,5 +139,19 @@
 		{
 			return true;
 		}
+	}
+	// Returns array of words associated with puzzle_id in puzzle_words
+	function get_puzzle_words($puzzle_id)
+	{
+		$puzzleWords = [];
+		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = '.$puzzle_id.';';
+		$result =  run_sql($sql);
+		
+		while ($row= $result->fetch_assoc())
+		{
+			array_push($puzzleWords, $row["word_id"]);
+		}
+		
+		return $puzzleWords;
 	}
 ?>

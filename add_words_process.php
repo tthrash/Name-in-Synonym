@@ -2,11 +2,12 @@
 	require_once('db_configuration.php');
 	require_once('common_sql_functions.php');
 	require_once('language_processor_functions.php');
+	require_once('utility_functions.php');
 	
 	function insertWordsAndCharacter($listOfWords)
 	{
+		$listOfWords = validate_array($listOfWords);
 		for($i = 0; $i < count($listOfWords);$i++){
-			$listOfWords[$i] = trim($listOfWords[$i]);
 			//Check to see if entered word exists in the DB.
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
 			$result =  run_sql($sqlcheck);

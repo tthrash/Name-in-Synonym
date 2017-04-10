@@ -2,13 +2,23 @@
 	//testing input to steralize
 	function validate_input($data)
 	{
-		$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
 		$data = preg_replace('/\s+/', '', $data);
+		$data = htmlspecialchars($data);
+		$data = trim($data);
+		
 		return $data;
 	}
-	
+	function validate_array($array)
+	{
+		$arrayLng = count($array);
+		for($i = 0; $i < $arrayLng; ++$i)
+		{
+			$array[$i] = validate_input($array[$i]);
+		}
+		$array = array_filter($array);
+		return $array;
+	}
 	function display_error($message = -1)
 	{
 		$string = "";

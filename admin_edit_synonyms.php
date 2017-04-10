@@ -4,7 +4,8 @@
 	<?PHP
 		require('session_validation.php');
 		require_once('db_configuration.php');
-		require('create_puzzle.php');
+		require_once('create_puzzle.php');
+		require_once('add_words_process.php');
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -171,7 +172,6 @@
 
 			$aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
 			run_sql($aqlDeletePuzzleWord);
-			SET foreign_key_checks = 0;
 			
 			run_sql('SET foreign_key_checks = 0;');
 			
@@ -180,14 +180,30 @@
 			
 			run_sql('SET foreign_key_checks = 1;');
       
+			$word_added = "";
 			// add new random puzzle_words
 			while($puzzle_word = $puzzle_words->fetch_assoc())
 			{
-					$sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = '. $puzzle_word["puzzle_id"]. ';';
+					$puzzle_id = $puzzle_word["puzzle_id"];
+					// get array of words associated with puzzle_id in puzzle_words
+					$puzzlewords = get_puzzle_words($puzzle_id);
+					$index = $puzzle_word["position_in_name"];
+					
+					// get character in puzzle name at index
+					$sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = ' . $puzzle_id . ';';
 					$result =  run_sql($sql_getPuzzle);
 					$row = $result->fetch_assoc();
 					$puzzle_name = $row["puzzle_name"];
-					random_puzzle_word($puzzle_word["puzzle_id"], $puzzle_name, $puzzle_word["position_in_name"]);
+					$parsed_name = getWordChars($puzzle_name);
+					$character = $parsed_name[$index];
+					
+					$word_added = random_puzzle_word($puzzle_id, $character, $index, $puzzlewords);
+					
+					if($word_added == null)
+					{
+						// no word could be added. More should probably be done (some type of default action).
+						echo 'Error no word could be added for puzzle ' . $puzzle_name . ' at index ' . $index . ' for character ' . $character . '.';
+					}
 			}
 		}
 
