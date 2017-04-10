@@ -140,7 +140,7 @@
 
   /**
    * Creates instance of all tables to be exported
-   * @param array, of Tables
+   * @return array of Tables
    */
   function createAllTables() {
     $wordsTable = new Table('words', array('word_id', 'word_value', 'rep_id'));
