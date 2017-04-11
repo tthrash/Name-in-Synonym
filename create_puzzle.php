@@ -154,4 +154,15 @@
 		
 		return $puzzleWords;
 	}
+  
+
+  function getShowSolution($puzzleName) {
+    $html = "";
+    if(adminSessionExists() || sessionExists()) {
+      $html = '<input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="main_buttons(\'show\');">';
+    } else {
+      $html = '<a href="login.php?puzzleName='.$puzzleName.'"><input class="main-buttons" value="Show Solution" type="button"></a>';
+    }
+    return $html;
+  }
 ?>
