@@ -4,6 +4,7 @@
 	<?PHP
 		//session_start();
 		require('session_validation.php');
+		require_once('db_configuration.php');
 		/*
 		if (isset($_SESSION['valid_user'])){
 			echo "Valid User: ";
@@ -96,58 +97,48 @@
 		else{
 		} 
 	
-    if(isset($_POST['submit'])){
+    if(isset($_POST['submit']))
+	{
 		$user = $_POST['user'];
 		$pass = $_POST['pass'];
 		
      
-		$con = mysqli_connect("localhost","root","");
-		$records = mysqli_select_db($con, 'ics325');
 		//Check connection
-		if (!empty($user) & !empty($pass) & ($user != 'admin') & ($pass != 'admin')){
+		if (!empty($user) & !empty($pass) & ($user != 'admin') & ($pass != 'admin'))
+		{
      		session_start();
-			if (!$con || !$records){
-			echo "Failed to connect to MySQL/Database: " . mysqli_connect_error();
-			} //else{echo"connected";};
-			$result = mysqli_query($con,"SELECT * FROM users where user_email='$user' and password='$pass'");
-			$row = mysql_fetch_array($result);
-			
-			if ($row >= 1){
-				while($row = mysqli_fetch_array($result)){
-				$expire = time()+60*60*24*30; //1 month
-				//setcookie("uid", $row['id_varified'], $expire);
-				$_SESSION['valid_user'] = $user;
-				echo "Login successful as" . $row['user_email'] . "";
-				//echo $_SESSION['Name'];
+	/* 			$result = mysqli_query($con,"SELECT * FROM users where user_email='$user' and password='$pass'");
+				$row = mysql_fetch_array($result);
+				
+				if ($row >= 1){
+					while($row = mysqli_fetch_array($result)){
+					$expire = time()+60*60*24*30; //1 month
+					//setcookie("uid", $row['id_varified'], $expire);
+					$_SESSION['valid_user'] = $user;
+					echo "Login successful as" . $row['user_email'] . "";
+					//echo $_SESSION['Name'];
+					}
 				}
-			}
-			else {
-				echo "Not a valid user account";
-         }
-       }
-  	
-  	else if (($user == 'admin') && ($pass == 'admin')){
-		session_start();
-  		$_SESSION['valid_admin'] = $user;
-      	$expire = time()+60*60*24*30; //1 month
-      	//setcookie("admin", $user, $expire);
-		echo "<meta http-equiv=\"refresh\" content=\"0;URL=admin.php\">";
-      }
-	 else if (($user == null) && ($pass != null)){
+				else {
+					echo "Not a valid user account";
+			 } */
+		}else if (($user == 'admin') && ($pass == 'admin')){
+				session_start();
+				$_SESSION['valid_admin'] = $user;
+				$expire = time()+60*60*24*30; //1 month
+				//setcookie("admin", $user, $expire);
+				echo "<meta http-equiv=\"refresh\" content=\"0;URL=admin.php\">";
+		} else if (($user == null) && ($pass != null)){
 		echo "Username field is blank";
-      }
-	 else if (($user != null) && ($pass == null)){
-		echo "Password field is blank";
-      }
-	 else if (($user == null) && ($pass == null)){
-		echo "Username & Password field is blank";
-      }
-  	else{
-         //false info
-         echo "<b>Username or Password is wrong.</b>";
-       }
-    mysqli_close($con);
-     }
+		}else if (($user != null) && ($pass == null)){
+			echo "Password field is blank";
+		} else if (($user == null) && ($pass == null)){
+			echo "Username & Password field is blank";
+		}	else{
+			 //false info
+			 echo "<b>Username or Password is wrong.</b>";
+		}
+	}
 
   echo "<div class='divContainer'>
           <form method='POST' action='login.php'>
