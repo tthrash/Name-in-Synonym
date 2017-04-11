@@ -2,9 +2,10 @@
 <html>
 <head>
 	<?PHP
-		require('session_validation.php');
 		require('add_puzzle_process.php');
 		require_once('utility_functions.php');
+		session_start();
+		require('session_validation.php');
 	?>
 	
 	<meta charset="utf-8">
