@@ -104,9 +104,9 @@
 				while (true) 
 				{
 					$numofRows = count($rows);
-					//echo 'Rows count: ' . $numofRows . ' <br>';
+					echo 'Rows count: ' . $numofRows . ' <br>';
 					$random = rand(0, $numofRows-1);
-					//echo 'Random: ' . $random . ' <br>';
+					echo 'Random: ' . $random . ' <br>';
 					$word_id = $rows[$random]["word_id"];
 					
 					if(!in_array($word_id, $puzzlewords))

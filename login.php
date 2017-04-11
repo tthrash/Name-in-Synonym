@@ -2,7 +2,20 @@
 <html>
 <head>
 	<?PHP
+		//session_start();
 		require('session_validation.php');
+		/*
+		if (isset($_SESSION['valid_user'])){
+			echo "Valid User: ";
+			echo $_SESSION['valid_user']."</br>";
+		}
+		else if (isset($_SESSION['valid_admin'])){
+			echo "Valid Admin: ";
+			echo $_SESSION['valid_admin'];
+		}
+		else{
+		} 
+		*/
 	?>
 	<style>
 		.divContainer {
@@ -50,7 +63,6 @@
 			font-weight: bold;
 			text-decoration: none;
 		}
-
 	</style>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,49 +77,86 @@
 	<br><br><br>
 	<div class="nav-wrapper">
 		<div class="navBar">
-			<?PHP echo getTopNav(); ?>
+			<?PHP 
+			//session_start();
+			echo getTopNav(); 
+			?>
 		</div>
 	</div>
 	<br><br><br>
 	<?php
-  // if(isset($_POST['submit'])){
-  //   $user = $_POST['user'];
-  //   $pass = $_POST['pass'];
+		if (isset($_SESSION['valid_user'])){
+			echo "Valid User: ";
+			echo $_GET($_SESSION["valid_user"])."</br>";
+		}
+		else if (isset($_SESSION['valid_admin'])){
+			echo "Valid Admin: ";
+			echo $_GET($_SESSION['valid_admin']);
+		}
+		else{
+		} 
+	
+    if(isset($_POST['submit'])){
+		$user = $_POST['user'];
+		$pass = $_POST['pass'];
+		
+     
+		$con = mysqli_connect("localhost","root","");
+		$records = mysqli_select_db($con, 'ics325');
+		//Check connection
+		if (!empty($user) & !empty($pass) & ($user != 'admin') & ($pass != 'admin')){
+     		session_start();
+			if (!$con || !$records){
+			echo "Failed to connect to MySQL/Database: " . mysqli_connect_error();
+			} //else{echo"connected";};
+			$result = mysqli_query($con,"SELECT * FROM users where user_email='$user' and password='$pass'");
+			$row = mysql_fetch_array($result);
+			
+			if ($row >= 1){
+				while($row = mysqli_fetch_array($result)){
+				$expire = time()+60*60*24*30; //1 month
+				//setcookie("uid", $row['id_varified'], $expire);
+				$_SESSION['valid_user'] = $user;
+				echo "Login successful as" . $row['user_email'] . "";
+				//echo $_SESSION['Name'];
+				}
+			}
+			else {
+				echo "Not a valid user account";
+         }
+       }
+  	
+  	else if (($user == 'admin') && ($pass == 'admin')){
+		session_start();
+  		$_SESSION['valid_admin'] = $user;
+      	$expire = time()+60*60*24*30; //1 month
+      	//setcookie("admin", $user, $expire);
+		echo "<meta http-equiv=\"refresh\" content=\"0;URL=admin.php\">";
+      }
+	 else if (($user == null) && ($pass != null)){
+		echo "Username field is blank";
+      }
+	 else if (($user != null) && ($pass == null)){
+		echo "Password field is blank";
+      }
+	 else if (($user == null) && ($pass == null)){
+		echo "Username & Password field is blank";
+      }
+  	else{
+         //false info
+         echo "<b>Username or Password is wrong.</b>";
+       }
+    mysqli_close($con);
+     }
 
-
-  //   $con = mysqli_connect("localhost","prashant","password$2");
-
-  //   $records = mysqli_select_db($con, 'name_and_synonym');
-
-  //   // Check connection
-  //   if (!$con || !$records){
-  //     echo "Failed to connect to MySQL/Database: " . mysqli_connect_error();
-  //   } //else{echo"connected";};
-
-  //     if(mysqli_num_rows(mysqli_query($con,"SELECT * FROM registered_users where user_email='$user' and password='$pass'"))){
-  //       //Correct info
-  //       $result = mysqli_query($con,"SELECT * FROM registered_users where user_email='$user' and password='$pass'");
-  //       while($row = mysqli_fetch_array($result)){
-  //         $expire = time()+60*60*24*30; //1 month
-  //         setcookie("uid", $row['uid'], $expire);
-  //         echo "Login successful as" . $row['user_email'] . "";
-  //       }
-
-  //     }else{
-  //       //false info
-  //       echo "<b>Username or Password is wrong.</b>";
-  //     }
-
-  // mysqli_close($con);
-  // }
   echo "<div class='divContainer'>
-          <form method='post'>
+          <form method='POST' action='login.php'>
             <font class='text'>Email* </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
             <input class='textbox' type='text' name='user' id='user_email'><br><br>
             <font class='text'>Password* </font> 
             <input class='textbox' type='password' name='pass' id='password'><br><br>
               <div class='loginbutton'>
-                <input type='image' height='90px' src='./pic/loginButton.png' name='submit'>
+                <input type='Submit' height='90px' src='./pic/loginButton.png' name='submit' alt='Submit' Value='Submit'>
               </div>
           </form> 
           <div class='message'>

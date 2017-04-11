@@ -15,7 +15,6 @@
 		for($i = 0; $i < $arrayLng; ++$i)
 		{
 			$array[$i] = validate_input($array[$i]);
-			//echo 'Array ' . $i .': \''.$array[$i] .'\'<br>';
 		}
 		$array = array_filter($array);
 		return $array;

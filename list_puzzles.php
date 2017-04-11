@@ -2,8 +2,8 @@
 <html>
 <head>
 	<?PHP
-	session_start();
-	require('session_validation.php');
+		session_start();
+		require('session_validation.php');
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +38,7 @@
 					<th>Actions</th>
 				</tr>
 				<?php
-		session_start();
+		//session_start();
 	  	$sql = 'SELECT * FROM puzzles;';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$db->set_charset("utf8");

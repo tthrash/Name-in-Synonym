@@ -18,9 +18,9 @@
 	<br><br><br>
 	<div class="nav-wrapper">
 		<div class="navBar">
-			<?
+			<?PHP
 			session_start();
-			echo getTopNav(); 
+			echo getTopNav();
 			?>
 		</div>
 	</div>

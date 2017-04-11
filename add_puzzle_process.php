@@ -1,5 +1,5 @@
 <?php	
-	require_once('create_puzzle.php');
+	require('create_puzzle.php');
 	require_once('common_sql_functions.php');
 	
 	function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
@@ -49,13 +49,10 @@
 	// creates the form for user to submit word
 	function create_word_input()
 	{
-		return '<p class="title">Enter a name</p>
-					<form action="add_puzzle.php" method="post">
-						<div class="inputDiv">
-							<input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter a name to create a puzzle"></input>
-						</div><br>
-						<input class="main-buttons align" type="submit" name="submit" value="Next..">
-					</form>';
+		return '<p class="title">Enter a name</p><form action="add_puzzle.php" method="post">
+					<div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter a name to create a puzzle"></input>
+					</div>
+					<br><input class="main-buttons align" type="submit" name="submit" value="Next.."></form>';
 	}
 	
 	// creates the create puzzle table (puzzle_name_size, puzzle_name)

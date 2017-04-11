@@ -18,6 +18,7 @@
 
 <body>
 	<?PHP
+		session_start();
 		require('session_validation.php');
 	?>
 	<h2>Final Project</h2>

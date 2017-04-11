@@ -8,7 +8,8 @@
   <title>Final Project</title>
 </head>
 <?PHP
-	require('session_validation.php');
+//session_start();
+  require('session_validation.php');
   include('admin_manage_users_helper.php')
 ?>
 <body>
