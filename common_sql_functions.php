@@ -64,18 +64,16 @@
 	function getCharactersForWordId($word_id)
 	{
 		// get character list for the given word
-		$sql = 'SELECT * FROM characters WHERE word_id = \''.$word_id.'\';';		
+		$sql = 'SELECT * FROM characters WHERE word_id = \''.$word_id.'\' ORDER BY character_index;';
+    //echo $sql;
 		$result =  run_sql($sql);
 		$num_rows = $result->num_rows;
-		
 		if ($num_rows > 0)
 		{
-			// should almost always land here			
-			$rows = array();
-			while($row = $result->fetch_assoc())
-			{
-				array_push($rows, $row["character_value"]);
-			}
+      $rows = array();
+      while($row = $result->fetch_assoc()) {
+        array_push($rows,$row['character_value']);
+      }
 			return $rows;
 		}
 		else
@@ -181,4 +179,16 @@
 								// doesn't have a rep_id (referential integrity violation) or the word_id doesn't exist
 		}
 	}
+
+
+  function getClue($word_id) {
+    $sqlStatement = 'SELECT * FROM words WHERE rep_id=\''.$word_id.'\' AND word_id!=\''.$word_id.'\';';
+    $result =  run_sql($sqlStatement);
+		$num_rows = $result->num_rows;
+    if ($num_rows > 0) {
+      $row  = $result->fetch_assoc();
+      return $row["word_value"];
+    }
+    return null;
+  }
 ?>
