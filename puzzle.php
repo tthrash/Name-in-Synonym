@@ -10,9 +10,10 @@
 <body>
 	<?php
 		require('create_puzzle.php');
-		require('session_validation.php');
 		require('common_sql_functions.php');
 		require('utility_functions.php');
+		session_start();
+		require('session_validation.php');
 	?>
 	<h2>Final Project</h2>
 	<h3>Team: DOLPHIN</h3>
