@@ -2,6 +2,7 @@
 <html>
 <head>
 	<?PHP
+		session_start();
 		require('session_validation.php');
 		require('add_words_process.php');
 	?>
