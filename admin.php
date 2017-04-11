@@ -18,7 +18,10 @@
 	<br><br><br>
 	<div class="nav-wrapper">
 		<div class="navBar">
-			<?PHP echo getTopNav(); ?>
+			<?
+			session_start();
+			echo getTopNav(); 
+			?>
 		</div>
 	</div>
 	<div id="export">
