@@ -1,5 +1,5 @@
 <?php	
-	require('create_puzzle.php');
+	require_once('create_puzzle.php');
 	require_once('common_sql_functions.php');
 	
 	function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
