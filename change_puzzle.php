@@ -2,7 +2,7 @@
 <html>
 <head>
   <?PHP
-  		session_start();
+    session_start();
 		require('session_validation.php');
 	?>
   <meta charset="utf-8">
@@ -13,7 +13,8 @@
 </head>
 <body>
   <?php
- 		require('create_puzzle.php');
+ 		require('add_puzzle_process.php');
+    require_once('utility_functions.php');
 	?>
     <h2>Final Project</h2>
     <h3>Team: DOLPHIN</h3>
@@ -35,7 +36,7 @@
 		$sqlUpdate ="";
 		if (isset($_GET['puzzleName'])) {
 			$nameEntered = validate_input($_GET['puzzleName']);
-			echo create_puzzle_table(strlen($nameEntered), $nameEntered, "change_puzzle.php?");	
+			echo create_puzzle_table($nameEntered, "change_puzzle.php?");	
 		}
 		else if ($_SERVER["REQUEST_METHOD"] == "POST"){
 			if (isset($_POST["word"])) {
@@ -55,7 +56,7 @@
 							// left one of the Synonym or Clues empty
 							// let user know of error
 							if ($errorflag == FALSE) {
-								echo create_puzzle_table($size, $name, "change_puzzle.php?");
+								echo create_puzzle_table($name, "change_puzzle.php?");
 								echo display_error("Please give every synonym and clue a value!");
 								$errorflag = TRUE;
 							}
@@ -70,7 +71,7 @@
 							$index = strpos($word1, $char);
 							//echo "index: " . $index;
 							if ($index === false){
-								echo	create_puzzle_table($size, $name, "change_puzzle.php?");
+								echo	create_puzzle_table($name, "change_puzzle.php?");
 								echo display_error("Char not found in word!");
 								return;
 							} else {
@@ -95,7 +96,7 @@
 				} else {
 					echo createHeader(validate_input($_POST["word"]));
 					echo '<table class="main-tables" id="puzzle_table"><tr><th>Clue</th><th>Synonym</th></tr>';
-					puzzleAddedTable();
+					puzzleAddedTable(validate_input($_POST["word"]));
 					echo "</table>";
 					echo createFooter();
 				}
