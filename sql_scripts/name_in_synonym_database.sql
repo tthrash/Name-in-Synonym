@@ -162,7 +162,7 @@ CREATE TABLE puzzles (
   puzzle_id int NOT NULL AUTO_INCREMENT,
   puzzle_name varchar(75) NOT NULL,
   creator_email varchar(100) NOT NULL,
-  primary key (puzzle_id, puzzle_name),
+  primary key (puzzle_id),
   key (creator_email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
