@@ -154,6 +154,7 @@
             echo "<b>Username or Password is wrong.</b>";
           }
         }
+	echo "</br>";
         ?>
 
         <font class='text'>Email* </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
