@@ -28,7 +28,7 @@
 				<input class="upload" type="textbox" name="word"/>
 			</form></div><br><br>
 			<a href="export_db.php">[2]Export the word list (Source: Database; Target: Excel file)</a><br>
-			<h2 class="upload">[3]Import the word list (Source: Excel File; Target: Database)</h2>
+			<font size="5" color="blue" class="upload"><b><u>[3]Import the word list (Source: Excel File; Target: Database)<b></u></font>
       <div id="import">
         <p id="error" style="display: none;">Error: You must select a file to import</p>
         <?php
@@ -39,9 +39,9 @@
         <?php echo $result; ?>
         </p>
         <?php } ?>
-         <form class="upload" method="post" name="importFrom" enctype="multipart/form-data" onsubmit="return validateForm()">
-          <label class="upload"><input class="upload" type="file" name="fileToUpload" id="fileToUpload"></label>
-          <input class="upload" type="submit" value="Submit File" name="submit">
+         <form class="upload" id="upload_file" method="post" name="importFrom" enctype="multipart/form-data" onsubmit="return validateForm()">
+          <input class="upload" type="file" name="fileToUpload" id="fileToUpload">
+          <input class="upload" type="submit" value="Upload File" name="submit">
         </form>
       </div><br><br>
       <a href="export_db.php">[4] Export the logical_char list (Source: Database; Target: Excel file)</a><br>
