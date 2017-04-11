@@ -4,7 +4,6 @@
 	 * session else false
 	 */
 	function sessionExists() {
-		// TODO: needs implentation of login and session
 		if ((isset($_SESSION['valid_user'])) && (($_SESSION['valid_user']) != null))  {
 			return true;
 		}

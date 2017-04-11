@@ -144,7 +144,7 @@
 	function get_puzzle_words($puzzle_id)
 	{
 		$puzzleWords = [];
-		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = '.$puzzle_id.';';
+		$sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = '.$puzzle_id.' ORDER BY position_in_name;';
 		$result =  run_sql($sql);
 		
 		while ($row= $result->fetch_assoc())
