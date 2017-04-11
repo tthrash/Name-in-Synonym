@@ -42,7 +42,7 @@
 					}
 					else{
 						// puzzle name already exists
-						echo $input; 
+						echo '<p><h1>The puzzle \'' . $input . '\' already exists. You can access the puzzle by clicking the list button</h1></p>'; 
 					}
 				}
 				else {
