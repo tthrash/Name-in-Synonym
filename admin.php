@@ -10,6 +10,13 @@
 <?PHP
 	require('session_validation.php');
 	//require('upload.php');
+	/*
+	if ((!isset($_SESSION['valid_admin'])){
+		echo "<meta http-equiv=\"refresh\" content=\"0;URL=login.php\">";
+	}
+	else{
+	}
+	*/
 ?>
 <body>
 	<h2>Final Project</h2>

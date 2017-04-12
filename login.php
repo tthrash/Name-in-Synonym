@@ -119,20 +119,41 @@
           if (!empty($user) & !empty($pass) & ($user != 'admin') & ($pass != 'admin'))
           {
             session_start();
-            /* 			$result = mysqli_query($con,"SELECT * FROM users where user_email='$user' and password='$pass'");
-              $row = mysql_fetch_array($result);
+			$result = run_sql("SELECT * FROM users where user_email='$user' and user_password='$pass'");
+            $row = count($result);
+			echo $row;
+			  
               if ($row >= 1){
                 while($row = mysqli_fetch_array($result)){
-                $expire = time()+60*60*24*30; //1 month
-                //setcookie("uid", $row['id_varified'], $expire);
-                $_SESSION['valid_user'] = $user;
-                echo "Login successful as" . $row['user_email'] . "";
-                //echo $_SESSION['Name'];
-                }
-              }
+					$expire = time()+60*60*24*30; //1 month
+					//setcookie("uid", $row['id_varified'], $expire);
+					$roleID = $row['role'];
+					if ($roleID == 1){
+						$_SESSION['valid_user'] = $user;
+						//echo $_SESSION['valid_user']; 
+						echo "Login successful as" . $row['user_email'] . "";
+						if(isset($_POST['puzzleName'])) {
+							$puzzleName = validate_input($_POST['puzzleName']);
+							header("Location:puzzle.php?puzzleName=".$puzzleName);
+						}
+						echo "<meta http-equiv=\"refresh\" content=\"0;URL=index.php\">";
+					}
+					else if($roleID == 0){
+						$_SESSION['valid_admin'] = $user;
+						//echo $_SESSION['valid_admin'];
+						if(isset($_POST['puzzleName'])) {
+							$puzzleName = validate_input($_POST['puzzleName']);
+							header("Location:puzzle.php?puzzleName=".$puzzleName);
+						}
+						echo "<meta http-equiv=\"refresh\" content=\"0;URL=admin.php\">";
+					}
+					else{
+					}
+				}
+			  }
               else {
                 echo "Not a valid user account";
-              } */
+              } 
           }else if (($user == 'admin') && ($pass == 'admin')){
             session_start();
             $_SESSION['valid_admin'] = $user;
@@ -151,12 +172,11 @@
             echo "Username & Password field is blank";
           }	else{
             //false info
-            echo "<b>Username or Password is wrong.</b>";
+            echo "<b>Username or Password is wrong.";
           }
         }
-	echo "</br>";
+		echo "</br>";
         ?>
-
         <font class='text'>Email* </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input class='textbox' type='text' name='user' id='user_email'><br><br>
         <font class='text'>Password* </font>
