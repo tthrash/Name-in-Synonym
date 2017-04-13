@@ -31,28 +31,54 @@
 	function getTopNav() {
 		$topNav = "";
 		if (adminSessionExists()) {
-			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
-				<font class="font">Name in Synonyms</font>
-				<a href="./admin.php"><button id="admin" class="navOption">Admin</button></a>
-				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
-				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
-				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
-				<a href="./logout.php"><button id="logout" name ="logout" class="navOption">Logout</button></a>';
+			$topNav = '<nav class="navbar navbar-default" role="navigation"><div class="container">
+        <div class="navbar-header"><button type="button" class="navbar-toggle" data-    toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
+        <div class="name-wrapper"><font class="nav-font">Name in Synonyms</font>
+        </div></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="./admin.php"><button id="admin" class="navOption">Admin</button></a></li><li><a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a></li><li><a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a></li><li><a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a></li><li><a href="./logout.php"><button id="logout" name ="logout" class="navOption">Logout</button></a></li></ul></div><!--.nav-collapse --></div></nav>';
 		} else if (sessionExists()) {
-			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
-				<font class="font">Name in Synonyms</font>
-				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
-				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
-				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
-				<a href="./logout.php?&button=logout"><button id="logout" name="logout" class="navOption">Logout</button></a>';
+			$topNav = '<nav class="navbar navbar-default" role="navigation">
+        <div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
+        <span class="icon-bar"></span><span class="icon-bar"></span>
+        </button><a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
+        <div class="name-wrapper"><font class="nav-font">Name in Synonyms</font>
+        </div></div><div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav"><li><a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+        </li><li><a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br>Puzzle</button></a></li><li><a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
+        </li><li><a href="./logout.php"><button id="logout" name ="logout" class="navOption">Logout</button></a></li>
+        </ul></div><!--.nav-collapse --></div></nav>';
 		}
 		else{
-			$topNav = '<a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
-				<font class="font">Name in Synonyms</font>
-				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
-				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
-				<a href="./login.php"><button id="login" class="navOption">Login</button></a>';
-			
+			$topNav = '<nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+        <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
+        <div class="name-wrapper">
+        <font class="nav-font">Name in Synonyms</font>
+        </div>
+        </div>
+        <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        <li>
+        <a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+        </li>
+        <li>
+        <a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
+        </li>
+        <li>
+        <a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
+        </li>
+        <li><a href="./login.php"><button id="login" class="navOption">Login</button></a></li>
+        </ul>
+        </div>
+        <!--.nav-collapse -->
+        </div>
+        </nav>';
 		}
 		return $topNav;
 	}
