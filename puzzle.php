@@ -65,7 +65,7 @@
           $words = "";
           // clean up the name entered
           $nameEntered = validate_input($nameEntered);
-          $nameEntered = strtolower($nameEntered);
+          $nameEntered = mb_strtolower($nameEntered, 'UTF-8');
 
 
           // check if the name already exists

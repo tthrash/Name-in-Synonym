@@ -21,10 +21,6 @@
     <title>Final Project</title>
   </head>
   <body>
-    <?php
-
-
-    ?>
     <h2>Final Project</h2>
     <h3>Team: DOLPHIN</h3>
     <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
@@ -51,7 +47,7 @@
             //should not happen
           }
           else {
-            $name = strtolower(validate_input($_POST["word"]));
+            $name = mb_strtolower(validate_input($_POST["word"]), 'UTF-8');
             $size = validate_input($_POST["size"]);
             $errorflag = FALSE;
             for ($j = 0; $j < $size; $j++) {
@@ -68,8 +64,8 @@
               }
               else {
                 // valid input
-                $word1 = strtolower(validate_input($_POST[$tempWord]));
-                $word2 = strtolower(validate_input($_POST[$tempClue]));
+                $word1 = mb_strtolower(validate_input($_POST[$tempWord]), 'UTF-8');
+                $word2 = mb_strtolower(validate_input($_POST[$tempClue]), 'UTF-8');
                 //echo "words: " . $word1. $word2;
                 $char = substr($name, $j, 1);
                 $char = 

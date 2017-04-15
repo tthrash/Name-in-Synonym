@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <?PHP
     require_once('add_puzzle_process.php');
@@ -36,7 +35,7 @@
     {
       if (isset($_POST["puzzleWord"]))
       {	// User submited a puzzle name
-        $input = strtolower(validate_input($_POST["puzzleWord"]));
+        $input = mb_strtolower(validate_input($_POST["puzzleWord"]), 'UTF-8');
         if (strlen($input) > 0) {
           // first we need to check if the puzzle name already exists.
           $nameExist = false;
@@ -63,7 +62,7 @@
         if(empty($_POST["word"]) && empty($_POST["size"])) {
           //should not happen
         } else {
-          $name = strtolower(validate_input($_POST["word"]));
+          $name = mb_strtolower(validate_input($_POST["word"]), 'UTF-8');
           $size = validate_input($_POST["size"]);
           $puzzleflag = false;
           $errorflag = false;
@@ -71,8 +70,8 @@
             $tempWord = "word". $j;
             $tempClue = "clue" . $j;
             // valid input
-            $word1 = strtolower(validate_input($_POST[$tempWord]));
-            $word2 = strtolower(validate_input($_POST[$tempClue]));
+            $word1 = mb_strtolower(validate_input($_POST[$tempWord]), 'UTF-8');
+            $word2 = mb_strtolower(validate_input($_POST[$tempClue]), 'UTF-8');
             //echo "words: " . $word1. $word2;
             $char = substr($name, $j, 1);
             //echo "char: " . $char;
@@ -95,6 +94,7 @@
             else {
                 if ($puzzleflag === FALSE) {
                   // add to puzzle
+                  /* FIXME: Need to give identifier of user that creates the puzzle eg. insertIntoPUzzle($name, $email) */
                   insertIntoPuzzle($name);
                   $puzzleflag = TRUE;
                 }
