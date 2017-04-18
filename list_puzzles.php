@@ -42,17 +42,17 @@
         </tr>
         <?php
 		//session_start();
-	  	$sql = 'SELECT * FROM puzzles;';
+	 $sql = 'SELECT * FROM puzzles ORDER BY puzzle_name;';
 		$db = new mysqli(DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD, DATABASE_DATABASE);
 		$db->set_charset("utf8");
 		$result =  $db->query($sql);
-		
+    $count = 0;
 		while($row = $result->fetch_assoc())
 		{ 
 			echo '<tr>
 				<td>
 				<a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">'.$row["puzzle_name"].'</a></td>
-				<td><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">
+				<td><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'&id='.$row["puzzle_id"].'">
 				<img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img></a>
 				<a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'"&button=edit">
 				<img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img></a>
@@ -60,6 +60,7 @@
 				<img class="table_image" src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img></a>
 				</td>
 				</tr>';
+      $count++;
 		}
 		// *** delete button functionality ***
 		if(isset($_GET['puzzleID']))

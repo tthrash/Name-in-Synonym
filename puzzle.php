@@ -27,6 +27,7 @@
     <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
     <br><br><br>
     <?PHP echo getTopNav(); ?>
+    <!--FIXME: location of fail message not displayed properly-->
     <div id="pop_up_fail" class="container pop_up" style="display:none">
       <div class="pop_up_background">
 
@@ -50,14 +51,134 @@
           if(isset($_POST['puzzleWord']))
           {
             $nameEntered = $_POST['puzzleWord'];
-            $words = createPuzzle($nameEntered);
+            $words = generatePuzzle($nameEntered);
+
+            //$words = createPuzzle($nameEntered);
           }
-        }else if(isset($_GET['puzzleName']))
+        }else if(isset($_GET['puzzleName']) && isset($_GET['id']))
         {
           $nameEntered = $_GET['puzzleName'];
-          $words = createPuzzle($nameEntered);
+          $puzzle_id = $_GET['id'];
+          $words = generateExactPuzzle($nameEntered, $puzzle_id);
+          //$words = createPuzzle($nameEntered);
         }
 
+        /*
+         * step1: steralize input
+         * step2: see if puzzle exisits
+         * step3: get words
+         * step4: get clues
+         * step5: generate puzzle
+         * step6: gernerate js
+         */
+        function generateExactPuzzle($nameOfPuzzle, $puzzle_id) {
+          $words = "";
+          $nameEntered = validate_input($nameOfPuzzle);
+          $puzzle_id = validate_input($puzzle_id);
+          $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
+          // check if the name already exists
+          $nameExist = checkPuzzleId($puzzle_id);
+          if(!$nameExist)
+          {
+            generatePuzzle($nameEntered);
+          } else { // puzzle exists
+            $puzzle_chars = getWordChars($nameEntered);
+            $word_array = getWordIdsFromPuzzleWords($puzzle_id);
+            $clues_array = getClueIdsFromPuzzleWords($puzzle_id);
+            $i=0;
+            foreach($puzzle_chars as $char) {
+            $word_chars = getWordChars($word_array[$i]);
+
+            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
+            if($i == 0)
+            {
+              $words .= buildJScriptWords($word_chars);
+            }
+            else
+            {
+              $words .= ','.buildJScriptWords($word_chars);
+            }
+            //var_dump($clues_array);
+            echo '<tr><td>'.$clues_array[$i].'</td><td>';
+            //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
+            $wordlen = count($word_chars);
+
+            for($j = 0; $j < $wordlen; ++$j)
+            {
+              if($char === $word_chars[$j])
+              {
+                echo '<input class="word_char active" type="text" maxlength="7" value="'.$word_chars[$j].'" readonly/>';
+              }
+              else
+              {
+                echo '<input class="word_char" type="text" maxlength="7" value=""/>';
+              }
+            }
+            echo '</tr>';
+            $i++;
+          }
+          return $words;
+            }
+          }
+        
+        /**
+         * Generates a random puzzle given a name for the puzzle
+         * @param  string $nameOfPuzzle name of the puzzle
+         * @return string words that are used to display js solution
+         */
+        function generatePuzzle($nameOfPuzzle) {
+          $words = "";
+          $nameEntered = validate_input($nameOfPuzzle);
+          $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
+          //echo "<p>NameEntered: $nameEntered</p>";
+
+          $puzzle_chars = getWordChars($nameEntered);
+          $word_array = array();
+          $clues_array = array();
+          $i=0;
+          foreach($puzzle_chars as $char) {
+            //echo "<p>char: $char</p>";
+            $index = getWordIdFromChar($char);
+            if ($index != false) {
+              array_push($word_array, getWordValue($index));
+              array_push($clues_array, getRandomClueWord($index));
+              
+            } else {
+              array_push($word_array, $char);
+              array_push($clues_array, $char);
+            }
+            $word_chars = getWordChars($word_array[$i]);
+
+            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
+            if($i == 0)
+            {
+              $words .= buildJScriptWords($word_chars);
+            }
+            else
+            {
+              $words .= ','.buildJScriptWords($word_chars);
+            }
+            //var_dump($clues_array);
+            echo '<tr><td>'.$clues_array[$i].'</td><td>';
+            //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
+            $wordlen = count($word_chars);
+
+            for($j = 0; $j < $wordlen; ++$j)
+            {
+              if($char === $word_chars[$j])
+              {
+                echo '<input class="word_char active" type="text" maxlength="7" value="'.$word_chars[$j].'" readonly/>';
+              }
+              else
+              {
+                echo '<input class="word_char" type="text" maxlength="7" value=""/>';
+              }
+            }
+            echo '</tr>';
+            $i++;
+          }
+          return $words;
+        }
 
         function createPuzzle($nameEntered)
         {
@@ -157,17 +278,17 @@
         }
         ?>
       </table>
+      <!--FIXME: succes photo is not in right location -->
       <img id="succes_photo" class="success" src="pic/thumbs_up.png" alt="Success!" style="display:none">
     </div>
     <input class="main-buttons" type="button" name="submit_solution" value="Submit Solution" onclick="main_buttons('submit');">
-    
+
     <?PHP echo getShowSolution($nameEntered); ?>
     <!-- <input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="main_buttons('show');"> -->
 
     <script>
       // main function for the buttons when they're clicked.
-      function main_buttons (button_name)
-      {
+      function main_buttons(button_name) {
         // the words should be seperated by commas and the characters of the words by '-'.
         var words = "<?php echo $words ?>";
         var wordsArray = words.split(",");
@@ -179,87 +300,72 @@
         var childrenLength = 0;
 
         // start at 1 because top row for the table is the header of the table.
-        for (var i = 1; i < tableLength; i++)
-        {
+        for (var i = 1; i < tableLength; i++) {
           // for submit_solution
-          if(button_name == "submit")
-          {
+          if (button_name == "submit") {
             // call submit_validation handler method for the submit solution button
-            words_correct = submit_validation(table, wordsArray[i-1], i);
+            words_correct = submit_validation(table, wordsArray[i - 1], i);
 
             // break out of loop. If the next word is the last word and the user guessed it right, 
             // then the words_correct would end up as true, even if one word was false.
-            if(words_correct === false)
-            {
+            if (words_correct === false) {
               break;
             }
-          }
-          else if (button_name == "show") // for show solution
+          } else if (button_name == "show") // for show solution
           {
             // call show_solution handler method for the show solution button
-            show_solution(table, wordsArray[i-1], i);
+            show_solution(table, wordsArray[i - 1], i);
           }
         }
 
-        if(button_name == "submit")
-        {
+        if (button_name == "submit") {
           // checks if the words are correct by passing in words_correct boolean flag.
           checkCorrect(words_correct);
         }
       }
 
       // 
-      function submit_validation(table, word, i)
-      {
+      function submit_validation(table, word, i) {
         var input_word = "";
         var theWord = rebuildWord(word);
         var childrenLength = table.rows[i].cells[1].children.length;
-        for (var j = 0; j < childrenLength; j++)
-        {
+        for (var j = 0; j < childrenLength; j++) {
           input_word += table.rows[i].cells[1].children[j].value;
         }
 
-        if(theWord != input_word)
-        {
+        if (theWord != input_word) {
           return false;
-        }
-        else
-        {
+        } else {
           return true;
         }
       }
 
       // rebuild the word whose charactes are seperated by "-".
-      function rebuildWord(word)
-      {
+      function rebuildWord(word) {
         var built_word = "";
         var word_characters = word.split("-");
         var array_length = word_characters.length;
 
-        for(var i = 0; i < array_length; ++i)
-        {
+        for (var i = 0; i < array_length; ++i) {
           built_word += word_characters[i];
         }
         return built_word;
       }
 
-      function checkCorrect(words_correct)
-      {
-        if(words_correct) // success case
+      function checkCorrect(words_correct) {
+        if (words_correct) // success case
         {
           //alert("Sucess!");
           var el = document.getElementById("succes_photo");
           el.style.display = "block";
-        }
-        else{ // failure case
+        } else { // failure case
           var el = document.getElementById("pop_up_fail");
           el.style.display = "block";
           clear_puzzle();
         }
       }
       // displays the characters of the current word in the puzzle table from the for loop in main_buttons function. 
-      function show_solution(table, word, i)
-      {
+      function show_solution(table, word, i) {
         var childrenLength = 0;
         var word_array = null;
         var nWord = word;
@@ -267,25 +373,20 @@
         word_array = nWord.split("-");
         childrenLength = table.rows[i].cells[1].children.length;
 
-        for (var j = 0; j < childrenLength; j++)
-        {
+        for (var j = 0; j < childrenLength; j++) {
           table.rows[i].cells[1].children[j].value = word_array[j];
         }
       }
       // clears the character values for all of the words in the puzzle table.
-      function clear_puzzle()
-      {
+      function clear_puzzle() {
         var table = document.getElementById("puzzle_table");
         var tableLength = table.rows.length;
         var childrenLength = 0;
 
-        for (var i = 1; i < tableLength; i++)
-        {
+        for (var i = 1; i < tableLength; i++) {
           childrenLength = table.rows[i].cells[1].children.length;
-          for (var j = 0; j < childrenLength; j++)
-          {
-            if(!(table.rows[i].cells[1].children[j].className.includes("active")))
-            {
+          for (var j = 0; j < childrenLength; j++) {
+            if (!(table.rows[i].cells[1].children[j].className.includes("active"))) {
               table.rows[i].cells[1].children[j].value = "";
             }
           }
@@ -296,6 +397,8 @@
         var el = document.getElementById(o);
         el.style.display = "none";
       }
-    </script> 
+
+    </script>
   </body>
+
 </html>

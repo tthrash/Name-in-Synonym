@@ -56,13 +56,13 @@
     $encoding = 'UTF-8';
     $dataLower = mb_strtolower($data, $encoding);
     $length = mb_strlen($dataLower,$encoding);
-    if (mb_strpos($dataLower, "drop", $encoding) || mb_strpos($dataLower, "show", $encoding)) { // word contains drop or show
-      if (mb_strpos($dataLower, "table", $encoding) || mb_strpos($dataLower, "database", $encoding)) {
+    if (mb_strpos($dataLower, "drop", 0, $encoding) || mb_strpos($dataLower, "show", 0, $encoding)) { // word contains drop or show
+      if (mb_strpos($dataLower, "table", 0, $encoding) || mb_strpos($dataLower, "database", 0, $encoding) || containsTableNames($dataLower)) {
         return true;
       }
     }
-    if (mb_strpos($dataLower, "select", $encoding) || mb_strpos($dataLower, "delete", $encoding) || mb_strpos($dataLower, "insert", $encoding) || mb_strpos($dataLower, "update", $encoding)) {
-      if (mb_strpos($dataLower, "join", $encoding) || tableNames($dataLower) || mb_strpos($dataLower, "into", $encoding)) {
+    if (mb_strpos($dataLower, "select", 0, $encoding) || mb_strpos($dataLower, "delete", 0, $encoding) || mb_strpos($dataLower, "insert", 0, $encoding) || mb_strpos($dataLower, "update", 0, $encoding)) {
+      if (mb_strpos($dataLower, "join", 0, $encoding) || containsTableNames($dataLower) || mb_strpos($dataLower, "into", 0, $encoding)) {
         return true;
       }
     }
@@ -75,9 +75,10 @@
  * @return boolean  [[Description]]
  */
 function containsTableNames($input) {
+  $encoding = 'UTF-8';
   $names = array("puzzles", "words", "puzzle_words", "characters", "users");
   foreach($names as $name) {
-    if (mb_strpos($dataLower, "join", $encoding)) {
+    if (mb_strpos($input, $name, 0, $encoding)) {
       return true;
     }
   }
