@@ -10,7 +10,7 @@
 		$data = preg_replace('/\s+/', '', $data);
 		$data = htmlspecialchars($data);
 		$data = trim($data);
-    $data =  str_replace(";", "", $data);
+        $data =  str_replace(";", "", $data);
 		
 		return $data;
 	}
