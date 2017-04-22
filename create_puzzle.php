@@ -73,6 +73,7 @@
 				$word_added = random_puzzle_word($puzzle_id, $parsedWord[$i], $i, $puzzlewords);
 				if($word_added != null)
 				{
+          
 					array_push($puzzlewords, $word_added);
 				}
 				else{
