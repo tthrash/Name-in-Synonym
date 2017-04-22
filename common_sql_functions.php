@@ -192,13 +192,33 @@ function getClue($word_id) {
   return null;
 }
 
-function getWordIdFromChar($char) {
-  $sqlStatement = 'SELECT * FROM characters WHERE character_value=\'' . $char . '\';';
-  $result =  run_sql($sqlStatement);
-  $num_rows = $result->num_rows;
+function getWordIdFromChar($char, $preferedPosition) {
+  $sqlStatement = '';
+  $result;
+  $num_rows;
+  if ($preferedPosition !== -1) {
+    $sqlStatement = 'SELECT * FROM characters WHERE characters.character_value = \'' . $char . '\' AND characters.character_index=\'' . $preferedPosition . '\';';
+    $result =  run_sql($sqlStatement);
+    $num_rows = $result->num_rows;
+    if ($num_rows <= 0) {
+      $preferedPosition = -1;
+    }
+  } 
+  if ($preferedPosition === -1) {
+    $sqlStatement = 'SELECT * FROM characters WHERE characters.character_value = \'' . $char . '\';';
+    $result =  run_sql($sqlStatement);
+    $num_rows = $result->num_rows;
+  }
   if ($num_rows > 0) {
-    $row  = $result->fetch_assoc();
-    return $row["word_id"];
+    $index = 0;
+    $randomNumber = mt_rand(0, $num_rows-1);
+    while ($row  = $result->fetch_assoc()) {
+      if ($index === $randomNumber) {
+        return $row["word_id"];
+      }
+      $index++;
+    }
+
   }
   return false;
 }
@@ -208,16 +228,16 @@ function getRandomClueWord($word_id) {
   $result =  run_sql($sqlStatement);
   $num_rows = $result->num_rows;
   if ($num_rows > 0) {
-    $i = 0;
+    $index = 0;
     $randomNumber = mt_rand(0, $num_rows-1);
     while ($row  = $result->fetch_assoc()) {
-      if ($i === $randomNumber) {
+      if ($index === $randomNumber) {
         return $row["word_value"];
       }
-      $i++;
+      $index++;
     }
   }
-  return false; //should never happen
+  return false;
 }
 
 function checkPuzzleId($puzzle_id) {
@@ -230,13 +250,13 @@ function checkPuzzleId($puzzle_id) {
   return false; 
 }
 
-function getWordIdsFromPuzzleWords($puzzle_id) {
+function getWordValuesFromPuzzleWords($puzzle_id) {
   $sql = 'SELECT words.word_value FROM puzzle_words INNER JOIN words ON puzzle_words.word_id=words.word_id WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY position_in_name;';
   $result =  run_sql($sql);
   $num_rows = $result->num_rows;
   $words = array();
   if ($num_rows > 0) {
-     while ($row  = $result->fetch_assoc()) {
+    while ($row  = $result->fetch_assoc()) {
       array_push($words, $row["word_value"]);
     }
     return $words;
@@ -244,19 +264,19 @@ function getWordIdsFromPuzzleWords($puzzle_id) {
   return false;
 }
 
-function getClueIdsFromPuzzleWords($puzzle_id) {
+function getClueValuesFromPuzzleWords($puzzle_id) {
   $sql = 'SELECT words.word_value FROM puzzle_words INNER JOIN words ON puzzle_words.clue_id=words.word_id WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY position_in_name;';
   $result =  run_sql($sql);
   $num_rows = $result->num_rows;
   $words = array();
   if ($num_rows > 0) {
-     while ($row  = $result->fetch_assoc()) {
+    while ($row  = $result->fetch_assoc()) {
       array_push($words, $row["word_value"]);
     }
     return $words;
   }
   return false;
 }
- 
+
 
 ?>

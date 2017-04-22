@@ -73,30 +73,30 @@
   left: 35%;
 }
 
-.main-tables tr:nth-child(even) {
+.main-tables tbody tr:nth-child(even) {
   background-color: #FFF8DC;
 }
 
-.main-tables tr:nth-child(odd) {
+.main-tables tbody tr:nth-child(odd) {
   background-color: #EFDFBB;
 }
 
-.main-tables tr:nth-child(1) {
+.main-tables thead tr{
   background-color: #F0E130;
 }
 
 .table_header {
-  background-color: #BDB76B;
+  /*background-color: #BDB76B;
   /* #56A0D3 */
 }
 
 .main-tables {
   position: relative;
   text-align: left;
-  padding: 15px;
+  /*padding: 15px;*/
   font-size: 28px;
-  margin: 30px;
-  left: 23%;
+  /*margin: 30px;
+  left: 23%;*/
   width: auto;
   border-collapse: separate;
   border-spacing: 2px;
@@ -446,6 +446,16 @@ body {
   background-color: #7A942E;
 }
 
-font {
-  
+.altPuzzleInput {
+  display: none;
+}
+
+.altPuzzleInput input:nth-child(odd){
+  width: 33%;
+  max-width: 4.8em;
+  text-align: center;
+}
+
+.altPuzzleInput input:nth-child(even){
+  width: 20em;
 }

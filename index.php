@@ -32,7 +32,13 @@
     <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" value="Enter your Name to see the Puzzle" onclick="clearFields();" />
     </div>
     <br>
-    <input class="main-buttons align" type="submit" name="submit" value="Show me.." />
+     <?PHP
+      echo '<input class="main-buttons" type="submit" name="randomPlay" value="Show me.." />';
+      if (adminSessionExists()) {
+        echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design.." />';
+      }
+      
+    ?>
   </form>
   <script type="text/javascript">
     function clearFields() {
