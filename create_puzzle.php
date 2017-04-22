@@ -35,7 +35,7 @@
 			return null;
 		}
 	}
-	function create_puzzle($name, $email = 'hp6449qy@metrostate.edu')
+	function create_puzzle($name, $email = 'test')
 	{
 		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 		(DEFAULT, \''.$name.'\', \'' . $email . '\');';
