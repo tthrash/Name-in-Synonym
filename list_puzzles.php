@@ -22,10 +22,6 @@
   <?php
  		require('db_configuration.php');
 	?>
-    <h2>Final Project</h2>
-    <h3>Team: DOLPHIN</h3>
-    <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
-    <br><br><br>
     <?PHP echo getTopNav(); ?>
     <div id="pop_up_fail" class="container pop_up" style="display:none">
       <div class="pop_up_background">
