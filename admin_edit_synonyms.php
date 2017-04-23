@@ -102,10 +102,6 @@
 </head>
 <title>Final Project</title>
 <body>
-  <h2>Final Project</h2>
-  <h3>Team: DOLPHIN</h3>
-  <h3>Dennis Lee, Gary Webb, Prashant Shrestha, Tyler Thrash</h3>
-  <br><br><br>
   <?PHP echo getTopNav(); ?>
   <?php 
 	 if(isset($_GET['word']))
