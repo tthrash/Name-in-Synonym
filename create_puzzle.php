@@ -35,7 +35,7 @@
 			return null;
 		}
 	}
-	function create_puzzle($name, $email = 'hp6449qy@metrostate.edu')
+	function create_puzzle($name, $email = 'test')
 	{
 		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 		(DEFAULT, \''.$name.'\', \'' . $email . '\');';
@@ -73,6 +73,7 @@
 				$word_added = random_puzzle_word($puzzle_id, $parsedWord[$i], $i, $puzzlewords);
 				if($word_added != null)
 				{
+          
 					array_push($puzzlewords, $word_added);
 				}
 				else{

@@ -188,6 +188,7 @@ CREATE TABLE puzzle_words (
   puzzle_id int,
   word_id int,
   position_in_name tinyint,
+  clue_id int,
   primary key (puzzle_id, word_id, position_in_name),
   FOREIGN KEY (word_id)
   REFERENCES words (word_id) ON UPDATE CASCADE,
@@ -203,16 +204,16 @@ ALTER TABLE puzzle_words
 -- 'mutter,remove,atrocious,archaic,commence'
 -- 'number,archaic,commence,remove'
 
-INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
-(1,1,0),
-(1,4,1),
-(1,5,2),
-(1,7,3),
-(1,9,4),
-(2,11,0),
-(2,7,1),
-(2,9,2),
-(2,4,3);
+INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name, clue_id) VALUES
+(1,1,0,1),
+(1,4,1,1),
+(1,5,2,1),
+(1,7,3,1),
+(1,9,4,1),
+(2,11,0,1),
+(2,7,1,1),
+(2,9,2,1),
+(2,4,3,1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

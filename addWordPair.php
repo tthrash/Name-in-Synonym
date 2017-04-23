@@ -136,8 +136,8 @@
     <?php
     if(isset($_POST['submit']))
     {
-      $words = trim($_POST['addWord']);
-      if($_POST['addWord'] == ''){
+      $words = validate_input($_POST['addWord']);
+      if($words == ''){
         echo "<p class= \"fontword\" style=\" color:red;\">You did not enter ans words. Please try again.</p>";
 
       }
@@ -148,28 +148,6 @@
       else
       {
         $list = explode(',', $words);
-        insertWordsAndCharacter($list);
-      }
-    }
-    if(isset($_POST['submit']))
-    {
-
-      $words = trim($_POST['addWord']);
-      //echo $_POST['addWord'];
-      if($_POST['addWord'] == ''){
-        echo "<p class= \"fontword\" style=\" color:red;\">You did not enter ans words. Please try again.</p>";
-
-      }
-      else if(count(explode(',', $words)) < 2)
-      {
-        echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words seperated by a comma. Please try again.</p>";
-      }
-      else
-      {
-
-        $list = explode(',', str_replace(' ','',$words));
-        //echo count($list);
-        //var_dump($list);
         insertWordsAndCharacter($list);
       }
     }

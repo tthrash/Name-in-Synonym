@@ -45,7 +45,7 @@ class Table {
       $sql .= 'FROM ' .$this->tableName;
     }
     // NOTE: sql statements were changed to make them more user friendly
-    if (strcmp($this->tableName, "puzzles") === 0) { /* FIXME: should user see puzzle_id? */
+    if (strcmp($this->tableName, "puzzles") === 0) {
       $sql .= ' ORDER BY puzzle_name';
     } else if (strcmp($this->tableName, "characters") === 0) {
       $sql = 'SELECT characters.character_value, words.word_value, characters.character_index  FROM `characters` JOIN words ON characters.word_id=words.word_id ORDER BY characters.character_value, words.word_value, characters.character_index';
@@ -54,9 +54,9 @@ class Table {
       $count = countDistinctRepIds();
       $sql = 'SELECT words.word_id FROM words WHERE words.word_id < ' . ++$count . ' ORDER BY word_id';
       $this->fields = array("No", "Synonyms");
-    } else if (strcmp($this->tableName, "puzzle_words") === 0) {
-      $sql = 'SELECT puzzles.puzzle_name, words.word_value, puzzle_words.position_in_name FROM ((puzzle_words JOIN puzzles ON puzzle_words.puzzle_id = puzzles.puzzle_id) JOIN words ON words.word_id = puzzle_words.word_id) ORDER BY puzzles.puzzle_name, puzzle_words.position_in_name';
-      $this->fields = array("puzzle_name", "word_value", "position_in_name");
+    } else if (strcmp($this->tableName, "puzzle_words") === 0) { // TODO: PULL CLUE_ID
+      $sql = 'SELECT puzzles.puzzle_name, w1.word_value, w2.word_value AS clue_value, p.position_in_name FROM puzzle_words p INNER JOIN words as w1 ON w1.word_id = p.word_id INNER JOIN words as w2 ON w2.word_id = p.clue_id JOIN puzzles ON p.puzzle_id=puzzles.puzzle_id ORDER BY puzzles.puzzle_name, p.position_in_name';
+      $this->fields = array("puzzle_name", "word_value", "clue_value", "position_in_name");
     }
     $this->exportSql = $sql;
   }
@@ -258,7 +258,7 @@ function createAllTables() {
   $wordsTable = new Table('words', array('word_id', 'word_value', 'rep_id'));
   $charTable = new Table('characters', array('word_id', 'character_index', 'character_value'));
   $puzzleTable = new Table('puzzles', array('puzzle_id', 'puzzle_name', 'creator_email'));
-  $puzzleWordsTable = new Table('puzzle_words', array('puzzle_id', 'word_id', 'position_in_name'));
+  $puzzleWordsTable = new Table('puzzle_words', array('puzzle_id', 'word_id', 'clue_id', 'position_in_name'));
   return array($wordsTable, $charTable, $puzzleTable, $puzzleWordsTable);
 }
 

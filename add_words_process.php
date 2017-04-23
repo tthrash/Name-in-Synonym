@@ -10,6 +10,7 @@
 		for($i = 0; $i < count($listOfWords);$i++){
 			//Check to see if entered word exists in the DB.
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
+      echo "<p>$sqlcheck</p>";
 			$result =  run_sql($sqlcheck);
 			if(!$result)
 			{
@@ -27,6 +28,7 @@
 				}
 				//insert each new word into word table.
 				$sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $listOfWords[$i] . '\', \'' . $repId . '\');';
+        echo "<p>$sqlAddWord</p>";
 				$result =  run_sql($sqlAddWord);
 				if(!$result){
 					echo"Inserting word failed!";
@@ -41,6 +43,8 @@
 				$row = $result->fetch_assoc();
 				$word_id = $row["word_id"];
 				$logicalChars = getWordChars($listOfWords[$i]);
+        echo "<br><br><br>";
+        var_dump($logicalChars);
 				for($j = 0; $j < count($logicalChars); $j++)
 				{
 					//insert each letter into char table.
