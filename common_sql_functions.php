@@ -192,20 +192,20 @@ function getClue($word_id) {
   return null;
 }
 
-function getWordIdFromChar($char, $preferedPosition) {
+function getWordIdFromChar($char, $preferedPosition, $minLength, $maxLength) {
   $sqlStatement = '';
   $result;
   $num_rows;
   if ($preferedPosition !== -1) {
-    $sqlStatement = 'SELECT * FROM characters WHERE characters.character_value = \'' . $char . '\' AND characters.character_index=\'' . $preferedPosition . '\';';
+    $sqlStatement = 'SELECT * FROM characters JOIN words ON words.word_id = characters.word_id WHERE characters.character_value = \'' . $char . '\' AND characters.character_index=\'' . $preferedPosition . '\' AND LENGTH(words.word_value) > '.$minLength.' AND LENGTH(words.word_value) < '.$maxLength.';';
     $result =  run_sql($sqlStatement);
     $num_rows = $result->num_rows;
     if ($num_rows <= 0) {
       $preferedPosition = -1;
     }
   } 
-  if ($preferedPosition === -1) {
-    $sqlStatement = 'SELECT * FROM characters WHERE characters.character_value = \'' . $char . '\';';
+  if ($preferedPosition == -1) {
+    $sqlStatement = 'SELECT * FROM characters JOIN words ON words.word_id = characters.word_id WHERE characters.character_value = \'' . $char . '\' AND LENGTH(words.word_value) > '.$minLength.' AND LENGTH(words.word_value) < '.$maxLength.';';
     $result =  run_sql($sqlStatement);
     $num_rows = $result->num_rows;
   }
