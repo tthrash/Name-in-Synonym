@@ -34,7 +34,6 @@
         <button class="pop_up_button" onclick="change_display_none('pop_up_fail')">OK</button>
       </div>
     </div>
-<<<<<<< HEAD
     <!--<div class="header2">Here's your "Name in Synonyms"</div>-->
     <div class="container">
       <h1>Here's your "Name in Synonyms"</h1>
@@ -67,8 +66,7 @@
             }
           } else if (isset($_GET['puzzleName']) && isset($_GET['id'])) { // play button from puzzle list
             echo "<p>play button</p>";
-=======
-    <!--TODO: Needs to give option to play again if they guess correctly-->
+    // TODO: Needs to give option to play again if they guess correctly
     <?php
     $words = "";
     $nameEntered = "";
@@ -98,7 +96,6 @@
             echo $puzzle->createAdminInputBoxes();
             echo $puzzle->admin_buttons;
             echo "</form>";
->>>>>>> 9864d8c7f1932fb0bd9e01937aeba4fdda1ee5b7
           } else {
             // TODO: admin design needs to be implemented
             // admin create
@@ -204,7 +201,6 @@
             {
               echo '<input class="word_char active" type="text" maxLength="7" value="'.$word_chars[$j].'" readonly/>';
             }
-<<<<<<< HEAD
             $word_chars = getWordChars($word_array[$i]);
 			
               // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
@@ -234,11 +230,9 @@
               }
               echo '</tr>';
               $i++;
-=======
             else
             {
               echo '<input class="word_char" type="text" maxLength="7" value=""/>';
->>>>>>> 9864d8c7f1932fb0bd9e01937aeba4fdda1ee5b7
             }
           }
           echo '</tr>';
