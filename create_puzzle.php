@@ -35,12 +35,22 @@
 			return null;
 		}
 	}
-	function create_puzzle($name, $email = 'hp6449qy@metrostate.edu')
+	function create_puzzle($name, $email = 'admin')
 	{
 		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 		(DEFAULT, \''.$name.'\', \'' . $email . '\');';
 		run_sql($sql);
 	}
+
+  function input_puzzle_words($word_array, $clue_array, $puzzle_id) {
+    $sql='';
+    for($i = 0; $i < count($word_array); $i++) {
+      $sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name,clue_id) VALUES 
+      ('. $puzzle_id .', '.$word_array[$i].', ' . $i .', '. $clue_array[$i].');';
+      run_sql($sql);
+    }
+  }
+
 	function create_puzzle_words($name)
 	{
 		$sql = 'SELECT * FROM puzzles WHERE puzzle_name = \''.$name.'\';';
