@@ -30,12 +30,15 @@
         <button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
       </div>
     </div>
-    <div>
-      <table class="main-tables">
-        <tr>
-          <th>Puzzle Name</th>
-          <th>Actions</th>
-        </tr>
+    <div class="container">
+      <table class="table table-condensed main-tables" id="puzzle_table">
+        <thead>
+          <tr>
+            <th>Puzzle Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+      <tbody>
         <?php
 		//session_start();
 	 $sql = 'SELECT * FROM puzzles ORDER BY puzzle_name;';
@@ -75,6 +78,7 @@
 		}
 		
   ?>
+        </tbody>
       </table>
     </div>
 </body>
