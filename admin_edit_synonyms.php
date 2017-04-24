@@ -198,12 +198,11 @@
 					$parsed_name = getWordChars($puzzle_name);
 					$character = $parsed_name[$index];
 					
-					$word_added = random_puzzle_word($puzzle_id, $character, $index, $puzzlewords);
+					$word_added = add_puzzle_word($puzzle_id, $character, $index, $puzzlewords);
 					
 					if($word_added == null)
 					{
 						// no word could be added. More should probably be done (some type of default action).
-						echo 'Error no word could be added for puzzle ' . $puzzle_name . ' at index ' . $index . ' for character ' . $character . '.';
 					}
 			}
 		}

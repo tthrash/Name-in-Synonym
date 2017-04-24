@@ -133,27 +133,27 @@
          * @return string words that are used to display js solution
          */
           function generatePuzzle($nameOfPuzzle) {
-            $words = "";
-            $nameEntered = validate_input($nameOfPuzzle);
-            $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
-            //echo "<p>NameEntered: $nameEntered</p>";
+          $words = "";
+          $nameEntered = validate_input($nameOfPuzzle);
+          $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
+          //echo "<p>NameEntered: $nameEntered</p>";
 
-            $puzzle_chars = getWordChars($nameEntered);
-            $word_array = array();
-            $clues_array = array();
-            $i=0;
-            foreach($puzzle_chars as $char) {
-              //echo "<p>char: $char</p>";
-              $index = getWordIdFromChar($char);
-              if ($index != false) {
-                array_push($word_array, getWordValue($index));
-                array_push($clues_array, getRandomClueWord($index));
-
-              } else {
-                array_push($word_array, $char);
-                array_push($clues_array, $char);
-              }
-              $word_chars = getWordChars($word_array[$i]);
+          $puzzle_chars = getWordChars($nameEntered);
+          $word_array = array();
+          $clues_array = array();
+          $i=0;
+          foreach($puzzle_chars as $char) {
+            //echo "<p>char: $char</p>";
+            $word_id = random_word_id($char, $word_array);
+            if ($word_id != null) {
+              array_push($word_array, getWordValue($word_id));
+              array_push($clues_array, getRandomClueWord($word_id));
+              
+            } else {
+              array_push($word_array, $char);
+              array_push($clues_array, $char);
+            }
+            $word_chars = getWordChars($word_array[$i]);
 
               // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
               if($i == 0)
@@ -283,7 +283,8 @@
             return $string;
           }
 
-          class Puzzle {
+          class Puzzle
+		  {
             function Puzzle($puzzleName,$puzzle_id = -1, $preferedPosition = -1) {
               try {
                 $this->setName($puzzleName);
