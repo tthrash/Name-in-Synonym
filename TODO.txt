@@ -1,0 +1,10 @@
+play puzzle--show play again
+admin idesign add puzzle--to db
+Implement play button list--no funtionality
+fix add a puzzle--new colomn
+fix add words--rep id not matching up
+get rid of extra exports?
+use test cases given by teacher
+add words to db
+clue/synonyms in puzzle check for duplecates
+check for missing requirments?

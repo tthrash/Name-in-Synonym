@@ -27,7 +27,7 @@
     <div>
       <form action="puzzle.php" method="post">
         <div class="container">
-          <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" value="Enter your Name to see the Puzzle" onclick="clearFields();" />
+          <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter your Name to see the Puzzle" onclick="clearFields();" />
           </div>
           <br>
           <div style="text-align:center">
