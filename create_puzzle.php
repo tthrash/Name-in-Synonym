@@ -1,5 +1,6 @@
 <?php
 	require_once('db_configuration.php');
+	require_once('common_sql_functions.php');
 	require_once('language_processor_functions.php');
 	
 	// Returns true if there is one puzzle name with this puzzle_name and false if the puzzle_name doesn't exist in the puzzles table.
@@ -88,8 +89,9 @@
 				if($word_chosen != null)
 				{
 					array_push($puzzlewords, $word_added);
-					$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name) VALUES
-								('.$puzzle_id.','.$word_chosen.','.$i.');';
+					$clue_word = getRandomClueWord($word_chosen)
+					$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name, clue_id) VALUES
+								('.$puzzle_id.','.$word_chosen.','.$i.','.$clue_word.');';
 					run_sql($sql);
 					return $word_chosen;
 				}

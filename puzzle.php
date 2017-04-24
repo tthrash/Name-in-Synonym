@@ -61,6 +61,8 @@
               // get puzzle clues
               // define js
               // create both puzzles
+			  
+			  
             }
           } else if (isset($_GET['puzzleName']) && isset($_GET['id'])) { // play button from puzzle list
             echo "<p>play button</p>";
@@ -154,7 +156,7 @@
               array_push($clues_array, $char);
             }
             $word_chars = getWordChars($word_array[$i]);
-
+			
               // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
               if($i == 0)
               {
