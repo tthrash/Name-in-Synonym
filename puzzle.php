@@ -67,7 +67,6 @@
           } else if (isset($_GET['puzzleName']) && isset($_GET['id'])) { // play button from puzzle list
             echo "<p>play button</p>";
     // TODO: Needs to give option to play again if they guess correctly
-    <?php
     $words = "";
     $nameEntered = "";
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -230,13 +229,6 @@
               }
               echo '</tr>';
               $i++;
-            else
-            {
-              echo '<input class="word_char" type="text" maxLength="7" value=""/>';
-            }
-          }
-          echo '</tr>';
-          $i++;
         }
         return $words;
       }
