@@ -99,7 +99,7 @@
 				if($word_chosen != null)
 				{
 					array_push($puzzlewords, $word_added);
-					$clue_word = getRandomClueWord($word_chosen)
+					$clue_word = getRandomClueWord($word_chosen);
 					$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name, clue_id) VALUES
 								('.$puzzle_id.','.$word_chosen.','.$i.','.$clue_word.');';
 					run_sql($sql);
