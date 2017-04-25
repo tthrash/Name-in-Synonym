@@ -32,8 +32,26 @@
       
       .loginbutton {
         position: relative;
-        margin-left: 290px;
+        margin-left: 190px;
         margin-top: 30px;
+      }
+
+      .addButton {
+        background-color: #70baeb;
+        border: 2px solid black;
+        color: black;
+        padding: 15px 32px;
+        width: 180px;
+        height: 60px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 30px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+        margin-top: 40px;
+        margin-left: 90px;
       }
       
       .message {
@@ -153,7 +171,7 @@
             echo "Password field is blank";
           } else if (($user == null) && ($pass == null)){
             echo "Username & Password field is blank";
-          }	else{
+          } else{
             //false info
             echo "<b>Username or Password is wrong.";
           }
@@ -165,7 +183,7 @@
         <font class='text'>Password* </font>
         <input class='textbox' type='password' name='pass' id='password'><br><br>
         <div class='loginbutton'>
-          <input type='Submit' height='90px' src='./pic/loginButton.png' name='submit' alt='Submit' Value='Submit'>
+          <input class="addButton" id="addButton" type="submit" name="submit" value="Login">
         </div>
     </form>
     <div class='message'>
